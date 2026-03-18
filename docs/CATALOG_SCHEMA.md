@@ -1,6 +1,6 @@
 # CATALOG SCHEMA
 
-The curated catalog is the **core IP** of eurodata-mcp. It is a deliberate selection of the ~100–300 series that a European macro economist actually uses — not an index of all available data.
+The curated catalog is the **core IP** of eurodata-mcp. It is a deliberate selection of the ~100–300 series per provider that a macro economist actually uses — not an index of all available data.
 
 > Anyone can write an ECB API connector. Not everyone knows which 25 ECB series you need to understand the European business cycle.
 
@@ -53,9 +53,9 @@ The curated catalog is the **core IP** of eurodata-mcp. It is a deliberate selec
 | Field | Type | Required | Notes |
 |---|---|---|---|
 | `id` | string | ✅ | Unique internal ID. Format: `{source}_{topic}_{area}_{transformation}` |
-| `source` | enum | ✅ | `ecb` \| `eurostat` \| `ine` |
-| `dataset` | string | ✅ | Dataset code at source (e.g. `ICP`, `FM`, `BSI`) |
-| `series_key` | string | ✅ | SDMX key or equivalent for the API call |
+| `source` | enum | ✅ | `ecb` \| `bis` \| `imf` \| `fred` |
+| `dataset` | string | ✅ | Dataset code at source (e.g. `ICP`, `FM`, `BSI`, `WEO`) |
+| `series_key` | string | ✅ | SDMX key or series ID for the API call |
 
 ### Names & descriptions
 | Field | Type | Required | Notes |
@@ -64,7 +64,7 @@ The curated catalog is the **core IP** of eurodata-mcp. It is a deliberate selec
 | `name_es` | string | ✅ | Short Spanish name, max 80 chars |
 | `description_en` | string | ✅ | Full description with economic context |
 | `description_es` | string | ⬜ | Spanish description |
-| `notes` | string | ⬜ | Nico's domain notes: methodology caveats, policy relevance, etc. |
+| `notes` | string | ⬜ | Domain notes: methodology caveats, policy relevance, etc. |
 
 ### Series properties
 | Field | Type | Required | Notes |
@@ -76,9 +76,9 @@ The curated catalog is the **core IP** of eurodata-mcp. It is a deliberate selec
 ### Geography
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `geography` | string | ✅ | Human-readable: `euro_area`, `spain`, `germany` |
-| `geography_code` | string | ✅ | ISO/SDMX code: `U2`, `ES`, `DE` |
-| `geography_level` | enum | ✅ | `supranational` \| `country` \| `regional` |
+| `geography` | string | ✅ | Human-readable: `euro_area`, `spain`, `united_states`, `global` |
+| `geography_code` | string | ✅ | ISO/SDMX code: `U2`, `ES`, `US`, `W1` |
+| `geography_level` | enum | ✅ | `supranational` \| `country` \| `regional` \| `global` |
 
 ### Classification & search
 | Field | Type | Required | Notes |
@@ -99,7 +99,7 @@ The curated catalog is the **core IP** of eurodata-mcp. It is a deliberate selec
 
 ```
 prices              → Inflation, CPI, deflators
-interest_rates      → ECB rates, Euribor, money markets
+interest_rates      → Central bank rates, money markets
 monetary            → M1, M2, M3, credit aggregates
 gdp_growth          → GDP, economic activity
 labor_market        → Unemployment, employment, wages
@@ -108,18 +108,48 @@ fiscal              → Public debt, deficit, government spending
 financial_stability → Sovereign spreads, CDS, banking indicators
 surveys             → PMI, ESI, consumer/business confidence
 housing             → House prices, mortgages
+banking             → Cross-border claims, credit to private sector
+external            → Balance of payments, current account
 ```
 
 ---
 
-## How Nico adds series to the catalog
+## Source-specific conventions
 
-1. Find the series on [ECB Data Portal](https://data.ecb.europa.eu) — verify data availability and history depth (min. 5 years)
-2. Copy the exact `series_key` from the portal URL
-3. Add JSON entry following this schema
-4. Include all search terms an economist would use in `tags` (include synonyms in EN and ES)
-5. Set `priority: 1` only for series any Euro Area macro analysis needs — be strict, max 15–20 series at this level
-6. Add at least one `related_series` when logical — helps agents navigate the catalog
+### ECB
+- `id`: `ecb_{topic}_{area}_{transformation}`
+- `dataset`: ECB dataflow code (ICP, FM, BSI, MNA, LFSI, EXR)
+- `series_key`: SDMX key (e.g., `M.U2.N.000000.4.INX`)
+
+### BIS
+- `id`: `bis_{topic}_{area}_{transformation}`
+- `dataset`: BIS dataflow code (TOTAL_CREDIT, LONG_PP, LBS, CBS)
+- `series_key`: SDMX key
+
+### IMF
+- `id`: `imf_{topic}_{area}_{transformation}`
+- `dataset`: IMF database code (WEO, IFS, BOP, GFS)
+- `series_key`: Indicator code
+
+### FRED
+- `id`: `fred_{topic}_{transformation}`
+- `dataset`: Category or N/A
+- `series_key`: FRED series ID (e.g., `CPIAUCSL`, `FEDFUNDS`)
+
+---
+
+## Adding series to the catalog
+
+1. Identify the series on the provider's data portal
+2. Verify data availability and history depth (min. 5 years)
+3. Copy the exact `series_key` from the portal
+4. Add JSON entry following this schema
+5. Include all search terms an economist would use in `tags` (EN and ES)
+6. Set `priority: 1` only for essential series — be strict, max 15–20 per provider
+7. Add at least one `related_series` when logical
+8. Run validation: `uv run python -c "from eurodata_mcp.catalog import get_catalog; get_catalog()"`
+
+---
 
 ## Catalog validation
 
@@ -130,4 +160,24 @@ REQUIRED_FIELDS = [
     "geography", "geography_code", "geography_level",
     "tags", "category", "priority"
 ]
+
+VALID_SOURCES = ["ecb", "bis", "imf", "fred"]
+
+VALID_FREQUENCIES = ["daily", "monthly", "quarterly", "annual"]
+
+VALID_GEOGRAPHY_LEVELS = ["supranational", "country", "regional", "global"]
+```
+
+---
+
+## File organization
+
+```
+catalog/
+├── loader.py              # CatalogLoader singleton
+└── series/
+    ├── ecb_euro_area.json # ECB curated series
+    ├── bis_global.json    # BIS curated series (M2)
+    ├── imf_global.json    # IMF curated series (M3)
+    └── fred_us.json       # FRED curated series (M4)
 ```

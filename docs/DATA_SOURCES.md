@@ -1,157 +1,267 @@
 # DATA SOURCES
 
-## 1. ECB — European Central Bank SDMX API
+This document covers the APIs for each data provider in the eurodata-mcp roadmap.
 
-**Base URL:** `https://sdw-wsrest.ecb.europa.eu/service/`
+## Provider roadmap
 
-### Fetch series data
+| Priority | Provider | API Type | Status |
+|----------|----------|----------|--------|
+| M1 | ECB | SDMX | ✅ Complete |
+| M2 | BIS | SDMX | 🔜 Next |
+| M3 | IMF | SDMX | 🔜 Planned |
+| M4 | FRED | REST JSON | 🔜 Planned |
+
+---
+
+## 1. ECB — European Central Bank ✅
+
+**Status:** Complete (Milestone 1)
+
+**Base URL:** `https://data.ecb.europa.eu/data-api/v1/`
+
+### Endpoints
+
+#### Data (SDMX-JSON)
 ```
 GET /data/{flowRef}/{key}?startPeriod=YYYY-MM&endPeriod=YYYY-MM&format=jsondata
 ```
 
 Example — Euro Area HICP inflation:
 ```
-https://sdw-wsrest.ecb.europa.eu/service/data/ICP/M.U2.N.000000.4.INX?startPeriod=2020-01&format=jsondata
+https://data.ecb.europa.eu/data-api/v1/data/ICP/M.U2.N.000000.4.INX?startPeriod=2020-01&format=jsondata
 ```
 
-### SDMX key format (for ICP dataset)
+#### Structure (SDMX-XML)
 ```
-{FREQ}.{REF_AREA}.{ADJUSTMENT}.{ITEM}.{TRANSFORMATION}.{INDEX_TYPE}
+GET /data-structure/{structure_id}
+Accept: application/vnd.sdmx.structure+xml;version=2.1
 ```
-- `FREQ`: M=monthly, Q=quarterly, A=annual
-- `REF_AREA`: U2=Euro Area, DE, ES, FR, IT...
-- `ITEM`: 000000=all items, 010000=food, 040000=housing, 000000XE=core (excl. energy+food)
-- `TRANSFORMATION`: 4=annual rate of change, 1=index level
 
-### Curated series — Euro Area MVP catalog
+#### Codelists (SDMX-XML)
+```
+GET /codelist/{codelist_id}
+Accept: application/vnd.sdmx.structure+xml;version=2.1
+```
 
-#### Inflation
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_hicp_ea_yoy` | `ICP/M.U2.N.000000.4.INX` | HICP headline, YoY % |
-| `ecb_hicp_ea_core_yoy` | `ICP/M.U2.N.000000XE.4.INX` | HICP core (excl. energy & food) |
-| `ecb_hicp_ea_energy_yoy` | `ICP/M.U2.N.040000.4.INX` | HICP energy |
-| `ecb_hicp_ea_food_yoy` | `ICP/M.U2.N.010000.4.INX` | HICP food |
+### Key datasets
 
-#### ECB policy rates
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_rate_dfr` | `FM/B.U2.EUR.4F.KR.DFR.LEV` | Deposit Facility Rate |
-| `ecb_rate_mro` | `FM/B.U2.EUR.4F.KR.MRO.LEV` | Main Refinancing Operations Rate |
-| `ecb_rate_mlf` | `FM/B.U2.EUR.4F.KR.MLFR.LEV` | Marginal Lending Facility Rate |
+| Dataset | Code | Description |
+|---------|------|-------------|
+| Inflation | `ICP` | HICP price indices |
+| Financial markets | `FM` | Interest rates, Euribor |
+| Balance sheet items | `BSI` | Monetary aggregates, credit |
+| National accounts | `MNA` | GDP, components |
+| Labour force | `LFSI` | Unemployment, employment |
+| Exchange rates | `EXR` | EUR vs other currencies |
 
-#### Market rates
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_euribor_3m` | `FM/M.U2.EUR.RT.MM.EURIBOR3MD_.HSTA` | Euribor 3-month |
-| `ecb_euribor_12m` | `FM/M.U2.EUR.RT.MM.EURIBOR1YD_.HSTA` | Euribor 12-month |
+### Series key format
+```
+{FREQ}.{REF_AREA}.{ADJUSTMENT}.{ITEM}.{UNIT}.{SUFFIX}
+```
 
-#### Monetary aggregates
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_m1_ea_yoy` | `BSI/M.U2.Y.V.M10.X.I.U2.2300.Z01.E` | M1, annual growth |
-| `ecb_m3_ea_yoy` | `BSI/M.U2.Y.V.M30.X.I.U2.2300.Z01.E` | M3, annual growth |
+### API notes
+- No authentication required
+- Data endpoint: JSON, Structure endpoints: XML only
+- Rate limit: ~1 req/sec is safe
+- Monthly data published ~3 weeks after period end
 
-#### GDP & activity
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_gdp_ea_qoq` | `MNA/Q.Y.I8.W2.S1.S1.B.B1GQ._Z._Z._Z.EUR.LR.GY` | GDP Euro Area, QoQ % |
-| `ecb_gdp_ea_yoy` | `MNA/Q.Y.I8.W2.S1.S1.B.B1GQ._Z._Z._Z.EUR.LR.N12` | GDP Euro Area, YoY % |
+---
 
-#### Labour market
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_unemployment_ea` | `LFSI/M.I8.S.UNEHRT.TOTAL0.15_74.T` | Unemployment rate, Euro Area |
+## 2. BIS — Bank for International Settlements 🔜
 
-#### Credit
-| Internal ID | ECB key | Description |
-|---|---|---|
-| `ecb_loans_nfc_ea_yoy` | `BSI/M.U2.Y.U.A20.A.I.U2.2240.Z01.E` | Loans to non-financial corporations |
-| `ecb_loans_hh_ea_yoy` | `BSI/M.U2.Y.U.A20.A.I.U2.2250.Z01.E` | Loans to households |
+**Status:** Next milestone (M2)
 
-### Python fetch example
+**Base URL:** `https://stats.bis.org/api/v1/`
+
+### Endpoints
+
+#### Data
+```
+GET /data/{flowRef}/{key}?startPeriod=YYYY&endPeriod=YYYY
+Accept: application/vnd.sdmx.data+json;version=1.0.0
+```
+
+#### Dataflow list
+```
+GET /dataflow/BIS
+Accept: application/vnd.sdmx.structure+json;version=1.0.0
+```
+
+### Key datasets
+
+| Dataset | Code | Description |
+|---------|------|-------------|
+| Credit to private sector | `TOTAL_CREDIT` | Credit to households and NFCs |
+| Property prices | `LONG_PP` | Residential and commercial |
+| Debt securities | `SEC_ALL` | Outstanding and issuance |
+| Locational banking | `LBS` | Cross-border banking |
+| Consolidated banking | `CBS` | Banking claims by nationality |
+| Effective exchange rates | `EER` | Nominal and real |
+| Consumer prices | `CPI` | Inflation (long history) |
+
+### Priority series for M2
+
+| Series | Description |
+|--------|-------------|
+| Credit-to-GDP gap | Early warning indicator |
+| Total credit to private sector | % of GDP |
+| House prices | Real, long series |
+| Cross-border claims | On banks and non-banks |
+
+### API notes
+- No authentication required
+- SDMX-JSON and SDMX-XML supported
+- Quarterly and annual data primarily
+- Some series go back to 1940s
+
+---
+
+## 3. IMF — International Monetary Fund 🔜
+
+**Status:** Planned (M3)
+
+**Base URLs:**
+- SDMX: `https://sdmxcentral.imf.org/ws/public/sdmxapi/rest/`
+- JSON: `https://www.imf.org/external/datamapper/api/v1/`
+
+### Key datasets
+
+| Dataset | Code | Description |
+|---------|------|-------------|
+| World Economic Outlook | `WEO` | GDP, inflation projections |
+| International Financial Statistics | `IFS` | Broad macro indicators |
+| Balance of Payments | `BOP` | External accounts |
+| Government Finance Statistics | `GFS` | Fiscal data |
+| Direction of Trade | `DOT` | Bilateral trade |
+
+### Priority series for M3
+
+| Series | Description |
+|--------|-------------|
+| WEO GDP growth | Projections for 195 countries |
+| WEO inflation | CPI projections |
+| Current account | % of GDP |
+| Government debt | % of GDP |
+| Foreign reserves | Months of imports |
+
+### Endpoints
+
+#### Data (SDMX)
+```
+GET /data/{flowRef}/{key}
+Accept: application/vnd.sdmx.data+json
+```
+
+#### DataMapper (simpler JSON)
+```
+GET /{indicator}?periods={year}
+```
+
+### API notes
+- No authentication required
+- WEO updated twice yearly (April, October)
+- IFS updated monthly
+- Coverage: 195 countries
+
+---
+
+## 4. FRED — Federal Reserve St. Louis 🔜
+
+**Status:** Planned (M4)
+
+**Base URL:** `https://api.stlouisfed.org/fred/`
+
+### Authentication
+**API key required** — Free registration at https://fred.stlouisfed.org/docs/api/api_key.html
+
+### Endpoints
+
+#### Series observations
+```
+GET /series/observations?series_id={id}&api_key={key}&file_type=json
+```
+
+#### Series search
+```
+GET /series/search?search_text={query}&api_key={key}&file_type=json
+```
+
+#### Series info
+```
+GET /series?series_id={id}&api_key={key}&file_type=json
+```
+
+### Key series for M4
+
+| Series ID | Description |
+|-----------|-------------|
+| `FEDFUNDS` | Federal Funds Rate |
+| `DFF` | Fed Funds Daily |
+| `CPIAUCSL` | CPI All Urban Consumers |
+| `CPILFESL` | Core CPI (ex food & energy) |
+| `PCEPI` | PCE Price Index |
+| `PCEPILFE` | Core PCE |
+| `PAYEMS` | Non-farm payrolls |
+| `UNRATE` | Unemployment rate |
+| `GDP` | Gross Domestic Product |
+| `DGS10` | 10-Year Treasury |
+| `DGS2` | 2-Year Treasury |
+| `T10Y2Y` | 10Y-2Y spread |
+
+### API notes
+- API key required (free)
+- 120 requests per minute limit
+- 100,000+ series available
+- Daily updates for market data
+- Weekly/monthly for economic indicators
+
+### Python example
 ```python
 import httpx
 
-ECB_BASE = "https://sdw-wsrest.ecb.europa.eu/service"
+FRED_API_KEY = "your_key_here"
+FRED_BASE = "https://api.stlouisfed.org/fred"
 
-async def fetch_ecb_series(dataset: str, series_key: str, start: str, end: str):
-    url = f"{ECB_BASE}/data/{dataset}/{series_key}"
-    params = {"startPeriod": start, "endPeriod": end, "format": "jsondata"}
+async def fetch_fred_series(series_id: str, start: str, end: str):
+    url = f"{FRED_BASE}/series/observations"
+    params = {
+        "series_id": series_id,
+        "api_key": FRED_API_KEY,
+        "file_type": "json",
+        "observation_start": start,
+        "observation_end": end,
+    }
     async with httpx.AsyncClient() as client:
         r = await client.get(url, params=params, timeout=30)
         r.raise_for_status()
         return r.json()
 ```
 
-### ECB API notes
-- No authentication required
-- Implicit rate limit: ~1 req/sec is safe
-- Response format: SDMX-JSON — parse `dataSets[0].series` and `structure.dimensions`
-- Missing values: `null` in JSON
-- Most monthly series available from ~1994
-- Monthly data published ~3 weeks after period end
+---
+
+## Provider comparison
+
+| | ECB | BIS | IMF | FRED |
+|---|---|---|---|---|
+| Geographic scope | Euro Area | Global | Global | USA |
+| Granularity | Macro aggregates | Global aggregates | Country-level | US detailed |
+| API type | SDMX | SDMX | SDMX + JSON | REST JSON |
+| Auth required | No | No | No | Yes (free) |
+| Rate limit | ~1/sec | Unknown | Unknown | 120/min |
+| Update frequency | Monthly | Quarterly | Monthly | Daily-Monthly |
+| Historical depth | ~1994 | ~1940s | ~1948 | ~1776 |
 
 ---
 
-## 2. Eurostat API (Milestone 2)
+## Future providers (not in current roadmap)
 
-**Base URL:** `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/`
+### European national sources
+- **Eurostat** — EU27 country-level data
+- **INE Spain** — Spanish data with CCAA granularity
+- **Destatis** — German statistics
+- **INSEE** — French statistics
 
-```
-GET /{dataset_code}?geo={country}&format=JSON&lang=EN
-```
-
-Example:
-```
-https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_manr?geo=ES&format=JSON
-```
-
-### Key datasets for M2
-| Dataset | Code | Description |
-|---|---|---|
-| HICP by country | `prc_hicp_manr` | Inflation per country |
-| GDP per capita | `nama_10_pc` | GDP per capita |
-| Unemployment monthly | `une_rt_m` | Unemployment rate |
-| Government debt | `gov_10dd_edpt1` | Debt & deficit (Maastricht) |
-
-### Differences vs ECB
-- Better for cross-country comparisons
-- Response format: JSON-stat (not SDMX-JSON)
-- More frequent revisions
-- Broader coverage (EU27+)
-
----
-
-## 3. INE Spain (Milestone 3)
-
-**Base URL:**
-```
-https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/{series_id}?nult={n}
-```
-
-### Key series for M3
-| INE ID | Description |
-|---|---|
-| `IPC251449` | CPI general, Spain |
-| `IPC251447` | CPI core, Spain |
-| Table `30678` | EPA — Activity/employment/unemployment by CCAA |
-| `CNTR4559` | Quarterly GDP, Spain |
-
-### INE notes
-- Older, less documented API
-- Regional data (CCAA) available for CPI, EPA, GDP
-- Some endpoints return only last N observations
-- Docs: https://www.ine.es/dyngs/DataLab/manual.html?cid=1259945948443
-
----
-
-## Source comparison
-
-| | ECB | Eurostat | INE |
-|---|---|---|---|
-| Geographic scope | Euro Area / ECB | EU27+ | Spain |
-| Granularity | Macro aggregates | Country | Country + CCAA |
-| API quality | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
-| Auth required | No | No | No |
-| Dev priority | M1 ← now | M2 | M3 |
+### Global sources
+- **World Bank** — Development indicators
+- **OECD** — Economic outlook, leading indicators
+- **UN Statistics** — SDG indicators
