@@ -1,0 +1,32 @@
+{
+  "id": "ICP",
+  "name": "ICP - Individual country price data",
+  "description_short": "Individual country-level consumer price data underlying the HICP, with detailed product-level breakdowns for each EU member state. Enables cross-country price comparison at a granular level.",
+  "concepts": [
+    "consumer prices",
+    "individual country prices",
+    "HICP components",
+    "price data",
+    "CPI",
+    "inflation",
+    "product prices",
+    "country-level inflation",
+    "price comparison",
+    "Eurostat HICP"
+  ],
+  "use_cases": [
+    "How do food prices compare between Germany and Poland?",
+    "Which country has the highest energy price inflation?",
+    "What is the HICP for services in Spain compared to the EU average?",
+    "How do housing costs vary across EU countries?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "ICP_ITEM",
+    "STS_INSTITUTION",
+    "ICP_SUFFIX",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "MIR",
+  "name": "MFI Interest Rates",
+  "description_short": "Monthly MFI interest rate statistics covering rates on new and outstanding loans and deposits to households and non-financial corporations, with breakdowns by loan type, maturity, and amount category.",
+  "concepts": [
+    "MFI interest rates",
+    "MIR",
+    "lending rates",
+    "deposit rates",
+    "bank rates",
+    "mortgage rate",
+    "consumer credit rate",
+    "business loan rate",
+    "household deposits",
+    "rate pass-through",
+    "monetary policy transmission",
+    "interest rate statistics"
+  ],
+  "use_cases": [
+    "What is the current interest rate on new housing loans in the euro area?",
+    "How fast have deposit rates passed through ECB rate hikes?",
+    "What is the spread between lending rates and deposit rates?",
+    "How do MFI rates compare across euro area countries?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BS_ITEM",
+    "DATA_TYPE_MIR",
+    "AMOUNT_CAT",
+    "BS_COUNT_SECTOR",
+    "MATURITY_NOT_IRATE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

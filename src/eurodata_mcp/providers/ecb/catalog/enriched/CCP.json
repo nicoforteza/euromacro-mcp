@@ -1,0 +1,34 @@
+{
+  "id": "CCP",
+  "name": "Central counterparty clearing",
+  "description_short": "Statistics on central counterparty clearing houses (CCPs) operating in the EU, covering cleared volumes, initial and variation margin, collateral, and risk indicators. Key for financial stability monitoring.",
+  "concepts": [
+    "CCP",
+    "central counterparty",
+    "clearing house",
+    "derivatives clearing",
+    "initial margin",
+    "variation margin",
+    "collateral",
+    "default fund",
+    "OTC derivatives",
+    "financial market infrastructure",
+    "systemic risk",
+    "EMIR"
+  ],
+  "use_cases": [
+    "What is the total value of positions cleared through EU CCPs?",
+    "How has initial margin at European clearing houses evolved?",
+    "What types of instruments are being cleared through EU CCPs?",
+    "How do collateral requirements at CCPs compare across systems?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "eu_wide",
+  "key_dimensions": [
+    "CCP_SYSTEM",
+    "SSS_INFO_TYPE",
+    "SSS_INSTRUMENT",
+    "CURRENCY_TRANS"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

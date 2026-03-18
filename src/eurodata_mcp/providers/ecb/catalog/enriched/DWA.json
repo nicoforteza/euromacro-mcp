@@ -1,0 +1,38 @@
+{
+  "id": "DWA",
+  "name": "Distributional Wealth Accounts",
+  "description_short": "Distributional breakdown of household wealth in the euro area, combining macro balance sheet data with micro survey data to show the distribution of net wealth, assets, and liabilities across the household wealth distribution.",
+  "concepts": [
+    "wealth distribution",
+    "household wealth",
+    "inequality",
+    "net wealth",
+    "wealth quintiles",
+    "financial assets",
+    "housing wealth",
+    "liabilities",
+    "distributional accounts",
+    "DWA",
+    "wealth inequality",
+    "Gini",
+    "top 1%",
+    "bottom 50%",
+    "assets distribution"
+  ],
+  "use_cases": [
+    "What share of total euro area household wealth is held by the wealthiest 10%?",
+    "How is housing wealth distributed across the household wealth distribution?",
+    "How has wealth inequality in the euro area changed over time?",
+    "What is the net wealth of the median household in Germany versus Italy?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "DWA_GRP",
+    "INSTR_ASSET",
+    "STO",
+    "ACCOUNT_ENTRY",
+    "REF_SECTOR"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

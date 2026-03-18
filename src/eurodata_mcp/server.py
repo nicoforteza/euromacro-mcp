@@ -32,11 +32,18 @@ mcp = FastMCP("eurodata")
 
 
 @mcp.tool()
-async def search_series(query: str, limit: int = 10) -> list[dict]:
+async def search_series(
+    query: str,
+    limit: int = 10,
+    provider: str | None = None,
+    frequency: str | None = None,
+    geo_coverage: str | None = None,
+) -> list[dict]:
     """Search for macroeconomic series by keyword.
 
     Searches across series names (EN/ES), descriptions, tags, and categories.
     Results are ranked by relevance with priority 1 series ranked first.
+    Falls back to dataset-level discovery if fewer than 3 curated results are found.
 
     Examples:
     - "inflation" → HICP headline, core, energy, food
@@ -47,11 +54,16 @@ async def search_series(query: str, limit: int = 10) -> list[dict]:
     Args:
         query: Search query (e.g., "inflation", "GDP", "ECB rate")
         limit: Maximum results to return (default: 10)
+        provider: Optional provider filter (e.g., "ecb")
+        frequency: Optional frequency filter (e.g., "monthly")
+        geo_coverage: Optional geographic coverage filter
 
     Returns:
         List of matching series with id, name, category, and description
     """
-    return await _search_series(query, limit=limit)
+    return await _search_series(
+        query, limit=limit, provider=provider, frequency=frequency, geo_coverage=geo_coverage
+    )
 
 
 @mcp.tool()
@@ -130,122 +142,122 @@ async def list_categories(include_series: bool = False) -> list[dict]:
 
 @mcp.tool()
 async def explore_datasets(
+    provider_id: str = "ecb",
     query: str | None = None,
     limit: int = 20,
 ) -> dict:
-    """Explore all available ECB datasets.
+    """Explore all available datasets for a provider.
 
-    Lists ~50 ECB datasets covering inflation, interest rates, money supply,
-    GDP, employment, exchange rates, and more. Use this to discover what
-    data is available before using build_series().
+    Lists datasets from the shipped enriched catalog (no network required).
+    Use this to discover what data is available before using build_series().
 
     Args:
+        provider_id: Provider identifier (default: "ecb")
         query: Optional search filter (e.g., "inflation", "interest")
         limit: Maximum results (default: 20)
 
     Returns:
-        List of datasets with id, name, and structure_id
+        List of datasets with id, name, description, frequency, and key dimensions
 
     Examples:
-        - explore_datasets() → list all
-        - explore_datasets("inflation") → find ICP dataset
-        - explore_datasets("exchange") → find EXR dataset
+        - explore_datasets() → list all ECB datasets
+        - explore_datasets(query="inflation") → find ICP dataset
+        - explore_datasets(query="exchange") → find EXR dataset
     """
-    return await _explore_datasets(query=query, limit=limit)
+    return await _explore_datasets(provider_id=provider_id, query=query, limit=limit)
 
 
 @mcp.tool()
-async def explore_dimensions(dataset: str) -> dict:
-    """Explore the dimensions of an ECB dataset.
+async def explore_dimensions(
+    provider_id: str = "ecb",
+    dataset: str = "",
+) -> dict:
+    """Explore the dimensions of a dataset.
 
     Shows all dimensions that make up series keys for a dataset.
     Each series key is built by combining dimension values.
+    Uses the shipped catalog structures — no network required.
 
-    For example, ICP (inflation) has:
-    FREQ.REF_AREA.ADJUSTMENT.ICP_ITEM.STS_INSTITUTION.ICP_SUFFIX
+    For example, EXR (exchange rates) has:
+    FREQ.CURRENCY.CURRENCY_DENOM.EXR_TYPE.EXR_SUFFIX
 
     Args:
+        provider_id: Provider identifier (default: "ecb")
         dataset: Dataset ID (e.g., "ICP", "FM", "BSI", "EXR")
 
     Returns:
-        List of dimensions with their position and codelist reference
+        List of dimensions with position, codelist reference, and code count
 
     Examples:
-        - explore_dimensions("ICP") → inflation dimensions
-        - explore_dimensions("FM") → financial markets dimensions
+        - explore_dimensions(dataset="ICP") → inflation dimensions
+        - explore_dimensions(dataset="EXR") → exchange rate dimensions
     """
-    return await _explore_dimensions(dataset=dataset)
+    return await _explore_dimensions(provider_id=provider_id, dataset=dataset)
 
 
 @mcp.tool()
 async def explore_codes(
-    codelist: str,
+    provider_id: str = "ecb",
+    dataset: str = "",
+    dimension_id: str = "",
     query: str | None = None,
     limit: int = 50,
 ) -> dict:
-    """Explore valid codes for a dimension.
+    """Explore valid codes for a specific dimension of a dataset.
 
-    Lists all valid values for a codelist. Use this to find the
-    correct codes for building series keys.
-
-    Common codelists:
-    - CL_AREA: Countries (U2=Euro Area, DE=Germany, ES=Spain, FR=France...)
-    - CL_FREQ: Frequencies (A=Annual, Q=Quarterly, M=Monthly, D=Daily)
-    - CL_CURRENCY: Currencies (EUR, USD, GBP...)
+    Lists all valid values for a dimension. Use this to find the
+    correct codes for building series keys with build_series().
+    Uses the shipped catalog structures — no network required.
 
     Args:
-        codelist: Codelist ID (e.g., "CL_AREA", "CL_FREQ")
-        query: Optional search filter (e.g., "spain", "germany")
+        provider_id: Provider identifier (default: "ecb")
+        dataset: Dataset ID (e.g., "EXR", "ICP", "FM")
+        dimension_id: Dimension ID to explore (e.g., "FREQ", "CURRENCY")
+        query: Optional search filter (e.g., "monthly", "USD")
         limit: Maximum results (default: 50)
 
     Returns:
         List of codes with their descriptions
 
     Examples:
-        - explore_codes("CL_AREA") → list all countries
-        - explore_codes("CL_AREA", "spain") → find ES code
-        - explore_codes("CL_FREQ") → list frequencies
+        - explore_codes(dataset="EXR", dimension_id="FREQ") → frequency codes
+        - explore_codes(dataset="EXR", dimension_id="CURRENCY", query="USD")
+        - explore_codes(dataset="ICP", dimension_id="REF_AREA", query="germany")
     """
-    return await _explore_codes(codelist=codelist, query=query, limit=limit)
+    return await _explore_codes(
+        provider_id=provider_id,
+        dataset=dataset,
+        dimension_id=dimension_id,
+        query=query,
+        limit=limit,
+    )
 
 
 @mcp.tool()
 async def build_series(
-    dataset: str,
-    dimensions: dict[str, str],
+    provider_id: str = "ecb",
+    dataset: str = "",
+    dimensions: dict[str, str] | None = None,
     start_period: str | None = None,
     end_period: str | None = None,
 ) -> dict:
-    """Build and fetch any ECB series dynamically.
+    """Build a valid series key and data URL for a dataset.
 
-    Constructs a series key from dimension values and fetches the data.
+    Constructs a series key from dimension values and returns the API URL.
     Use explore_dimensions() and explore_codes() first to understand
     what dimensions and values are needed.
 
     Args:
-        dataset: Dataset ID (e.g., "ICP", "FM", "BSI")
-        dimensions: Dict mapping dimension ID to value
+        provider_id: Provider identifier (default: "ecb")
+        dataset: Dataset ID (e.g., "ICP", "FM", "BSI", "EXR")
+        dimensions: Dict mapping dimension ID to value (empty string = wildcard)
         start_period: Start date (e.g., "2020-01")
         end_period: End date (e.g., "2024-12")
 
     Returns:
-        Series data with observations and metadata
+        Series key, data URL, and missing dimensions (wildcards)
 
     Examples:
-        # German inflation
-        build_series(
-            dataset="ICP",
-            dimensions={
-                "FREQ": "M",
-                "REF_AREA": "DE",
-                "ADJUSTMENT": "N",
-                "ICP_ITEM": "000000",
-                "STS_INSTITUTION": "4",
-                "ICP_SUFFIX": "INX"
-            },
-            start_period="2020-01"
-        )
-
         # USD/EUR exchange rate
         build_series(
             dataset="EXR",
@@ -257,12 +269,16 @@ async def build_series(
                 "EXR_SUFFIX": "A"
             }
         )
+
+        # All monthly exchange rates (wildcard on CURRENCY)
+        build_series(dataset="EXR", dimensions={"FREQ": "M"})
     """
     return await _build_series(
+        provider_id=provider_id,
         dataset=dataset,
+        dimensions=dimensions,
         start_period=start_period,
         end_period=end_period,
-        **dimensions,
     )
 
 

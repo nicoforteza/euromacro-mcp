@@ -1,0 +1,36 @@
+{
+  "id": "FM",
+  "name": "Financial Markets",
+  "description_short": "Broad financial market statistics covering money market rates, bond yields, stock market indices, credit spreads, and other financial market indicators across euro area countries and major global markets.",
+  "concepts": [
+    "financial markets",
+    "bond yields",
+    "stock market",
+    "equity indices",
+    "credit spreads",
+    "money market rates",
+    "repo rate",
+    "swap rates",
+    "OIS",
+    "government yields",
+    "corporate bond spreads",
+    "financial indicators",
+    "market data"
+  ],
+  "use_cases": [
+    "What is the current 10-year German Bund yield?",
+    "How have Italian BTP spreads over Bunds evolved?",
+    "What are current euro area money market rates?",
+    "How have equity market valuations changed over the past year?"
+  ],
+  "primary_frequency": "D",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "INSTRUMENT_FM",
+    "PROVIDER_FM",
+    "PROVIDER_FM_ID",
+    "REF_AREA",
+    "DATA_TYPE_FM"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

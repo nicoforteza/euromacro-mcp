@@ -1,0 +1,32 @@
+{
+  "id": "MFI",
+  "name": "Monetary Financial Institutions",
+  "description_short": "Register and statistical data on monetary financial institutions (banks, money market funds, and central banks) in the euro area, including institution counts and structural indicators.",
+  "concepts": [
+    "monetary financial institutions",
+    "MFI list",
+    "banking sector structure",
+    "bank count",
+    "number of banks",
+    "money market funds",
+    "central banks",
+    "banking consolidation",
+    "bank mergers",
+    "EU banks register"
+  ],
+  "use_cases": [
+    "How many banks are currently operating in the euro area?",
+    "How has banking sector consolidation progressed in different countries?",
+    "What is the breakdown of MFIs by institution type?",
+    "How many money market funds are registered in the euro area?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "MFI_LIST",
+    "MFI_STATUS",
+    "REF_AREA",
+    "DATA_TYPE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

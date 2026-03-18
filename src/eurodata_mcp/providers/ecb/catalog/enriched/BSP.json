@@ -1,0 +1,33 @@
+{
+  "id": "BSP",
+  "name": "Balance Sheet Items (MFI) - Provisional",
+  "description_short": "Provisional version of the MFI balance sheet statistics, released ahead of the final BSI data. Provides early estimates of bank loans, deposits, and other balance sheet items for the euro area.",
+  "concepts": [
+    "MFI balance sheet provisional",
+    "bank balance sheet",
+    "provisional data",
+    "loans",
+    "deposits",
+    "credit",
+    "monetary statistics",
+    "early estimates",
+    "flash estimate",
+    "bank assets",
+    "bank liabilities"
+  ],
+  "use_cases": [
+    "What are the latest provisional estimates of euro area bank lending?",
+    "How do provisional MFI balance sheet figures compare to final data?",
+    "What is the early read on household credit growth in the euro area?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BS_ITEM",
+    "BS_REP_SECTOR",
+    "MATURITY_ORIG",
+    "COUNT_AREA",
+    "BS_COUNT_SECTOR"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

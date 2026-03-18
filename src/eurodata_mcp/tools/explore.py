@@ -1,304 +1,262 @@
-"""Exploration tools for ECB metadata."""
+"""Exploration tools for browsing datasets, dimensions, and codes."""
+from __future__ import annotations
 
 import logging
 from typing import Any
 
-from ..connectors.ecb import ECBConnector, ECBConnectorError
-from ..metadata import get_metadata_cache
+from ..metadata.cache import MetadataCache
 
 logger = logging.getLogger(__name__)
 
 
 async def explore_datasets(
+    provider_id: str = "ecb",
     query: str | None = None,
     limit: int = 20,
-    refresh: bool = False,
 ) -> dict[str, Any]:
-    """Explore available ECB datasets (dataflows).
+    """List available datasets for a provider, optionally filtered by query."""
+    from ..providers.base import get_registry
+    registry = get_registry()
+    provider = registry.get(provider_id)
 
-    Lists all available datasets from the ECB Statistical Data Warehouse.
-    Use this to discover what data is available before fetching series.
+    if provider is None:
+        return {
+            "error": f"Provider '{provider_id}' not found. Use list_providers() to see available providers.",
+            "datasets": [],
+        }
 
-    Args:
-        query: Optional search query to filter datasets by name/ID
-        limit: Maximum number of results (default: 20)
-        refresh: If True, refresh from ECB API instead of cache
+    # Primary: use shipped enriched catalog (no network)
+    datasets = provider.get_enriched_catalog()
+    if datasets:
+        if query:
+            q = query.lower()
+            datasets = [
+                d for d in datasets
+                if q in d.get("name", "").lower()
+                or q in d.get("id", "").lower()
+                or any(q in c.lower() for c in d.get("concepts", []))
+                or any(q in u.lower() for u in d.get("use_cases", []))
+            ]
+        datasets = datasets[:limit]
+        return {
+            "provider": provider_id,
+            "count": len(datasets),
+            "source": "catalog",
+            "datasets": [
+                {
+                    "id": d["id"],
+                    "name": d.get("name", ""),
+                    "description": d.get("description_short", ""),
+                    "frequency": d.get("primary_frequency", ""),
+                    "coverage": d.get("geographic_coverage", ""),
+                    "key_dimensions": d.get("key_dimensions", []),
+                }
+                for d in datasets
+            ],
+        }
 
-    Returns:
-        Dict with list of datasets and metadata
+    # Fallback: ECB live metadata cache
+    if provider_id == "ecb":
+        from ..connectors.ecb import ECBConnector
+        connector = ECBConnector()
+        cache = MetadataCache()
+        dataflows = cache.get_dataflows()
+        results = []
+        for df in dataflows:
+            df_id = df.get("id", "")
+            df_name = df.get("name", df_id)
+            if query and query.lower() not in df_id.lower() and query.lower() not in df_name.lower():
+                continue
+            results.append({"id": df_id, "name": df_name, "source": "live"})
+        return {
+            "provider": provider_id,
+            "count": len(results[:limit]),
+            "datasets": results[:limit],
+        }
 
-    Examples:
-        - explore_datasets() → list all datasets
-        - explore_datasets("inflation") → find inflation-related datasets
-        - explore_datasets("interest") → find interest rate datasets
-    """
-    cache = get_metadata_cache()
-
-    if refresh or not cache.get_dataflows():
-        try:
-            async with ECBConnector() as connector:
-                dataflows = await connector.fetch_dataflows()
-                cache.save_dataflows(dataflows)
-        except ECBConnectorError as e:
-            logger.error(f"Failed to fetch dataflows: {e}")
-            return {"error": str(e), "datasets": []}
-
-    if query:
-        datasets = cache.search_dataflows(query, limit=limit)
-    else:
-        datasets = cache.get_dataflows()[:limit]
-
-    return {
-        "count": len(datasets),
-        "total_available": len(cache.get_dataflows()),
-        "datasets": [
-            {
-                "id": df.get("id", ""),
-                "name": df.get("name", ""),
-                "structure_id": df.get("structure_id", ""),
-            }
-            for df in datasets
-        ],
-    }
+    return {"error": f"No catalog available for provider '{provider_id}'", "datasets": []}
 
 
 async def explore_dimensions(
-    dataset: str,
-    refresh: bool = False,
+    provider_id: str = "ecb",
+    dataset: str = "",
 ) -> dict[str, Any]:
-    """Explore the dimensions of a dataset.
+    """Explore the dimensions of a dataset (required to build a valid series key)."""
+    from ..providers.base import get_registry
+    registry = get_registry()
+    provider = registry.get(provider_id)
 
-    Shows all dimensions that make up series keys for a dataset,
-    along with their valid codelists.
+    if provider and dataset:
+        structure = provider.get_dataset_structure(dataset)
+        if structure:
+            dims = structure.get("dimensions", [])
+            return {
+                "provider": provider_id,
+                "dataset": dataset,
+                "source": "catalog",
+                "dimensions": [
+                    {
+                        "position": d["position"],
+                        "id": d["id"],
+                        "name": d.get("name", ""),
+                        "codelist_id": d.get("codelist_id", ""),
+                        "n_codes": len(d.get("codes", {})),
+                    }
+                    for d in dims
+                ],
+                "series_key_format": ".".join(
+                    f"<{d['id']}>" for d in sorted(dims, key=lambda x: x["position"])
+                ),
+                "hint": (
+                    f"Use explore_codes(provider_id='{provider_id}', dataset='{dataset}', "
+                    f"dimension_id='FREQ') to see valid values for each dimension."
+                ),
+            }
 
-    Args:
-        dataset: Dataset ID (e.g., "ICP", "FM", "BSI")
-        refresh: If True, refresh from ECB API instead of cache
-
-    Returns:
-        Dict with dimensions and their codelist references
-
-    Examples:
-        - explore_dimensions("ICP") → dimensions for inflation data
-        - explore_dimensions("FM") → dimensions for financial markets
-    """
-    cache = get_metadata_cache()
-
-    dataflow = cache.get_dataflow(dataset)
-    if not dataflow:
-        dataflows = cache.search_dataflows(dataset, limit=1)
-        if dataflows:
-            dataflow = dataflows[0]
-
-    if not dataflow:
-        return {
-            "error": f"Dataset '{dataset}' not found. Use explore_datasets() to list available datasets.",
-            "dimensions": [],
-        }
-
-    structure_id = dataflow.get("structure_id", f"ECB_{dataset}1")
-    structure = cache.get_structure(structure_id)
-
-    if not structure or refresh:
-        try:
-            async with ECBConnector() as connector:
-                structure = await connector.fetch_datastructure(structure_id)
-                cache.save_structure(structure_id, structure)
-        except ECBConnectorError as e:
-            logger.error(f"Failed to fetch structure {structure_id}: {e}")
-            return {"error": str(e), "dimensions": []}
-
-    dimensions = structure.get("dimensions", [])
-    codelist_refs = structure.get("codelist_refs", {})
+    # Fallback: live ECB metadata cache
+    if provider_id == "ecb" and dataset:
+        cache = MetadataCache()
+        structure = cache.get_structure(dataset)
+        if structure:
+            dims = structure.get("dimensions", [])
+            return {
+                "provider": provider_id,
+                "dataset": dataset,
+                "source": "live",
+                "dimensions": dims,
+                "series_key_format": ".".join(f"<{d.get('id', '')}>" for d in dims),
+            }
 
     return {
-        "dataset": dataset,
-        "structure_id": structure_id,
-        "dimensions": [
-            {
-                "position": dim.get("position", 0),
-                "id": dim.get("id", ""),
-                "codelist": dim.get("codelist", ""),
-            }
-            for dim in dimensions
-        ],
-        "series_key_format": ".".join(
-            [f"<{dim.get('id', '?')}>" for dim in dimensions]
-        ),
-        "hint": "Use explore_codes(codelist) to see valid values for each dimension",
+        "error": f"Dataset '{dataset}' not found for provider '{provider_id}'",
+        "dimensions": [],
     }
 
 
 async def explore_codes(
-    codelist: str,
+    provider_id: str = "ecb",
+    dataset: str = "",
+    dimension_id: str = "",
     query: str | None = None,
     limit: int = 50,
-    refresh: bool = False,
 ) -> dict[str, Any]:
-    """Explore valid codes for a dimension.
+    """Explore valid codes for a specific dimension of a dataset."""
+    from ..providers.base import get_registry
+    registry = get_registry()
+    provider = registry.get(provider_id)
 
-    Lists all valid values for a codelist (dimension values).
+    if provider and dataset and dimension_id:
+        structure = provider.get_dataset_structure(dataset)
+        if structure:
+            dims = structure.get("dimensions", [])
+            dim = next((d for d in dims if d["id"] == dimension_id), None)
+            if dim and "codes" in dim:
+                codes_dict = dim["codes"]
+                items = [{"code": k, "description": v} for k, v in codes_dict.items()]
+                if query:
+                    q = query.lower()
+                    items = [c for c in items if q in c["code"].lower() or q in c["description"].lower()]
+                return {
+                    "provider": provider_id,
+                    "dataset": dataset,
+                    "dimension": dimension_id,
+                    "dimension_name": dim.get("name", dimension_id),
+                    "source": "catalog",
+                    "total": len(items),
+                    "codes": items[:limit],
+                }
 
-    Args:
-        codelist: Codelist ID (e.g., "CL_AREA", "CL_FREQ")
-        query: Optional search query to filter codes
-        limit: Maximum number of results (default: 50)
-        refresh: If True, refresh from ECB API instead of cache
-
-    Returns:
-        Dict with codes and their descriptions
-
-    Common codelists:
-        - CL_AREA: Countries and areas (U2=Euro Area, DE=Germany, ES=Spain...)
-        - CL_FREQ: Frequencies (A=Annual, Q=Quarterly, M=Monthly, D=Daily)
-        - CL_UNIT: Units of measurement
-        - CL_ADJUSTMENT: Seasonal adjustment (N=Not adjusted, Y=Adjusted)
-
-    Examples:
-        - explore_codes("CL_AREA") → list all countries
-        - explore_codes("CL_AREA", "spain") → find Spain's code
-        - explore_codes("CL_FREQ") → list frequency codes
-    """
-    cache = get_metadata_cache()
-    codes = cache.get_codelist(codelist)
-
-    if not codes or refresh:
-        try:
-            async with ECBConnector() as connector:
-                codes = await connector.fetch_codelist(codelist)
-                if codes:
-                    cache.save_codelist(codelist, codes)
-        except ECBConnectorError as e:
-            logger.error(f"Failed to fetch codelist {codelist}: {e}")
-            return {"error": str(e), "codes": []}
-
-    if not codes:
-        return {
-            "error": f"Codelist '{codelist}' not found or empty.",
-            "codes": [],
-        }
-
-    if query:
-        results = cache.search_codelist(codelist, query, limit=limit)
-    else:
-        results = [
-            {"code": code, "description": desc}
-            for code, desc in list(codes.items())[:limit]
-        ]
+    # Fallback: live ECB metadata cache (codelists)
+    if provider_id == "ecb" and dataset and dimension_id:
+        cache = MetadataCache()
+        structure = cache.get_structure(dataset)
+        if structure:
+            dims = structure.get("dimensions", [])
+            dim = next((d for d in dims if d.get("id") == dimension_id), None)
+            if dim:
+                codelist_id = dim.get("codelist_id", "")
+                if codelist_id:
+                    codes = cache.get_codelist(codelist_id)
+                    if codes:
+                        items = [
+                            {"code": c, "description": desc}
+                            for c, desc in codes.items()
+                        ]
+                        if query:
+                            q = query.lower()
+                            items = [
+                                c for c in items
+                                if q in c["code"].lower() or q in c["description"].lower()
+                            ]
+                        return {
+                            "provider": provider_id,
+                            "dataset": dataset,
+                            "dimension": dimension_id,
+                            "source": "live",
+                            "total": len(items),
+                            "codes": items[:limit],
+                        }
 
     return {
-        "codelist": codelist,
-        "count": len(results),
-        "total_available": len(codes),
-        "codes": results,
+        "error": f"Dimension '{dimension_id}' not found in dataset '{dataset}'",
+        "codes": [],
     }
 
 
 async def build_series(
-    dataset: str,
+    provider_id: str = "ecb",
+    dataset: str = "",
+    dimensions: dict[str, str] | None = None,
     start_period: str | None = None,
     end_period: str | None = None,
-    **dimensions: str,
 ) -> dict[str, Any]:
-    """Build and fetch a series dynamically from dimension values.
+    """Build a valid series key and data URL for a dataset."""
+    if dimensions is None:
+        dimensions = {}
 
-    Constructs a series key from the provided dimension values and fetches the data.
-    Use explore_dimensions() first to understand what dimensions are needed.
+    from ..providers.base import get_registry
+    registry = get_registry()
+    provider = registry.get(provider_id)
 
-    Args:
-        dataset: Dataset ID (e.g., "ICP", "FM", "BSI")
-        start_period: Start date (e.g., "2020-01")
-        end_period: End date (e.g., "2024-12")
-        **dimensions: Dimension values as keyword arguments
+    ordered_dims: list[str] = []
+    dim_names: list[str] = []
 
-    Returns:
-        Dict with series data or error message
+    if provider and dataset:
+        structure = provider.get_dataset_structure(dataset)
+        if structure:
+            dims = sorted(structure.get("dimensions", []), key=lambda x: x["position"])
+            ordered_dims = [d["id"] for d in dims]
+            dim_names = [d.get("name", d["id"]) for d in dims]
 
-    Examples:
-        # German monthly inflation (HICP all items)
-        build_series(
-            dataset="ICP",
-            FREQ="M",
-            REF_AREA="DE",
-            ADJUSTMENT="N",
-            ICP_ITEM="000000",
-            STS_INSTITUTION="4",
-            ICP_SUFFIX="INX",
-            start_period="2020-01"
-        )
+    if not ordered_dims:
+        # Fallback: use provided dimensions keys as-is
+        ordered_dims = list(dimensions.keys())
+        dim_names = ordered_dims
 
-        # ECB deposit rate
-        build_series(
-            dataset="FM",
-            FREQ="B",
-            REF_AREA="U2",
-            CURRENCY="EUR",
-            PROVIDER_FM="4F",
-            INSTRUMENT_FM="KR",
-            PROVIDER_FM_ID="DFR",
-            DATA_TYPE_FM="LEV"
-        )
-    """
-    cache = get_metadata_cache()
+    # Build the key: empty string means "all values" for that dimension
+    key_parts = [dimensions.get(dim_id, "") for dim_id in ordered_dims]
+    series_key = ".".join(key_parts)
 
-    dataflow = cache.get_dataflow(dataset)
-    if not dataflow:
-        dataflows = cache.search_dataflows(dataset, limit=1)
-        if dataflows:
-            dataflow = dataflows[0]
+    # Build the API URL
+    base_url = "https://data-api.ecb.europa.eu/service"
+    data_url = f"{base_url}/data/{dataset}/{series_key}?format=jsondata"
+    if start_period:
+        data_url += f"&startPeriod={start_period}"
+    if end_period:
+        data_url += f"&endPeriod={end_period}"
 
-    if not dataflow:
-        return {
-            "error": f"Dataset '{dataset}' not found. Use explore_datasets() to list available datasets.",
-        }
+    missing = [dim for dim in ordered_dims if dim not in dimensions]
 
-    structure_id = dataflow.get("structure_id", f"ECB_{dataset}1")
-    structure = cache.get_structure(structure_id)
-
-    if not structure:
-        try:
-            async with ECBConnector() as connector:
-                structure = await connector.fetch_datastructure(structure_id)
-                cache.save_structure(structure_id, structure)
-        except ECBConnectorError as e:
-            return {"error": f"Failed to fetch structure: {e}"}
-
-    series_key = cache.build_series_key(structure_id, dimensions)
-    if not series_key:
-        dims = structure.get("dimensions", [])
-        return {
-            "error": "Failed to build series key",
-            "required_dimensions": [d["id"] for d in dims],
-            "provided_dimensions": list(dimensions.keys()),
-        }
-
-    try:
-        async with ECBConnector() as connector:
-            df = await connector.fetch_series(
-                dataset=dataset,
-                series_key=series_key,
-                start_period=start_period,
-                end_period=end_period,
-            )
-
-        observations = [
-            {"date": row["date"], "value": row["value"]}
-            for _, row in df.iterrows()
-        ]
-
-        return {
-            "dataset": dataset,
-            "series_key": series_key,
-            "dimensions": dimensions,
-            "observation_count": len(observations),
-            "observations": observations,
-        }
-
-    except ECBConnectorError as e:
-        return {
-            "error": str(e),
-            "dataset": dataset,
-            "series_key": series_key,
-            "dimensions": dimensions,
-            "hint": "Check dimension values with explore_codes()",
-        }
+    return {
+        "provider": provider_id,
+        "dataset": dataset,
+        "series_key": series_key,
+        "dimensions_used": dict(zip(ordered_dims, key_parts)),
+        "data_url": data_url,
+        "missing_dimensions": missing,
+        "note": (
+            "Empty string in a dimension position means 'all values' (wildcard)."
+            if missing
+            else ""
+        ),
+    }

@@ -1,0 +1,31 @@
+{
+  "id": "ESB",
+  "name": "Securities issues statistics (ESB)",
+  "description_short": "Securities issuance statistics with an extended balance of payments perspective, covering cross-border holdings and flows of debt securities with geographic and sectoral breakdowns.",
+  "concepts": [
+    "securities issuance",
+    "balance of payments",
+    "cross-border",
+    "debt securities",
+    "bond market",
+    "international investment",
+    "sectoral breakdown",
+    "geographic breakdown",
+    "financial flows"
+  ],
+  "use_cases": [
+    "What is the breakdown of debt securities by issuing sector and currency?",
+    "How do cross-border securities holdings compare across euro area countries?",
+    "What is the resident vs non-resident split in euro area bond holdings?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BOP_ITEM",
+    "DATA_TYPE_BOP",
+    "CURR_BRKDWN",
+    "COUNT_AREA",
+    "RESID_ECON_ACT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

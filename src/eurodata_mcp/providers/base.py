@@ -136,6 +136,41 @@ class BaseProvider(ABC):
     # Provider info
     # -------------------------------------------------------------------------
 
+    # -------------------------------------------------------------------------
+    # Shipped catalog access (no network required)
+    # -------------------------------------------------------------------------
+
+    @property
+    def catalog_dir(self) -> Path:
+        """Directory containing this provider's shipped catalog files."""
+        return self._provider_dir / "catalog"
+
+    def get_enriched_catalog(self) -> list[dict]:
+        """Load the consolidated enriched catalog for this provider."""
+        path = self.catalog_dir / "catalog_enriched.json"
+        if not path.exists():
+            return []
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data.get("datasets", [])
+
+    def get_dataset_enriched(self, dataset_id: str) -> dict | None:
+        """Load enriched metadata for a single dataset."""
+        path = self.catalog_dir / "enriched" / f"{dataset_id}.json"
+        if not path.exists():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def get_dataset_structure(self, dataset_id: str) -> dict | None:
+        """Load the SDMX structure for a single dataset."""
+        path = self.catalog_dir / "structures" / f"{dataset_id}.json"
+        if not path.exists():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    # -------------------------------------------------------------------------
+    # Provider info
+    # -------------------------------------------------------------------------
+
     def get_info(self) -> dict:
         """Get provider information summary."""
         return {
@@ -148,6 +183,7 @@ class BaseProvider(ABC):
             "has_guide": (self._provider_dir / "guide.md").exists(),
             "has_examples": (self._provider_dir / "examples.json").exists(),
             "has_aliases": (self._provider_dir / "aliases.json").exists(),
+            "dataset_count": len(self.get_enriched_catalog()),
         }
 
     def matches_query(self, query: str) -> float:

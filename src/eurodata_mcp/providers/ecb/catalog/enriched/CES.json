@@ -1,0 +1,35 @@
+{
+  "id": "CES",
+  "name": "Consumer Expectations Survey",
+  "description_short": "ECB household survey on consumer expectations covering inflation perceptions and expectations, spending intentions, labor market views, and housing market outlook, with breakdowns by age, income, and other demographics.",
+  "concepts": [
+    "consumer expectations",
+    "CES",
+    "inflation expectations",
+    "household survey",
+    "consumer confidence",
+    "spending intentions",
+    "housing expectations",
+    "unemployment expectations",
+    "income expectations",
+    "demographics",
+    "subjective expectations",
+    "consumer survey"
+  ],
+  "use_cases": [
+    "What do European households expect inflation to be in one year?",
+    "How do inflation expectations differ across income groups?",
+    "What share of households plan to make major purchases in the next year?",
+    "How has consumer confidence in labor market conditions evolved?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "CES_VARIABLE",
+    "CES_BREAKDOWN",
+    "CES_ANSWER",
+    "CES_DENOM",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

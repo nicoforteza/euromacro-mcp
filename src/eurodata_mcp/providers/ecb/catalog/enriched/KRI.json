@@ -1,0 +1,38 @@
+{
+  "id": "KRI",
+  "name": "Key Risk Indicators",
+  "description_short": "Key risk indicators for the EU banking sector, providing standardised metrics on capital adequacy, asset quality, profitability, and liquidity used for macroprudential and supervisory analysis.",
+  "concepts": [
+    "key risk indicators",
+    "KRI",
+    "bank risk",
+    "capital adequacy",
+    "asset quality",
+    "NPL ratio",
+    "profitability",
+    "ROE",
+    "liquidity",
+    "leverage ratio",
+    "CET1",
+    "banking risk",
+    "EBA indicators",
+    "macroprudential",
+    "supervisory data"
+  ],
+  "use_cases": [
+    "What are the key risk metrics for the euro area banking sector?",
+    "How do capital ratios compare across EU banking systems?",
+    "What is the trend in non-performing loan ratios?",
+    "How has bank profitability evolved in the current rate environment?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "CB_ITEM",
+    "CB_REP_SECTOR",
+    "CB_SECTOR_SIZE",
+    "MATURITY_ORIG",
+    "COUNT_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

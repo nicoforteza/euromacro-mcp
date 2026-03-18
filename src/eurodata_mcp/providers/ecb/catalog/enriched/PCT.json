@@ -1,0 +1,35 @@
+{
+  "id": "PCT",
+  "name": "Payment card transactions statistics",
+  "description_short": "Detailed statistics on payment card transactions across the EU, covering card-initiated payments by channel, scheme, strong customer authentication, and fraud type.",
+  "concepts": [
+    "payment cards",
+    "card transactions",
+    "debit card",
+    "credit card",
+    "card payments statistics",
+    "card fraud",
+    "SCA",
+    "contactless",
+    "online payment",
+    "e-commerce",
+    "authentication",
+    "payment channel"
+  ],
+  "use_cases": [
+    "What is the total number and value of card transactions in the EU?",
+    "How does card fraud compare across different transaction channels?",
+    "What is the adoption rate of contactless payments by country?",
+    "How has SCA implementation affected card payment fraud?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "INTTN_CHNNL",
+    "PYMNT_SCHM",
+    "SCA",
+    "FRD_TYP",
+    "RL_TRNSCTN"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}
