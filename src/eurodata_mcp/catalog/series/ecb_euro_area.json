@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ecb:hicp_headline",
+    "name": "HICP - Headline Inflation",
+    "description": "Harmonised Index of Consumer Prices, all items, Euro area",
+    "source": "ecb",
+    "series_key": "ICP.M.U2.N.000000.4.ANR",
+    "frequency": "monthly",
+    "unit": "percent",
+    "tags": ["inflation", "prices", "hicp", "euro area"]
+  }
+]
