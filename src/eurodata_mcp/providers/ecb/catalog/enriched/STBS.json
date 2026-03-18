@@ -1,0 +1,35 @@
+{
+  "id": "STBS",
+  "name": "Short-term business statistics",
+  "description_short": "Short-term business activity indicators covering industrial production, construction, retail trade, and services across euro area countries. Core dataset for tracking the business cycle.",
+  "concepts": [
+    "short-term business statistics",
+    "STBS",
+    "industrial production",
+    "retail sales",
+    "construction output",
+    "services activity",
+    "business cycle",
+    "manufacturing",
+    "production index",
+    "economic activity",
+    "turnover",
+    "volume of sales"
+  ],
+  "use_cases": [
+    "What is the latest industrial production index for the euro area?",
+    "How have retail sales trended in Germany over the past year?",
+    "Is construction activity growing or contracting?",
+    "How does services sector activity compare to manufacturing?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BCS_CONCEPT",
+    "BCS_CLASS",
+    "REF_AREA",
+    "DATA_PROVIDER",
+    "TRANSFORMATION"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

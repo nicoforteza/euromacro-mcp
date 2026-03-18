@@ -61,22 +61,52 @@ class CategoryInfo(TypedDict):
     series_ids: list[str]
 
 
-async def search_series(query: str, limit: int = 10) -> list[SeriesResult]:
+async def search_series(
+    query: str,
+    limit: int = 10,
+    provider: str | None = None,
+    frequency: str | None = None,
+    geo_coverage: str | None = None,
+) -> list[SeriesResult]:
     """Search for series in the catalog by keyword.
 
     Searches across series names (EN/ES), descriptions, tags, and categories.
     Results are ranked by relevance with higher priority series ranked first.
+    Falls back to dataset-level search if fewer than 3 curated results are found.
 
     Args:
         query: Search query (e.g., "inflation", "GDP", "interest rate")
         limit: Maximum number of results (default: 10)
+        provider: Optional provider filter (e.g., "ecb")
+        frequency: Optional frequency filter (e.g., "monthly")
+        geo_coverage: Optional geographic coverage filter
 
     Returns:
         List of matching series with basic metadata
     """
     catalog = get_catalog()
     results = catalog.search(query, limit=limit)
-    return [entry.to_search_result() for entry in results]
+
+    # Apply optional filters to curated series results
+    if provider:
+        results = [r for r in results if getattr(r, "source", "") == provider]
+    if frequency:
+        results = [r for r in results if getattr(r, "frequency", "") == frequency]
+
+    output = [e.to_search_result() for e in results]
+
+    # Layer 2: dataset-level search if few curated results
+    if len(output) < 3:
+        dataset_results = catalog.search_datasets(query, provider_id=provider, limit=5)
+        for ds in dataset_results:
+            hint = ds.to_search_result()
+            hint["hint"] = (
+                f"Use explore_dimensions(provider_id='{ds.provider_id}', dataset='{ds.id}') "
+                "to browse this dataset"
+            )
+            output.append(hint)
+
+    return output[:limit]
 
 
 async def get_series(

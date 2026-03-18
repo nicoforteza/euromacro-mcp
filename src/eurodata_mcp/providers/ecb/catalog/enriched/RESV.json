@@ -1,0 +1,29 @@
+{
+  "id": "RESV",
+  "name": "Reserve requirements - volumes",
+  "description_short": "Data on the volume of reserve requirements, showing the amount of required reserves calculated from the liability base of euro area credit institutions.",
+  "concepts": [
+    "reserve requirements volume",
+    "required reserves",
+    "reserve base",
+    "minimum reserves",
+    "ECB monetary policy",
+    "reserve calculation base",
+    "liability base",
+    "reserve statistics"
+  ],
+  "use_cases": [
+    "What is the total required reserve volume for euro area banks?",
+    "How does the reserve requirement volume vary across countries?",
+    "How has the reserve requirement base changed with shifts in bank liabilities?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "REGION",
+    "PROPERTY_TYPE",
+    "INDICATOR",
+    "PRICE_TYPE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

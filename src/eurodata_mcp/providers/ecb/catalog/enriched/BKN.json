@@ -1,0 +1,35 @@
+{
+  "id": "BKN",
+  "name": "Banknotes",
+  "description_short": "Statistics on euro banknotes in circulation, including data on denominations, issuance, processing, and counterfeiting. Tracks the physical cash supply across the euro area.",
+  "concepts": [
+    "banknotes",
+    "cash",
+    "currency in circulation",
+    "euro banknotes",
+    "denominations",
+    "counterfeiting",
+    "cash issuance",
+    "central bank money",
+    "physical money",
+    "euro cash",
+    "banknote production",
+    "cash management"
+  ],
+  "use_cases": [
+    "How many 50-euro banknotes are currently in circulation?",
+    "What is the trend in euro banknote counterfeiting?",
+    "Which denominations account for the largest share of the value of cash in circulation?",
+    "How has total euro cash in circulation evolved over time?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BKN_ITEM",
+    "BKN_DENOM",
+    "BKN_TYPE",
+    "BKN_SERIES",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

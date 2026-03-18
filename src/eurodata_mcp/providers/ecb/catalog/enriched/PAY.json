@@ -1,0 +1,35 @@
+{
+  "id": "PAY",
+  "name": "Payments statistics",
+  "description_short": "Comprehensive statistics on payment transactions in the EU, covering volumes and values of credit transfers, direct debits, card payments, and other payment instruments by country and transaction type.",
+  "concepts": [
+    "payments",
+    "payment statistics",
+    "credit transfer",
+    "SEPA",
+    "direct debit",
+    "card payments",
+    "e-money",
+    "payment volumes",
+    "transaction values",
+    "cashless payments",
+    "payment instruments",
+    "PSP",
+    "payment service provider"
+  ],
+  "use_cases": [
+    "How many credit transfer transactions were processed in the euro area last year?",
+    "How has the use of card payments grown compared to cash?",
+    "What is the total value of SEPA credit transfers?",
+    "How do payment preferences differ across EU countries?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "TYP_TRNSCTN",
+    "RL_TRNSCTN",
+    "COUNT_AREA",
+    "FRD_TYP"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

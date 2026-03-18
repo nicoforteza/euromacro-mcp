@@ -1,0 +1,34 @@
+{
+  "id": "ESA",
+  "name": "Securities issues statistics (ESA)",
+  "description_short": "Securities issuance statistics based on the European System of Accounts (ESA 2010) framework, covering stocks and flows of debt securities by issuing sector, providing a national accounts-consistent view of financial markets.",
+  "concepts": [
+    "securities issuance",
+    "ESA",
+    "national accounts",
+    "debt securities",
+    "bond issuance",
+    "sector accounts",
+    "stocks and flows",
+    "financial assets",
+    "government bonds",
+    "corporate bonds",
+    "ESA 2010",
+    "financial statistics"
+  ],
+  "use_cases": [
+    "What is the total stock of debt securities issued by the government sector in ESA terms?",
+    "How do securities issuance flows compare to GDP across euro area countries?",
+    "What is the ESA 2010-consistent breakdown of securities by issuing sector?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "U_A_SECTOR",
+    "ESA95_ACCOUNT",
+    "R_L_SECTOR",
+    "NA_PRICE",
+    "ESA95_UNIT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

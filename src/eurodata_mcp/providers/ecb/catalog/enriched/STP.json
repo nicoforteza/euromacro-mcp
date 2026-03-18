@@ -1,0 +1,34 @@
+{
+  "id": "STP",
+  "name": "Securities trading platform statistics",
+  "description_short": "Statistics on securities issued and traded on European trading platforms, covering price, yield, maturity, and credit rating information for debt securities at issuance.",
+  "concepts": [
+    "securities trading",
+    "trading platform",
+    "bond issuance",
+    "debt securities",
+    "primary market",
+    "yield at issuance",
+    "credit rating",
+    "maturity",
+    "bond characteristics",
+    "issuance statistics",
+    "fixed income issuance"
+  ],
+  "use_cases": [
+    "What are the yields on newly issued euro area corporate bonds?",
+    "How does the credit rating distribution of new debt issuance look?",
+    "What maturities are most commonly issued for euro area bonds?",
+    "How are new bond characteristics varying with market conditions?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "SEC_ISSUING_SECTOR",
+    "IR_FV_TYPE",
+    "MATURITY_CAT",
+    "CREDIT_RATING",
+    "DATA_TYPE_SEC"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "INW",
+  "name": "International investment position - annual",
+  "description_short": "Annual international investment position data for euro area countries, showing the stock of external assets and liabilities by instrument type and counterpart country. Provides a balance sheet view of external sector exposure.",
+  "concepts": [
+    "international investment position",
+    "IIP",
+    "external assets",
+    "external liabilities",
+    "FDI stock",
+    "portfolio investment",
+    "reserve assets",
+    "net international investment",
+    "NIIP",
+    "external debt",
+    "cross-border investment",
+    "financial globalization"
+  ],
+  "use_cases": [
+    "What is the net international investment position of Germany?",
+    "How large is the euro area's stock of outward foreign direct investment?",
+    "Which countries are the largest creditors and debtors in the euro area?",
+    "How has Spain's external debt evolved since the financial crisis?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BCS_CONCEPT",
+    "BCS_CLASS",
+    "REF_AREA",
+    "DATA_PROVIDER",
+    "TRANSFORMATION"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "SHS",
+  "name": "Securities Holdings Statistics",
+  "description_short": "Granular security-by-security data on holdings of debt and equity securities by sector and country, part of the ECB's Securities Holdings Statistics group. Enables analysis of cross-border portfolio investment and investor base composition.",
+  "concepts": [
+    "securities holdings statistics",
+    "SHS",
+    "ISIN-level",
+    "security-level data",
+    "portfolio investment",
+    "cross-border holdings",
+    "debt securities",
+    "equity securities",
+    "holder sector",
+    "issuer area",
+    "investor base",
+    "home bias",
+    "bond holdings"
+  ],
+  "use_cases": [
+    "What share of French government bonds are held by foreign investors?",
+    "How are euro area banks' securities portfolios distributed geographically?",
+    "What is the home bias in euro area institutional investor portfolios?",
+    "How have cross-border securities holdings evolved under the capital markets union?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "HOLDER_AREA",
+    "ISSUER_AREA",
+    "HOLDER_SECTOR",
+    "INSTR_ASSET",
+    "MATURITY"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

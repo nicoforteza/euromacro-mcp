@@ -1,0 +1,3369 @@
+{
+  "generated_at": "2026-03-18T00:00:00Z",
+  "ecb_api_base": "https://data-api.ecb.europa.eu/service",
+  "total_datasets": 100,
+  "datasets": [
+    {
+      "id": "AGR",
+      "name": "Agricultural statistics",
+      "description_short": "Business and consumer survey data for the agricultural sector, including price expectations, production outlook, and activity indicators. Useful for tracking farm-level sentiment and agricultural market conditions across EU member states.",
+      "concepts": [
+        "agriculture",
+        "farm survey",
+        "agri prices",
+        "producer prices",
+        "food prices",
+        "crop production",
+        "livestock",
+        "agricultural outlook",
+        "business survey",
+        "consumer survey",
+        "BCS",
+        "sentiment indicator",
+        "cereal",
+        "dairy"
+      ],
+      "use_cases": [
+        "What is the current price expectation among European farmers?",
+        "How has agricultural sentiment changed over time in Germany and France?",
+        "What are the production activity indicators for EU agriculture?",
+        "How do crop price expectations vary across EU member states?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BCS_CONCEPT",
+        "BCS_CLASS",
+        "REF_AREA",
+        "DATA_PROVIDER",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "AME",
+      "name": "AMECO - Annual macro-economic database",
+      "description_short": "Annual macroeconomic database maintained by the European Commission covering GDP, inflation, employment, government finances and external trade for EU and major non-EU economies. The primary source for long-run historical comparisons and fiscal surveillance.",
+      "concepts": [
+        "AMECO",
+        "annual macroeconomics",
+        "GDP",
+        "gross domestic product",
+        "inflation",
+        "employment",
+        "government debt",
+        "fiscal balance",
+        "current account",
+        "productivity",
+        "wages",
+        "investment",
+        "EU macro",
+        "European Commission",
+        "fiscal surveillance"
+      ],
+      "use_cases": [
+        "What is the long-run trajectory of government debt as a share of GDP for Italy?",
+        "How does Germany's current account surplus compare to the EU average over the past 20 years?",
+        "What are the European Commission forecasts for GDP growth and inflation across EU countries?",
+        "How has labor productivity evolved across EU member states since 1990?",
+        "What is Spain's cyclically adjusted fiscal balance over time?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "global",
+      "key_dimensions": [
+        "AME_REF_AREA",
+        "AME_ITEM",
+        "AME_UNIT",
+        "AME_TRANSFORMATION",
+        "AME_REFERENCE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "BKN",
+      "name": "Banknotes",
+      "description_short": "Statistics on euro banknotes in circulation, including data on denominations, issuance, processing, and counterfeiting. Tracks the physical cash supply across the euro area.",
+      "concepts": [
+        "banknotes",
+        "cash",
+        "currency in circulation",
+        "euro banknotes",
+        "denominations",
+        "counterfeiting",
+        "cash issuance",
+        "central bank money",
+        "physical money",
+        "euro cash",
+        "banknote production",
+        "cash management"
+      ],
+      "use_cases": [
+        "How many 50-euro banknotes are currently in circulation?",
+        "What is the trend in euro banknote counterfeiting?",
+        "Which denominations account for the largest share of the value of cash in circulation?",
+        "How has total euro cash in circulation evolved over time?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BKN_ITEM",
+        "BKN_DENOM",
+        "BKN_TYPE",
+        "BKN_SERIES",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "BLS",
+      "name": "Bank Lending Survey",
+      "description_short": "Quarterly survey of senior loan officers at euro area banks covering credit standards, loan demand, and credit terms for loans to businesses and households. One of the ECB's key tools for monitoring bank lending conditions.",
+      "concepts": [
+        "bank lending survey",
+        "BLS",
+        "credit standards",
+        "loan demand",
+        "credit tightening",
+        "credit loosening",
+        "mortgage lending",
+        "corporate loans",
+        "SME credit",
+        "credit conditions",
+        "lending survey",
+        "net percentage",
+        "diffusion index",
+        "bank credit"
+      ],
+      "use_cases": [
+        "Are euro area banks tightening or loosening credit standards for business loans?",
+        "How has demand for mortgages changed in the euro area?",
+        "What factors are banks citing as drivers of changes in credit conditions?",
+        "How do lending conditions for SMEs compare to those for large corporates?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BLS_ITEM",
+        "BLS_COUNT",
+        "BLS_COUNT_DETAIL",
+        "EFFECT_DOMAIN",
+        "BLS_AGG_METHOD"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "BNT",
+      "name": "Balance sheet items of other monetary financial institutions",
+      "description_short": "Balance sheet data for monetary financial institutions other than the central bank, covering assets and liabilities by counterpart sector, currency and maturity. Complements the BSI dataset with additional breakdowns.",
+      "concepts": [
+        "MFI balance sheet",
+        "bank assets",
+        "bank liabilities",
+        "monetary financial institutions",
+        "deposits",
+        "loans",
+        "securities",
+        "currency breakdown",
+        "maturity structure",
+        "banking sector",
+        "monetary statistics",
+        "credit"
+      ],
+      "use_cases": [
+        "What is the total deposit base of euro area banks broken down by currency?",
+        "How are MFI assets distributed across different counterpart sectors?",
+        "What is the maturity structure of loans granted by euro area banks?",
+        "How have bank liabilities changed since the introduction of QE?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REF_AREA",
+        "DATA_TYPE_BOP",
+        "BKN_DENOM",
+        "ADJUSTMENT",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "BOP",
+      "name": "Balance of Payments",
+      "description_short": "Euro area and member state balance of payments statistics following IMF BPM6 methodology, covering current account, capital account, financial account, and international investment position. The core dataset for external sector analysis.",
+      "concepts": [
+        "balance of payments",
+        "BOP",
+        "current account",
+        "trade balance",
+        "capital flows",
+        "financial account",
+        "direct investment",
+        "portfolio investment",
+        "FDI",
+        "exports",
+        "imports",
+        "services trade",
+        "primary income",
+        "secondary income",
+        "BPM6"
+      ],
+      "use_cases": [
+        "What is the euro area current account balance and how has it evolved?",
+        "How large are portfolio investment inflows into the euro area?",
+        "What is Germany's bilateral trade surplus with the United States?",
+        "How do FDI flows compare across euro area countries?",
+        "What is the breakdown of the euro area current account by income category?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BOP_ITEM",
+        "DATA_TYPE_BOP",
+        "CURR_BRKDWN",
+        "COUNT_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "BSI",
+      "name": "Balance Sheet Items (MFI)",
+      "description_short": "Monthly consolidated balance sheet of monetary financial institutions in the euro area, covering loans, deposits, securities, and other assets and liabilities broken down by sector, maturity, and currency. The main source for monetary statistics.",
+      "concepts": [
+        "MFI balance sheet",
+        "bank balance sheet",
+        "loans",
+        "deposits",
+        "credit",
+        "monetary statistics",
+        "M3",
+        "broad money",
+        "bank assets",
+        "bank liabilities",
+        "household loans",
+        "corporate credit",
+        "maturity",
+        "currency breakdown",
+        "counterpart sector"
+      ],
+      "use_cases": [
+        "What is the total stock of loans to the non-financial private sector in the euro area?",
+        "How have household deposits at euro area banks evolved over time?",
+        "What is the currency composition of MFI balance sheets?",
+        "How do loans to non-financial corporations compare across euro area countries?",
+        "What is the maturity breakdown of MFI lending?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BS_ITEM",
+        "BS_REP_SECTOR",
+        "MATURITY_ORIG",
+        "COUNT_AREA",
+        "BS_COUNT_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "BSP",
+      "name": "Balance Sheet Items (MFI) - Provisional",
+      "description_short": "Provisional version of the MFI balance sheet statistics, released ahead of the final BSI data. Provides early estimates of bank loans, deposits, and other balance sheet items for the euro area.",
+      "concepts": [
+        "MFI balance sheet provisional",
+        "bank balance sheet",
+        "provisional data",
+        "loans",
+        "deposits",
+        "credit",
+        "monetary statistics",
+        "early estimates",
+        "flash estimate",
+        "bank assets",
+        "bank liabilities"
+      ],
+      "use_cases": [
+        "What are the latest provisional estimates of euro area bank lending?",
+        "How do provisional MFI balance sheet figures compare to final data?",
+        "What is the early read on household credit growth in the euro area?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BS_ITEM",
+        "BS_REP_SECTOR",
+        "MATURITY_ORIG",
+        "COUNT_AREA",
+        "BS_COUNT_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CAR",
+      "name": "Capital Adequacy",
+      "description_short": "Capital adequacy statistics for the European car market, covering new car registrations and production. Used as an economic activity indicator for the automotive sector.",
+      "concepts": [
+        "car registrations",
+        "automobile",
+        "vehicle sales",
+        "new cars",
+        "auto production",
+        "passenger cars",
+        "commercial vehicles",
+        "automotive sector",
+        "transport statistics",
+        "industrial output"
+      ],
+      "use_cases": [
+        "How many new cars were registered in Germany last month?",
+        "What is the trend in new car registrations across the euro area?",
+        "How does car production compare to pre-pandemic levels?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "CAR_CONCEPT",
+        "CAR_CLASS",
+        "REF_AREA",
+        "DATA_PROVIDER"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CBD",
+      "name": "Consolidated Banking Data",
+      "description_short": "Consolidated balance sheet and income statement data for EU banking groups on a home-country consolidated basis, covering capital adequacy, asset quality, profitability, and liquidity. Key source for macroprudential analysis.",
+      "concepts": [
+        "consolidated banking data",
+        "CBD",
+        "bank capital",
+        "capital adequacy",
+        "NPL",
+        "non-performing loans",
+        "bank profitability",
+        "ROE",
+        "ROA",
+        "CET1",
+        "tier 1 capital",
+        "loan loss provisions",
+        "banking system",
+        "macroprudential",
+        "bank stability"
+      ],
+      "use_cases": [
+        "What is the average CET1 capital ratio for euro area banks?",
+        "How has the non-performing loan ratio evolved in Italian banks?",
+        "What is the return on equity for the EU banking sector?",
+        "How do capital buffers compare across EU banking systems?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "CB_ITEM",
+        "CB_REP_SECTOR",
+        "CB_SECTOR_SIZE",
+        "MATURITY_ORIG",
+        "CB_EXP_TYPE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CBD2",
+      "name": "Consolidated Banking Data 2",
+      "description_short": "Extended consolidated banking data with additional breakdowns including counterparty sector, portfolio classification (IFRS), and exposure types, providing a more granular view of EU banking group balance sheets.",
+      "concepts": [
+        "consolidated banking data",
+        "CBD2",
+        "IFRS",
+        "bank capital",
+        "NPL",
+        "non-performing loans",
+        "bank exposure",
+        "portfolio classification",
+        "fair value",
+        "banking sector",
+        "CET1",
+        "loan quality",
+        "macroprudential",
+        "EBA"
+      ],
+      "use_cases": [
+        "How are EU banks' assets classified across different IFRS portfolio categories?",
+        "What is the breakdown of non-performing exposures by counterparty sector?",
+        "How do EU banks' cross-border exposures compare across host countries?",
+        "What is the trend in loan loss provisions across EU banking systems?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "CB_ITEM",
+        "CB_REP_SECTOR",
+        "CB_EXP_TYPE",
+        "CB_PORTFOLIO",
+        "CB_REP_FRAMEWRK"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CCP",
+      "name": "Central counterparty clearing",
+      "description_short": "Statistics on central counterparty clearing houses (CCPs) operating in the EU, covering cleared volumes, initial and variation margin, collateral, and risk indicators. Key for financial stability monitoring.",
+      "concepts": [
+        "CCP",
+        "central counterparty",
+        "clearing house",
+        "derivatives clearing",
+        "initial margin",
+        "variation margin",
+        "collateral",
+        "default fund",
+        "OTC derivatives",
+        "financial market infrastructure",
+        "systemic risk",
+        "EMIR"
+      ],
+      "use_cases": [
+        "What is the total value of positions cleared through EU CCPs?",
+        "How has initial margin at European clearing houses evolved?",
+        "What types of instruments are being cleared through EU CCPs?",
+        "How do collateral requirements at CCPs compare across systems?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "eu_wide",
+      "key_dimensions": [
+        "CCP_SYSTEM",
+        "SSS_INFO_TYPE",
+        "SSS_INSTRUMENT",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CES",
+      "name": "Consumer Expectations Survey",
+      "description_short": "ECB household survey on consumer expectations covering inflation perceptions and expectations, spending intentions, labor market views, and housing market outlook, with breakdowns by age, income, and other demographics.",
+      "concepts": [
+        "consumer expectations",
+        "CES",
+        "inflation expectations",
+        "household survey",
+        "consumer confidence",
+        "spending intentions",
+        "housing expectations",
+        "unemployment expectations",
+        "income expectations",
+        "demographics",
+        "subjective expectations",
+        "consumer survey"
+      ],
+      "use_cases": [
+        "What do European households expect inflation to be in one year?",
+        "How do inflation expectations differ across income groups?",
+        "What share of households plan to make major purchases in the next year?",
+        "How has consumer confidence in labor market conditions evolved?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "CES_VARIABLE",
+        "CES_BREAKDOWN",
+        "CES_ANSWER",
+        "CES_DENOM",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CISS",
+      "name": "Composite Indicator of Systemic Stress",
+      "description_short": "ECB composite index measuring systemic stress in the euro area financial system, combining indicators from money markets, bond markets, equity markets, banking, and foreign exchange markets into a single gauge of financial stability risk.",
+      "concepts": [
+        "CISS",
+        "systemic stress",
+        "financial stress",
+        "systemic risk",
+        "financial stability",
+        "composite indicator",
+        "money market stress",
+        "bond market stress",
+        "equity market stress",
+        "banking stress",
+        "financial crisis indicator",
+        "market turbulence"
+      ],
+      "use_cases": [
+        "What is the current level of systemic financial stress in the euro area?",
+        "Which market segment is contributing most to financial stress right now?",
+        "How does today's CISS reading compare to the 2008 financial crisis or 2011 sovereign debt crisis?",
+        "What is the trend in financial system stress over the past six months?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "REF_AREA",
+        "INSTRUMENT_FM",
+        "PROVIDER_FM",
+        "DATA_TYPE_FM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CLIFS",
+      "name": "Country-Level Index of Financial Stress",
+      "description_short": "Country-level indicator of financial stress measuring stress in equity, bond, foreign exchange, and banking markets for individual EU countries. Complements the CISS by providing a country-specific view of financial stability.",
+      "concepts": [
+        "CLIFS",
+        "country financial stress",
+        "financial stress index",
+        "systemic risk",
+        "country risk",
+        "equity market stress",
+        "bond market stress",
+        "banking stress",
+        "financial stability",
+        "sovereign stress"
+      ],
+      "use_cases": [
+        "Which euro area country is currently experiencing the most financial stress?",
+        "How does Italy's financial stress index compare to Spain's?",
+        "How did financial stress in Greece evolve during the sovereign debt crisis?",
+        "What is the current CLIFS reading for France and Germany?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REF_AREA",
+        "INSTRUMENT_FM",
+        "PROVIDER_FM",
+        "DATA_TYPE_FM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "CPP",
+      "name": "Covered bond purchase programme",
+      "description_short": "Data on the ECB's covered bond purchase programmes (CBPP1, CBPP2, CBPP3), including holdings, purchases, and redemptions. Tracks the ECB's direct interventions in covered bond markets as part of its unconventional monetary policy.",
+      "concepts": [
+        "covered bond purchase programme",
+        "CBPP",
+        "CBPP3",
+        "ECB asset purchases",
+        "QE",
+        "quantitative easing",
+        "covered bonds",
+        "Pfandbriefe",
+        "asset purchase programme",
+        "APP",
+        "ECB portfolio",
+        "unconventional monetary policy"
+      ],
+      "use_cases": [
+        "What is the current stock of covered bonds held by the ECB under CBPP3?",
+        "How have ECB covered bond purchases evolved over time?",
+        "What is the redemption profile of the ECB's covered bond portfolio?",
+        "Which countries' covered bonds make up the largest share of ECB holdings?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "PROPERTY_CPP",
+        "PROPERTY_IND",
+        "CPP_METHOD",
+        "REF_AREA",
+        "RPP_SOURCE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "DCM",
+      "name": "Debt securities markets",
+      "description_short": "Statistics on debt securities issued by euro area residents, covering outstanding amounts, issuance, and redemptions by sector, currency, and maturity. The main reference for bond market analysis in the euro area.",
+      "concepts": [
+        "debt securities",
+        "bonds",
+        "bond market",
+        "corporate bonds",
+        "government bonds",
+        "ABS",
+        "covered bonds",
+        "issuance",
+        "outstanding amounts",
+        "redemptions",
+        "maturity structure",
+        "fixed income",
+        "credit market",
+        "securitisation"
+      ],
+      "use_cases": [
+        "What is the total stock of corporate bonds issued by euro area non-financial corporations?",
+        "How has government bond issuance in the euro area changed over time?",
+        "What is the maturity breakdown of outstanding euro area debt securities?",
+        "How has covered bond issuance evolved in different euro area countries?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SEC_ISSUING_SECTOR",
+        "DEBT_TYPE",
+        "MATURITY_CAT",
+        "DATA_TYPE_SEC",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "DD",
+      "name": "Daily data",
+      "description_short": "High-frequency daily dataset aggregating key financial and economic indicators from multiple ECB sources including exchange rates, money market rates, balance of payments, and financial market data. Useful for real-time economic monitoring.",
+      "concepts": [
+        "daily data",
+        "high frequency",
+        "financial indicators",
+        "exchange rates",
+        "money market rates",
+        "balance of payments daily",
+        "real-time",
+        "ECB tracker",
+        "financial markets",
+        "effective exchange rate",
+        "current account",
+        "capital flows"
+      ],
+      "use_cases": [
+        "What is today's euro effective exchange rate?",
+        "How have daily money market conditions evolved this week?",
+        "What are the latest daily capital flow indicators for the euro area?",
+        "What is the daily current account balance estimate?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "DD_ECON_CONCEPT",
+        "DD_TRANSF",
+        "DD_SUFFIX",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "DWA",
+      "name": "Distributional Wealth Accounts",
+      "description_short": "Distributional breakdown of household wealth in the euro area, combining macro balance sheet data with micro survey data to show the distribution of net wealth, assets, and liabilities across the household wealth distribution.",
+      "concepts": [
+        "wealth distribution",
+        "household wealth",
+        "inequality",
+        "net wealth",
+        "wealth quintiles",
+        "financial assets",
+        "housing wealth",
+        "liabilities",
+        "distributional accounts",
+        "DWA",
+        "wealth inequality",
+        "Gini",
+        "top 1%",
+        "bottom 50%",
+        "assets distribution"
+      ],
+      "use_cases": [
+        "What share of total euro area household wealth is held by the wealthiest 10%?",
+        "How is housing wealth distributed across the household wealth distribution?",
+        "How has wealth inequality in the euro area changed over time?",
+        "What is the net wealth of the median household in Germany versus Italy?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "DWA_GRP",
+        "INSTR_ASSET",
+        "STO",
+        "ACCOUNT_ENTRY",
+        "REF_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ECS",
+      "name": "ECB Consumer Survey",
+      "description_short": "Older ECB consumer survey covering household expectations and perceptions on inflation, economic conditions, and major purchases. Predecessor to the more detailed Consumer Expectations Survey (CES).",
+      "concepts": [
+        "consumer survey",
+        "consumer expectations",
+        "inflation perceptions",
+        "household survey",
+        "consumer confidence",
+        "ECB survey",
+        "purchasing intentions",
+        "economic outlook",
+        "consumer sentiment"
+      ],
+      "use_cases": [
+        "What were consumer inflation perceptions in the euro area?",
+        "How did household expectations for economic conditions evolve?",
+        "What is the historical record of consumer confidence surveys?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SURVEY_ITEM",
+        "SURVEY_BRKDWN",
+        "DATA_PROVIDER",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "EON",
+      "name": "EONIA (Euro OverNight Index Average)",
+      "description_short": "Historical data on EONIA, the euro overnight interest rate benchmark that was replaced by \u20acSTR in 2022. Provides the daily unsecured overnight lending rate between euro area banks.",
+      "concepts": [
+        "EONIA",
+        "overnight rate",
+        "money market rate",
+        "interbank rate",
+        "euro overnight",
+        "benchmark rate",
+        "reference rate",
+        "short-term rate",
+        "unsecured lending",
+        "money market"
+      ],
+      "use_cases": [
+        "What was the historical path of EONIA before its discontinuation?",
+        "How did EONIA respond to ECB policy rate changes?",
+        "What was the spread between EONIA and the ECB deposit facility rate?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "EONIA_BANK",
+        "EONIA_ITEM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ESA",
+      "name": "Securities issues statistics (ESA)",
+      "description_short": "Securities issuance statistics based on the European System of Accounts (ESA 2010) framework, covering stocks and flows of debt securities by issuing sector, providing a national accounts-consistent view of financial markets.",
+      "concepts": [
+        "securities issuance",
+        "ESA",
+        "national accounts",
+        "debt securities",
+        "bond issuance",
+        "sector accounts",
+        "stocks and flows",
+        "financial assets",
+        "government bonds",
+        "corporate bonds",
+        "ESA 2010",
+        "financial statistics"
+      ],
+      "use_cases": [
+        "What is the total stock of debt securities issued by the government sector in ESA terms?",
+        "How do securities issuance flows compare to GDP across euro area countries?",
+        "What is the ESA 2010-consistent breakdown of securities by issuing sector?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "U_A_SECTOR",
+        "ESA95_ACCOUNT",
+        "R_L_SECTOR",
+        "NA_PRICE",
+        "ESA95_UNIT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ESB",
+      "name": "Securities issues statistics (ESB)",
+      "description_short": "Securities issuance statistics with an extended balance of payments perspective, covering cross-border holdings and flows of debt securities with geographic and sectoral breakdowns.",
+      "concepts": [
+        "securities issuance",
+        "balance of payments",
+        "cross-border",
+        "debt securities",
+        "bond market",
+        "international investment",
+        "sectoral breakdown",
+        "geographic breakdown",
+        "financial flows"
+      ],
+      "use_cases": [
+        "What is the breakdown of debt securities by issuing sector and currency?",
+        "How do cross-border securities holdings compare across euro area countries?",
+        "What is the resident vs non-resident split in euro area bond holdings?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BOP_ITEM",
+        "DATA_TYPE_BOP",
+        "CURR_BRKDWN",
+        "COUNT_AREA",
+        "RESID_ECON_ACT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "EST",
+      "name": "Euro Short-Term Rate (\u20acSTR)",
+      "description_short": "Daily data on the \u20acSTR (Euro Short-Term Rate), the ECB's benchmark overnight interest rate for the euro area that replaced EONIA in 2022. Based on actual transactions in the unsecured overnight market.",
+      "concepts": [
+        "\u20acSTR",
+        "ESTR",
+        "euro short-term rate",
+        "overnight rate",
+        "benchmark rate",
+        "reference rate",
+        "money market",
+        "unsecured lending",
+        "interbank market",
+        "ECB rate",
+        "EONIA successor",
+        "short-term interest rate"
+      ],
+      "use_cases": [
+        "What is today's \u20acSTR rate?",
+        "How has \u20acSTR evolved since its introduction?",
+        "What is the spread between \u20acSTR and the ECB deposit facility rate?",
+        "How does \u20acSTR compare to the pre-2022 EONIA level?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "BENCHMARK_ITEM",
+        "DATA_TYPE_EST"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "EWT",
+      "name": "Euro area accounts - quarterly (EWT)",
+      "description_short": "Quarterly sectoral accounts for the euro area covering income, saving, investment, and financing flows by institutional sector. Provides a comprehensive picture of the macro-financial linkages between households, firms, government, and the rest of the world.",
+      "concepts": [
+        "sectoral accounts",
+        "national accounts",
+        "quarterly accounts",
+        "household saving",
+        "corporate investment",
+        "government finance",
+        "sector balance sheets",
+        "financial accounts",
+        "non-financial accounts",
+        "net lending",
+        "financial flows",
+        "EA accounts"
+      ],
+      "use_cases": [
+        "What is the household saving rate in the euro area?",
+        "How has corporate investment evolved relative to corporate saving?",
+        "What is the government sector net lending position?",
+        "How do financial flows between sectors compare quarter-by-quarter?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "EWT_INDICATOR",
+        "EWT_CONCEPT",
+        "ACTIVITY",
+        "REF_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "EXR",
+      "name": "Exchange Rates",
+      "description_short": "Official ECB exchange rates for the euro against all major currencies, available at daily, monthly, quarterly, and annual frequency. The definitive reference for EUR bilateral exchange rates and effective exchange rate indices.",
+      "concepts": [
+        "exchange rate",
+        "EUR",
+        "FX",
+        "forex",
+        "currency",
+        "bilateral rate",
+        "effective exchange rate",
+        "EER",
+        "EUR/USD",
+        "EUR/GBP",
+        "EUR/JPY",
+        "EUR/CHF",
+        "nominal exchange rate",
+        "real exchange rate",
+        "currency basket"
+      ],
+      "use_cases": [
+        "What is the current EUR/USD exchange rate?",
+        "How has the euro depreciated or appreciated against the dollar this year?",
+        "What is the nominal effective exchange rate of the euro?",
+        "How does the euro compare to a basket of trading partner currencies?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "global",
+      "key_dimensions": [
+        "CURRENCY",
+        "CURRENCY_DENOM",
+        "EXR_TYPE",
+        "EXR_SUFFIX"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "FM",
+      "name": "Financial Markets",
+      "description_short": "Broad financial market statistics covering money market rates, bond yields, stock market indices, credit spreads, and other financial market indicators across euro area countries and major global markets.",
+      "concepts": [
+        "financial markets",
+        "bond yields",
+        "stock market",
+        "equity indices",
+        "credit spreads",
+        "money market rates",
+        "repo rate",
+        "swap rates",
+        "OIS",
+        "government yields",
+        "corporate bond spreads",
+        "financial indicators",
+        "market data"
+      ],
+      "use_cases": [
+        "What is the current 10-year German Bund yield?",
+        "How have Italian BTP spreads over Bunds evolved?",
+        "What are current euro area money market rates?",
+        "How have equity market valuations changed over the past year?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INSTRUMENT_FM",
+        "PROVIDER_FM",
+        "PROVIDER_FM_ID",
+        "REF_AREA",
+        "DATA_TYPE_FM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "FVC",
+      "name": "Financial Vehicle Corporations",
+      "description_short": "Balance sheet statistics for financial vehicle corporations (FVCs) engaged in securitisation transactions in the euro area, covering assets and liabilities by type of securitised loan, originator sector, and investor.",
+      "concepts": [
+        "financial vehicle corporations",
+        "FVC",
+        "securitisation",
+        "SPV",
+        "special purpose vehicle",
+        "ABS",
+        "asset-backed securities",
+        "mortgage-backed securities",
+        "CLO",
+        "CDO",
+        "shadow banking",
+        "securitisation statistics"
+      ],
+      "use_cases": [
+        "What is the total size of euro area securitisation vehicles?",
+        "Which asset classes are being securitised by euro area FVCs?",
+        "Which banking sectors are the largest originators of securitised loans?",
+        "How has the euro area securitisation market evolved since 2008?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "FVC_ITEM",
+        "FVC_REP_SECTOR",
+        "FVC_ORI_SECTOR",
+        "MATURITY_ORIG",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "FXI",
+      "name": "FX interventions",
+      "description_short": "Statistics on foreign exchange market interventions by euro area central banks, including purchase and sale operations in the FX market. Rare and highly market-sensitive data.",
+      "concepts": [
+        "FX intervention",
+        "foreign exchange intervention",
+        "currency intervention",
+        "forex operations",
+        "exchange rate management",
+        "central bank operations",
+        "FX purchase",
+        "FX sale",
+        "currency stabilisation"
+      ],
+      "use_cases": [
+        "Has the ECB intervened in FX markets recently?",
+        "What was the volume of FX interventions during periods of euro volatility?",
+        "What currencies were targeted in ECB FX operations?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "FXS_OP_TYPE",
+        "DATA_TYPE_FXS",
+        "MARKET_TRANS",
+        "CURRENCY_P_H",
+        "CURRENCY_S"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "GST",
+      "name": "Government statistics",
+      "description_short": "Comprehensive government finance statistics for euro area and EU member states covering revenues, expenditures, deficits, debt, and related fiscal variables under the ESA 2010 accounting framework.",
+      "concepts": [
+        "government finance",
+        "fiscal statistics",
+        "government debt",
+        "fiscal deficit",
+        "budget balance",
+        "government revenue",
+        "government expenditure",
+        "Maastricht criteria",
+        "excessive deficit procedure",
+        "EDP",
+        "public finances",
+        "tax revenue",
+        "debt ratio"
+      ],
+      "use_cases": [
+        "What is France's government deficit as a share of GDP?",
+        "How does Italy's debt-to-GDP ratio compare to the euro area average?",
+        "What is the breakdown of government revenues across euro area countries?",
+        "Which euro area countries are currently subject to an excessive deficit procedure?",
+        "How has public spending on healthcare evolved across EU member states?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "GOVNT_ITEM_ESA",
+        "GOVNT_REF_SECTOR",
+        "GOVNT_VALUATION",
+        "GOVNT_COUNT_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "HICP",
+      "name": "Harmonised Index of Consumer Prices",
+      "description_short": "The HICP is the ECB's target inflation measure, covering all major expenditure categories across euro area countries. Available at various levels of detail from the headline index to individual product categories.",
+      "concepts": [
+        "HICP",
+        "inflation",
+        "consumer prices",
+        "price index",
+        "CPI",
+        "core inflation",
+        "energy prices",
+        "food prices",
+        "services inflation",
+        "goods inflation",
+        "harmonised inflation",
+        "Eurostat",
+        "monetary policy target",
+        "price stability",
+        "euro area inflation"
+      ],
+      "use_cases": [
+        "What is the current euro area headline inflation rate?",
+        "How does core inflation differ from headline HICP?",
+        "Which HICP components are contributing most to current inflation?",
+        "How does inflation compare across euro area countries?",
+        "What is the trend in services inflation versus goods inflation?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "ICP_ITEM",
+        "DATA_PROVIDER",
+        "ICP_SUFFIX",
+        "REF_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ICB",
+      "name": "Individual Counterparty Data - Balance sheet",
+      "description_short": "Granular balance sheet data for individual pension funds and insurance companies, showing assets, liabilities, and their breakdowns by instrument, maturity, and counterpart. Part of the ECB's insurance and pension statistics framework.",
+      "concepts": [
+        "pension funds",
+        "insurance companies",
+        "ICPF",
+        "balance sheet",
+        "individual data",
+        "assets",
+        "liabilities",
+        "investment portfolio",
+        "technical provisions",
+        "maturity structure",
+        "counterpart sector",
+        "institutional investors"
+      ],
+      "use_cases": [
+        "What is the asset allocation of euro area pension funds?",
+        "How are insurance company portfolios distributed across asset classes?",
+        "What is the maturity structure of pension fund liabilities?",
+        "How do technical provisions of insurers compare across euro area countries?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "ICPF_ITEM",
+        "REPORTING_SECTOR",
+        "MATURITY",
+        "COUNTERPART_AREA",
+        "COUNTERPART_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ICO",
+      "name": "Individual Counterparty Data - Operations",
+      "description_short": "Transaction-level data on financial operations by individual pension funds and insurance companies, capturing flows through their balance sheets including purchases, sales, and maturities of financial instruments.",
+      "concepts": [
+        "pension funds",
+        "insurance companies",
+        "ICPF",
+        "financial operations",
+        "transactions",
+        "portfolio flows",
+        "investment flows",
+        "asset purchases",
+        "liability issuance",
+        "institutional investor flows"
+      ],
+      "use_cases": [
+        "What financial instruments are pension funds buying or selling?",
+        "How have insurance company investment flows changed?",
+        "What is the net investment activity of euro area pension funds by asset class?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "ICO_PAY",
+        "REPORTING_SECTOR",
+        "COUNTERPART_AREA",
+        "CURRENCY_DENOM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ICP",
+      "name": "ICP - Individual country price data",
+      "description_short": "Individual country-level consumer price data underlying the HICP, with detailed product-level breakdowns for each EU member state. Enables cross-country price comparison at a granular level.",
+      "concepts": [
+        "consumer prices",
+        "individual country prices",
+        "HICP components",
+        "price data",
+        "CPI",
+        "inflation",
+        "product prices",
+        "country-level inflation",
+        "price comparison",
+        "Eurostat HICP"
+      ],
+      "use_cases": [
+        "How do food prices compare between Germany and Poland?",
+        "Which country has the highest energy price inflation?",
+        "What is the HICP for services in Spain compared to the EU average?",
+        "How do housing costs vary across EU countries?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "ICP_ITEM",
+        "STS_INSTITUTION",
+        "ICP_SUFFIX",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "IFI",
+      "name": "Insurance and Financial Intermediaries",
+      "description_short": "Statistics on insurance corporations and other financial intermediaries in the euro area, covering balance sheets, investment portfolios, and technical reserves.",
+      "concepts": [
+        "insurance",
+        "financial intermediaries",
+        "insurance corporations",
+        "investment portfolio",
+        "technical provisions",
+        "life insurance",
+        "non-life insurance",
+        "reinsurance",
+        "balance sheet",
+        "maturity structure"
+      ],
+      "use_cases": [
+        "What is the total size of the euro area insurance sector?",
+        "How are insurance company assets allocated across instruments?",
+        "What is the maturity breakdown of insurance sector liabilities?",
+        "How have technical reserves of euro area insurers evolved?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INSTRUMENT_FM",
+        "IN_OUT_DATA_IFI",
+        "DATA_TYPE_IFI",
+        "MATURITY_CAT",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ILM",
+      "name": "Interbank lending market",
+      "description_short": "Data on the euro area interbank lending market, capturing overnight and term lending between banks. Provides insights into money market functioning and bank funding conditions.",
+      "concepts": [
+        "interbank lending",
+        "interbank market",
+        "money market",
+        "overnight lending",
+        "term lending",
+        "bank funding",
+        "liquidity",
+        "interbank rates",
+        "secured lending",
+        "unsecured lending",
+        "repo",
+        "money market functioning"
+      ],
+      "use_cases": [
+        "What is the volume of overnight interbank lending in the euro area?",
+        "How has the interbank market dried up or recovered since the financial crisis?",
+        "What is the breakdown of interbank lending by term?",
+        "How do secured versus unsecured interbank volumes compare?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BS_ITEM",
+        "BS_REP_SECTOR",
+        "COUNT_AREA",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "INW",
+      "name": "International investment position - annual",
+      "description_short": "Annual international investment position data for euro area countries, showing the stock of external assets and liabilities by instrument type and counterpart country. Provides a balance sheet view of external sector exposure.",
+      "concepts": [
+        "international investment position",
+        "IIP",
+        "external assets",
+        "external liabilities",
+        "FDI stock",
+        "portfolio investment",
+        "reserve assets",
+        "net international investment",
+        "NIIP",
+        "external debt",
+        "cross-border investment",
+        "financial globalization"
+      ],
+      "use_cases": [
+        "What is the net international investment position of Germany?",
+        "How large is the euro area's stock of outward foreign direct investment?",
+        "Which countries are the largest creditors and debtors in the euro area?",
+        "How has Spain's external debt evolved since the financial crisis?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BCS_CONCEPT",
+        "BCS_CLASS",
+        "REF_AREA",
+        "DATA_PROVIDER",
+        "TRANSFORMATION"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "IRS",
+      "name": "Interest rate statistics",
+      "description_short": "Statistics on interest rates applied by monetary financial institutions on loans and deposits to households and non-financial corporations, providing a comprehensive view of lending and deposit rates across the euro area.",
+      "concepts": [
+        "interest rates",
+        "lending rates",
+        "deposit rates",
+        "mortgage rates",
+        "consumer credit rates",
+        "business loan rates",
+        "MFI rates",
+        "bank rates",
+        "interest rate statistics",
+        "rate differentials",
+        "fixed rate",
+        "variable rate",
+        "APRC"
+      ],
+      "use_cases": [
+        "What is the average interest rate on new mortgages in Germany?",
+        "How do consumer credit rates compare across euro area countries?",
+        "What is the average rate on new business loans in Spain?",
+        "How have deposit rates evolved since the ECB started raising rates?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "IR_TYPE",
+        "TR_TYPE",
+        "MATURITY_CAT",
+        "BS_COUNT_SECTOR",
+        "IR_FV_TYPE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "IVF",
+      "name": "Investment funds",
+      "description_short": "Balance sheet statistics for euro area investment funds (excluding money market funds), covering total net assets, shares issued, and portfolio breakdown by asset class, maturity, and geography.",
+      "concepts": [
+        "investment funds",
+        "mutual funds",
+        "asset management",
+        "fund assets",
+        "total net assets",
+        "NAV",
+        "bond funds",
+        "equity funds",
+        "mixed funds",
+        "fund flows",
+        "fund shares",
+        "shadow banking",
+        "collective investment",
+        "fund industry"
+      ],
+      "use_cases": [
+        "What is the total assets under management in euro area investment funds?",
+        "How are investment fund assets allocated across bonds, equities, and other instruments?",
+        "What are the net flows into and out of euro area investment funds?",
+        "How have bond fund assets evolved with rising interest rates?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "IVF_ITEM",
+        "IVF_REP_SECTOR",
+        "MATURITY_ORIG",
+        "COUNT_AREA",
+        "BS_COUNT_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "KRI",
+      "name": "Key Risk Indicators",
+      "description_short": "Key risk indicators for the EU banking sector, providing standardised metrics on capital adequacy, asset quality, profitability, and liquidity used for macroprudential and supervisory analysis.",
+      "concepts": [
+        "key risk indicators",
+        "KRI",
+        "bank risk",
+        "capital adequacy",
+        "asset quality",
+        "NPL ratio",
+        "profitability",
+        "ROE",
+        "liquidity",
+        "leverage ratio",
+        "CET1",
+        "banking risk",
+        "EBA indicators",
+        "macroprudential",
+        "supervisory data"
+      ],
+      "use_cases": [
+        "What are the key risk metrics for the euro area banking sector?",
+        "How do capital ratios compare across EU banking systems?",
+        "What is the trend in non-performing loan ratios?",
+        "How has bank profitability evolved in the current rate environment?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "CB_ITEM",
+        "CB_REP_SECTOR",
+        "CB_SECTOR_SIZE",
+        "MATURITY_ORIG",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "LIG",
+      "name": "Liquidity conditions",
+      "description_short": "Data on liquidity conditions in the euro area banking system, including reserve balances, excess liquidity, and ECB balance sheet items related to monetary policy operations.",
+      "concepts": [
+        "liquidity conditions",
+        "excess liquidity",
+        "bank reserves",
+        "central bank reserves",
+        "monetary policy operations",
+        "ECB balance sheet",
+        "reserve requirements",
+        "LTRO",
+        "TLTRO",
+        "open market operations",
+        "deposit facility",
+        "minimum reserves"
+      ],
+      "use_cases": [
+        "What is the current level of excess liquidity in the euro area banking system?",
+        "How has excess liquidity evolved since the start of QE?",
+        "What are the net positions related to ECB monetary policy operations?",
+        "How do autonomous factors affect banking system liquidity?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "LIG_ITEM",
+        "INS_BUS_TYPE",
+        "DATA_TYPE_LIG",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "MFI",
+      "name": "Monetary Financial Institutions",
+      "description_short": "Register and statistical data on monetary financial institutions (banks, money market funds, and central banks) in the euro area, including institution counts and structural indicators.",
+      "concepts": [
+        "monetary financial institutions",
+        "MFI list",
+        "banking sector structure",
+        "bank count",
+        "number of banks",
+        "money market funds",
+        "central banks",
+        "banking consolidation",
+        "bank mergers",
+        "EU banks register"
+      ],
+      "use_cases": [
+        "How many banks are currently operating in the euro area?",
+        "How has banking sector consolidation progressed in different countries?",
+        "What is the breakdown of MFIs by institution type?",
+        "How many money market funds are registered in the euro area?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "MFI_LIST",
+        "MFI_STATUS",
+        "REF_AREA",
+        "DATA_TYPE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "MIR",
+      "name": "MFI Interest Rates",
+      "description_short": "Monthly MFI interest rate statistics covering rates on new and outstanding loans and deposits to households and non-financial corporations, with breakdowns by loan type, maturity, and amount category.",
+      "concepts": [
+        "MFI interest rates",
+        "MIR",
+        "lending rates",
+        "deposit rates",
+        "bank rates",
+        "mortgage rate",
+        "consumer credit rate",
+        "business loan rate",
+        "household deposits",
+        "rate pass-through",
+        "monetary policy transmission",
+        "interest rate statistics"
+      ],
+      "use_cases": [
+        "What is the current interest rate on new housing loans in the euro area?",
+        "How fast have deposit rates passed through ECB rate hikes?",
+        "What is the spread between lending rates and deposit rates?",
+        "How do MFI rates compare across euro area countries?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BS_ITEM",
+        "DATA_TYPE_MIR",
+        "AMOUNT_CAT",
+        "BS_COUNT_SECTOR",
+        "MATURITY_NOT_IRATE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "MMS",
+      "name": "Money market statistics",
+      "description_short": "Aggregate statistics on the euro area money market covering overnight, short-term secured and unsecured lending, FX swaps, and OIS transactions. Provides insight into money market functioning and ECB policy transmission.",
+      "concepts": [
+        "money market statistics",
+        "MMS",
+        "repo market",
+        "overnight market",
+        "secured lending",
+        "unsecured lending",
+        "FX swaps",
+        "OIS",
+        "money market rates",
+        "MMSR",
+        "SOFR",
+        "\u20acSTR",
+        "short-term funding",
+        "collateral",
+        "haircuts"
+      ],
+      "use_cases": [
+        "What is the total volume of overnight money market transactions?",
+        "How do secured versus unsecured money market volumes compare?",
+        "What are the dominant collateral types in the euro area repo market?",
+        "How have money market volumes evolved since policy rate normalization?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "MM_SEGMENT",
+        "INSTRUMENT_FM",
+        "MATURITY_CAT",
+        "DATA_TYPE_MM",
+        "COLLATERAL"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "MMSR",
+      "name": "Money Market Statistical Reporting",
+      "description_short": "Granular transaction-level money market data reported by the largest euro area banks covering secured, unsecured, FX swap, and OIS market segments. The most detailed source for euro area money market analysis.",
+      "concepts": [
+        "money market statistical reporting",
+        "MMSR",
+        "repo",
+        "secured market",
+        "unsecured market",
+        "FX swaps",
+        "OIS",
+        "overnight index swaps",
+        "money market transactions",
+        "counterparty data",
+        "collateral",
+        "transaction-level",
+        "short-term funding"
+      ],
+      "use_cases": [
+        "What is the daily volume and rate in the euro area secured overnight market?",
+        "How do unsecured money market rates compare to \u20acSTR?",
+        "What types of collateral are used in euro area repo transactions?",
+        "How does money market activity vary by counterparty sector?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "MM_SEGMENT",
+        "TRANS_TYPE_MMSR",
+        "INSTR_TYPE_MMSR",
+        "COUNTERPART_SECTOR",
+        "COLL_ISSUER_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "MPD",
+      "name": "Monetary Policy Decisions",
+      "description_short": "Multi-variable dataset combining price, financial, and external sector indicators used in the ECB's BEAST model for monetary policy analysis, covering consumer prices, exchange rates, commodity prices, and economic activity measures.",
+      "concepts": [
+        "monetary policy",
+        "ECB BEAST model",
+        "macroeconomic indicators",
+        "commodity prices",
+        "exchange rates",
+        "consumer prices",
+        "economic activity",
+        "external sector",
+        "monetary policy analysis",
+        "projection variables",
+        "macro forecasting"
+      ],
+      "use_cases": [
+        "What commodity price inputs does the ECB use in its models?",
+        "How are exchange rate and commodity price assumptions incorporated in ECB projections?",
+        "What are the key external sector variables in ECB macroeconomic models?",
+        "What is the current level of key monetary policy input variables?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "PD_ITEM",
+        "SERIES_DENOM",
+        "PD_SEAS_EX",
+        "PD_ORIGIN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "NEC",
+      "name": "Net external claims",
+      "description_short": "Net external claims statistics showing the difference between external assets and liabilities for euro area countries and sectors, providing a compact view of the net creditor/debtor position.",
+      "concepts": [
+        "net external claims",
+        "external position",
+        "creditor",
+        "debtor",
+        "net IIP",
+        "external balance sheet",
+        "assets minus liabilities",
+        "foreign assets",
+        "foreign liabilities",
+        "net position"
+      ],
+      "use_cases": [
+        "What is the net creditor/debtor position of each euro area country?",
+        "Which sectors hold net external claims vs. net external liabilities?",
+        "How has the net external position changed over time?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BCS_CONCEPT",
+        "BCS_CLASS",
+        "REF_AREA",
+        "DATA_PROVIDER",
+        "TRANSFORMATION"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "OFI",
+      "name": "Other Financial Intermediaries",
+      "description_short": "Balance sheet statistics for other financial intermediaries (OFIs) in the euro area, covering entities like financial holding companies, securities dealers, and other entities not classified elsewhere in the financial sector.",
+      "concepts": [
+        "other financial intermediaries",
+        "OFI",
+        "shadow banking",
+        "financial sector",
+        "non-bank finance",
+        "financial holding companies",
+        "securities dealers",
+        "financial vehicles",
+        "balance sheet",
+        "financial stability"
+      ],
+      "use_cases": [
+        "How large is the euro area shadow banking sector?",
+        "What types of assets do OFIs hold?",
+        "How have OFI balance sheets grown relative to the banking sector?",
+        "What is the cross-border exposure of euro area OFIs?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "OFI_ITEM",
+        "OFI_REP_SECTOR",
+        "MATURITY_ORIG",
+        "COUNT_AREA",
+        "BS_COUNT_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "OMO",
+      "name": "Open Market Operations",
+      "description_short": "Data on ECB open market operations including main refinancing operations (MRO), longer-term refinancing operations (LTRO/TLTRO), and asset purchase programmes. Tracks the ECB's liquidity provision to the banking system.",
+      "concepts": [
+        "open market operations",
+        "OMO",
+        "ECB operations",
+        "MRO",
+        "LTRO",
+        "TLTRO",
+        "refinancing operations",
+        "liquidity provision",
+        "asset purchase",
+        "APP",
+        "PEPP",
+        "tender allotment",
+        "monetary policy operations",
+        "ECB balance sheet"
+      ],
+      "use_cases": [
+        "How much liquidity has the ECB provided through TLTROs?",
+        "What is the current outstanding stock of MRO and LTRO operations?",
+        "How have ECB asset purchases under APP and PEPP evolved?",
+        "What are the terms and rates of ECB refinancing operations?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "OPERATION_CAT",
+        "OMO_TYPE",
+        "DATA_TYPE",
+        "TENDER_REF",
+        "CURRENCY"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PAY",
+      "name": "Payments statistics",
+      "description_short": "Comprehensive statistics on payment transactions in the EU, covering volumes and values of credit transfers, direct debits, card payments, and other payment instruments by country and transaction type.",
+      "concepts": [
+        "payments",
+        "payment statistics",
+        "credit transfer",
+        "SEPA",
+        "direct debit",
+        "card payments",
+        "e-money",
+        "payment volumes",
+        "transaction values",
+        "cashless payments",
+        "payment instruments",
+        "PSP",
+        "payment service provider"
+      ],
+      "use_cases": [
+        "How many credit transfer transactions were processed in the euro area last year?",
+        "How has the use of card payments grown compared to cash?",
+        "What is the total value of SEPA credit transfers?",
+        "How do payment preferences differ across EU countries?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TYP_TRNSCTN",
+        "RL_TRNSCTN",
+        "COUNT_AREA",
+        "FRD_TYP"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PCN",
+      "name": "Payment card network statistics",
+      "description_short": "Statistics on payment card network operations in the EU, covering transaction volumes and values by card type (credit, debit, prepaid) and payment scheme.",
+      "concepts": [
+        "payment card network",
+        "card network",
+        "credit cards",
+        "debit cards",
+        "prepaid cards",
+        "card transactions",
+        "payment scheme",
+        "Visa",
+        "Mastercard",
+        "card volumes",
+        "card values",
+        "contactless",
+        "card fraud"
+      ],
+      "use_cases": [
+        "How many transactions were processed through EU payment card networks?",
+        "What is the breakdown of card transactions by card type?",
+        "How do different payment schemes compare in transaction volume?",
+        "What is the total value of card payments in the euro area?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "PYMNT_SCHM",
+        "CRD_FNCTN",
+        "REF_AREA",
+        "UNIT_MEASURE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PCP",
+      "name": "Provision of Credit to Private sector",
+      "description_short": "Statistics on credit card transactions at point-of-sale terminals across the EU, with detailed breakdowns by card function, merchant category, authentication method, and fraud type.",
+      "concepts": [
+        "credit card payments",
+        "point of sale",
+        "POS terminal",
+        "card acceptance",
+        "contactless payment",
+        "card fraud",
+        "merchant category",
+        "payment authentication",
+        "SCA",
+        "remote payment",
+        "e-commerce",
+        "card terminal"
+      ],
+      "use_cases": [
+        "What share of card transactions use contactless payment?",
+        "How does card fraud vary by transaction channel?",
+        "What is the growth in e-commerce card payments?",
+        "How has strong customer authentication (SCA) affected card acceptance rates?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TYP_TRNSCTN",
+        "INTTN_CHNNL",
+        "PYMNT_SCHM",
+        "FRD_TYP",
+        "SCA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PCT",
+      "name": "Payment card transactions statistics",
+      "description_short": "Detailed statistics on payment card transactions across the EU, covering card-initiated payments by channel, scheme, strong customer authentication, and fraud type.",
+      "concepts": [
+        "payment cards",
+        "card transactions",
+        "debit card",
+        "credit card",
+        "card payments statistics",
+        "card fraud",
+        "SCA",
+        "contactless",
+        "online payment",
+        "e-commerce",
+        "authentication",
+        "payment channel"
+      ],
+      "use_cases": [
+        "What is the total number and value of card transactions in the EU?",
+        "How does card fraud compare across different transaction channels?",
+        "What is the adoption rate of contactless payments by country?",
+        "How has SCA implementation affected card payment fraud?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INTTN_CHNNL",
+        "PYMNT_SCHM",
+        "SCA",
+        "FRD_TYP",
+        "RL_TRNSCTN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PDD",
+      "name": "Public debt dynamics",
+      "description_short": "Statistics on payment transactions categorized by initiator and channel, covering deferred debit card operations across EU countries. Part of the ECB payments statistics framework.",
+      "concepts": [
+        "deferred debit",
+        "payment transactions",
+        "card payments",
+        "payment statistics",
+        "initiator",
+        "channel",
+        "payment consent",
+        "payment authorisation"
+      ],
+      "use_cases": [
+        "What is the volume of deferred debit transactions in the EU?",
+        "How do payment transaction patterns vary by consent type?",
+        "What channels are used for deferred debit card transactions?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INTTN_CHNNL",
+        "PYMNT_SCHM",
+        "CHNNL_CNSNT",
+        "FRD_TYP",
+        "RL_TRNSCTN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PEM",
+      "name": "Pension schemes",
+      "description_short": "Statistics on payment transactions by e-money institutions and payment institutions across the EU, covering transaction volumes, values, and types by channel.",
+      "concepts": [
+        "e-money",
+        "payment institutions",
+        "electronic money",
+        "payment transactions",
+        "digital payments",
+        "non-bank payments",
+        "fintech payments",
+        "PSP transactions"
+      ],
+      "use_cases": [
+        "What is the volume of transactions processed by e-money institutions?",
+        "How do payment institution transaction volumes compare to banks?",
+        "What channels are used by e-money institutions for transactions?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TYP_TRNSCTN",
+        "INTTN_CHNNL",
+        "SCA",
+        "FRD_TYP",
+        "RL_TRNSCTN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PFB",
+      "name": "Price and Financial variables for the ECB BEAST model",
+      "description_short": "Quarterly balance sheet data for pension funds and insurance companies in the euro area and EU member states, providing assets, liabilities, and investment portfolio breakdowns.",
+      "concepts": [
+        "pension funds",
+        "insurance",
+        "ICPF",
+        "balance sheet",
+        "technical provisions",
+        "investment portfolio",
+        "institutional investors",
+        "occupational pensions",
+        "life insurance",
+        "quarterly data",
+        "financial statistics"
+      ],
+      "use_cases": [
+        "What is the quarterly evolution of euro area pension fund assets?",
+        "How are insurance companies allocating their investment portfolios?",
+        "What are the technical provisions of euro area pension funds by country?",
+        "How has the bond allocation of institutional investors changed with rising rates?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "ICPF_ITEM",
+        "REPORTING_SECTOR",
+        "MATURITY",
+        "COUNTERPART_AREA",
+        "COUNTERPART_SECTOR"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PFBM",
+      "name": "Price and Financial variables for the ECB BEAST model (monthly)",
+      "description_short": "Monthly data on pension fund membership and related indicators for euro area pension schemes, covering active members, deferred pensioners, and pensioners in payment.",
+      "concepts": [
+        "pension funds",
+        "pension members",
+        "active members",
+        "pensioners",
+        "deferred pensions",
+        "pension statistics",
+        "occupational pensions",
+        "retirement",
+        "pension schemes monthly"
+      ],
+      "use_cases": [
+        "How many active members are in euro area pension schemes?",
+        "What is the ratio of active to retired members in pension funds?",
+        "How has pension fund membership evolved over time?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "PF_MEMBER_TYPE",
+        "REPORTING_SECTOR",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PFBR",
+      "name": "Price and Financial variables for the ECB BEAST model (real estate)",
+      "description_short": "Balance sheet data specifically for pension funds and insurance companies with a focus on real estate assets, capturing direct and indirect real estate investment by institutional investors.",
+      "concepts": [
+        "pension funds",
+        "insurance",
+        "real estate",
+        "institutional investment",
+        "property investment",
+        "ICPF",
+        "real estate assets",
+        "direct real estate",
+        "indirect real estate",
+        "property portfolio"
+      ],
+      "use_cases": [
+        "What share of pension fund portfolios is allocated to real estate?",
+        "How has institutional investor exposure to property changed?",
+        "What is the total real estate investment by euro area pension funds and insurers?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "ICPF_ITEM",
+        "REPORTING_SECTOR",
+        "MATURITY",
+        "COUNTERPART_AREA",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PIS",
+      "name": "Portfolio investment income statistics",
+      "description_short": "Statistics on payment transactions involving portfolio investment income, tracking flows related to dividends, interest, and other investment income across EU payment systems.",
+      "concepts": [
+        "portfolio investment",
+        "investment income",
+        "dividends",
+        "interest payments",
+        "payment flows",
+        "cross-border income",
+        "financial income",
+        "securities income"
+      ],
+      "use_cases": [
+        "What are the flows of investment income payments across EU borders?",
+        "How do dividend and interest payment flows compare?",
+        "What is the trend in portfolio income transactions?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TYP_TRNSCTN",
+        "COUNT_AREA",
+        "SCA",
+        "FRD_TYP",
+        "RMT_INTTN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PLB",
+      "name": "Payment and large-value settlement system statistics",
+      "description_short": "Statistics on large-value payment systems in the EU, including TARGET2 and other high-value settlement systems, covering transaction volumes, values, and participant activity.",
+      "concepts": [
+        "large-value payments",
+        "TARGET2",
+        "TARGET",
+        "high-value settlement",
+        "interbank settlement",
+        "wholesale payments",
+        "RTGS",
+        "real-time gross settlement",
+        "payment system statistics",
+        "central bank settlement"
+      ],
+      "use_cases": [
+        "What is the daily transaction volume through TARGET2?",
+        "How has the value of large-value payment transactions evolved?",
+        "How many banks participate in TARGET2 and how active are they?",
+        "What is the breakdown of TARGET2 transactions by initiator type?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TYP_TRNSCTN",
+        "COUNT_AREA",
+        "LBLTY_BRR",
+        "FRD_TYP"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PMC",
+      "name": "Post-money creation statistics",
+      "description_short": "Statistics on payment transactions by merchant category, covering card payments at points of sale by merchant type (retail, hospitality, transport, etc.).",
+      "concepts": [
+        "merchant category",
+        "point of sale",
+        "card acceptance",
+        "retail payments",
+        "merchant payments",
+        "MCC",
+        "merchant category code",
+        "card spending by sector",
+        "consumer spending patterns"
+      ],
+      "use_cases": [
+        "How is card spending distributed across merchant categories?",
+        "What merchant types generate the highest card transaction volumes?",
+        "How has spending at restaurants and hospitality venues trended?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "MRCHNT_CTGRY_CD",
+        "TRMNL_LCTN",
+        "COUNT_AREA",
+        "RMT_INTTN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PPC",
+      "name": "Post-production costs",
+      "description_short": "Statistics on payment service providers' transaction volumes and values at the terminal level, with breakdowns by initiating channel, PSP category, and transaction type.",
+      "concepts": [
+        "payment service provider",
+        "PSP",
+        "terminal transactions",
+        "payment volumes",
+        "POS",
+        "online payments",
+        "PSP categories",
+        "payment initiation",
+        "payment processing"
+      ],
+      "use_cases": [
+        "What is the breakdown of payment transactions by payment service provider category?",
+        "How do in-store versus online payment volumes compare?",
+        "What is the market share of different PSP categories in EU payments?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INTTN_CHNNL",
+        "PSP_CTGRY",
+        "TYP_TRNSCTN",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PSN",
+      "name": "Price stability in nominal terms",
+      "description_short": "Statistics on payment system participants in EU clearing and settlement systems, covering participant counts, types, and settlement volumes by system.",
+      "concepts": [
+        "payment system participants",
+        "clearing",
+        "settlement",
+        "participant institutions",
+        "direct participants",
+        "indirect participants",
+        "clearing system",
+        "settlement system",
+        "payment infrastructure"
+      ],
+      "use_cases": [
+        "How many institutions participate in major EU payment systems?",
+        "What types of institutions are direct participants in European clearing systems?",
+        "How has the number of payment system participants changed over time?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "PYMNT_SYSTM",
+        "PRTCPTN",
+        "PRTC_INSTTL_SCTR",
+        "UNIT_MEASURE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PSS",
+      "name": "Payment and securities settlement systems",
+      "description_short": "Comprehensive statistics on EU payment and securities settlement systems, covering transaction volumes, values, and operational indicators for CSDs, ICSDs, CCPs, and payment systems.",
+      "concepts": [
+        "securities settlement",
+        "CSD",
+        "central securities depository",
+        "settlement system",
+        "payment system",
+        "settlement failures",
+        "ICSD",
+        "T2S",
+        "TARGET2-Securities",
+        "securities clearing",
+        "settlement efficiency"
+      ],
+      "use_cases": [
+        "What is the daily settlement volume through European securities settlement systems?",
+        "How does the settlement failure rate compare across EU CSDs?",
+        "What types of securities are settled through T2S?",
+        "How do settlement volumes compare across EU payment and securities systems?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "PSS_INFO_TYPE",
+        "PSS_INSTRUMENT",
+        "PSS_SYSTEM",
+        "COUNT_AREA",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PST",
+      "name": "Price stability terms",
+      "description_short": "Statistics on payment system transactions including cross-system statistics, covering flows between different payment systems and settlement infrastructure.",
+      "concepts": [
+        "payment systems",
+        "system transactions",
+        "cross-system flows",
+        "payment infrastructure",
+        "settlement statistics",
+        "interoperability",
+        "payment system data"
+      ],
+      "use_calls": [
+        "How do transaction flows compare across different EU payment systems?",
+        "What is the volume of cross-system payment transactions?"
+      ],
+      "use_cases": [
+        "How do transaction flows compare across different EU payment systems?",
+        "What is the volume of cross-system payment transactions?",
+        "Which payment systems handle the largest value of transactions?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "PYMNT_SYSTM",
+        "TYP_TRNSCTN",
+        "INTTN_CHNNL",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PTN",
+      "name": "Payment transactions - nominal",
+      "description_short": "Statistics on payment terminals (ATMs and POS terminals) across the EU, covering terminal counts, locations, and functional characteristics.",
+      "concepts": [
+        "payment terminals",
+        "ATM",
+        "POS terminal",
+        "point of sale terminal",
+        "ATM network",
+        "terminal infrastructure",
+        "cash withdrawal",
+        "card acceptance",
+        "terminal count",
+        "contactless terminal"
+      ],
+      "use_cases": [
+        "How many ATMs are operating in the euro area?",
+        "What is the density of POS terminals across EU countries?",
+        "How has the number of ATMs changed with the shift to digital payments?",
+        "What share of POS terminals support contactless payments?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TRMNL_LCTN",
+        "INTTN_CHNNL",
+        "TRMNL_FNCTN",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "PTT",
+      "name": "Payment transactions - total",
+      "description_short": "Total payment transaction statistics covering all payment types and channels across EU countries, providing a comprehensive view of payment activity.",
+      "concepts": [
+        "payment transactions total",
+        "payments",
+        "all payment types",
+        "payment volumes",
+        "payment values",
+        "cross-border payments",
+        "domestic payments",
+        "payment methods",
+        "cashless payments"
+      ],
+      "use_cases": [
+        "What is the total value of payment transactions in the EU?",
+        "How do domestic versus cross-border payment volumes compare?",
+        "What is the trend in total cashless payment transactions?",
+        "How does total payment activity compare across EU countries?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TYP_TRNSCTN",
+        "INTTN_CHNNL",
+        "COUNT_AREA",
+        "RL_TRNSCTN"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RA",
+      "name": "Reserve Assets",
+      "description_short": "Reserve assets statistics for euro area central banks, covering gold, foreign currency reserves, IMF positions, SDRs, and other reserve assets. Key indicator of external buffer capacity.",
+      "concepts": [
+        "reserve assets",
+        "foreign exchange reserves",
+        "gold reserves",
+        "IMF SDR",
+        "special drawing rights",
+        "central bank reserves",
+        "official reserves",
+        "monetary gold",
+        "reserve adequacy",
+        "external liquidity"
+      ],
+      "use_cases": [
+        "What are the total foreign exchange reserves held by the euro area?",
+        "How much gold does the ECB and euro area central banks hold?",
+        "How have reserve assets evolved during periods of exchange rate pressure?",
+        "What is the breakdown of reserves by component (gold, forex, SDR)?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BOP_ITEM",
+        "DATA_TYPE_BOP",
+        "CURR_BRKDWN",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RAI",
+      "name": "Reserve Assets (international)",
+      "description_short": "International reserve assets data combining multiple ECB datasets into an integrated view of financial flows, stocks, and other macroeconomic indicators for the euro area.",
+      "concepts": [
+        "reserve assets",
+        "international reserves",
+        "integrated data",
+        "financial flows",
+        "cross-dataset",
+        "macro indicators",
+        "balance of payments",
+        "IIP",
+        "financial statistics compilation"
+      ],
+      "use_cases": [
+        "What is the integrated view of euro area international financial position?",
+        "How do reserve asset flows relate to other balance of payments components?",
+        "What are the key macro-financial linkages captured in integrated data?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "DD_ECON_CONCEPT",
+        "CURRENCY_TRANS",
+        "SOURCE_DATA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RDE",
+      "name": "Residential real estate demand",
+      "description_short": "Financial market indicators related to residential real estate demand, capturing price dynamics, transaction volumes, and financing conditions in euro area housing markets.",
+      "concepts": [
+        "residential real estate",
+        "housing demand",
+        "house prices",
+        "housing market",
+        "real estate transactions",
+        "mortgage market",
+        "property demand",
+        "housing affordability",
+        "housing finance",
+        "real estate cycle"
+      ],
+      "use_cases": [
+        "How has housing demand evolved across euro area countries?",
+        "What market indicators are pointing to changes in residential property demand?",
+        "How do housing market conditions compare between euro area countries?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INSTRUMENT_FM",
+        "PROVIDER_FM",
+        "PROVIDER_FM_ID",
+        "REF_AREA",
+        "DATA_TYPE_FM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RDF",
+      "name": "Residential real estate finance",
+      "description_short": "Financial market data on residential real estate financing, covering mortgage rates, lending volumes, and financing conditions across euro area housing markets.",
+      "concepts": [
+        "residential real estate finance",
+        "mortgage finance",
+        "housing loans",
+        "mortgage rates",
+        "mortgage market",
+        "housing credit",
+        "property finance",
+        "real estate lending",
+        "loan-to-value ratio"
+      ],
+      "use_cases": [
+        "What are current mortgage rates across euro area countries?",
+        "How has housing credit growth evolved?",
+        "What financing conditions are available for residential property purchases?",
+        "How do mortgage markets compare across euro area countries?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "INSTRUMENT_FM",
+        "PROVIDER_FM",
+        "PROVIDER_FM_ID",
+        "REF_AREA",
+        "DATA_TYPE_FM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RESC",
+      "name": "Reserve requirements - excess and deficiency",
+      "description_short": "Data on the reserve requirement compliance of euro area credit institutions, showing excess and deficient reserve positions relative to required reserve minimums.",
+      "concepts": [
+        "reserve requirements",
+        "minimum reserves",
+        "excess reserves",
+        "reserve deficiency",
+        "required reserves",
+        "reserve maintenance",
+        "central bank reserves",
+        "monetary policy instrument",
+        "ECB reserve system"
+      ],
+      "use_cases": [
+        "How much excess reserves do euro area banks hold?",
+        "Are any banks in reserve deficiency positions?",
+        "How have excess reserves evolved relative to required minimums?",
+        "What is the distribution of reserve positions across euro area banks?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REGION",
+        "PROPERTY_TYPE",
+        "INDICATOR",
+        "PRICE_TYPE",
+        "DATA_PROVIDER"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RESH",
+      "name": "Reserve requirements - holdings",
+      "description_short": "Data on actual reserve holdings of euro area credit institutions, showing the observed reserve levels maintained with national central banks during each maintenance period.",
+      "concepts": [
+        "reserve holdings",
+        "minimum reserves",
+        "reserve maintenance",
+        "actual reserves",
+        "central bank reserves",
+        "reserve period",
+        "ECB reserves",
+        "monetary policy",
+        "bank liquidity"
+      ],
+      "use_cases": [
+        "What is the total stock of reserves held at euro area central banks?",
+        "How do actual reserve holdings compare to required minimums?",
+        "How have reserve holdings evolved over monetary policy maintenance periods?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REGION",
+        "PROPERTY_TYPE",
+        "INDICATOR",
+        "PRICE_TYPE",
+        "DATA_PROVIDER"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RESR",
+      "name": "Reserve requirements - rates",
+      "description_short": "Data on reserve requirement rates applied to euro area credit institutions, showing the percentage ratios applied to different deposit liabilities for calculating required reserves.",
+      "concepts": [
+        "reserve requirement rate",
+        "reserve ratio",
+        "minimum reserve rate",
+        "required reserve ratio",
+        "ECB reserve policy",
+        "monetary policy tool",
+        "reserve calculation",
+        "liability base"
+      ],
+      "use_cases": [
+        "What is the current reserve requirement ratio for euro area banks?",
+        "How has the reserve requirement rate changed over time?",
+        "Which liability categories are subject to reserve requirements?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REGION",
+        "PROPERTY_TYPE",
+        "INDICATOR",
+        "PRICE_TYPE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RESV",
+      "name": "Reserve requirements - volumes",
+      "description_short": "Data on the volume of reserve requirements, showing the amount of required reserves calculated from the liability base of euro area credit institutions.",
+      "concepts": [
+        "reserve requirements volume",
+        "required reserves",
+        "reserve base",
+        "minimum reserves",
+        "ECB monetary policy",
+        "reserve calculation base",
+        "liability base",
+        "reserve statistics"
+      ],
+      "use_cases": [
+        "What is the total required reserve volume for euro area banks?",
+        "How does the reserve requirement volume vary across countries?",
+        "How has the reserve requirement base changed with shifts in bank liabilities?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REGION",
+        "PROPERTY_TYPE",
+        "INDICATOR",
+        "PRICE_TYPE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RIR",
+      "name": "Real interest rates",
+      "description_short": "Real interest rate statistics adjusting nominal bank lending and deposit rates for inflation, providing a view of the real cost of borrowing and real return on savings across euro area countries.",
+      "concepts": [
+        "real interest rates",
+        "real lending rates",
+        "real deposit rates",
+        "inflation-adjusted rates",
+        "monetary policy transmission",
+        "real cost of capital",
+        "real borrowing cost",
+        "deflated rates",
+        "purchasing power parity"
+      ],
+      "use_cases": [
+        "What is the real interest rate on household mortgages after adjusting for inflation?",
+        "How do real deposit rates compare across euro area countries?",
+        "When did real interest rates turn positive after the inflation surge?",
+        "How do real lending rates affect corporate investment decisions?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BS_ITEM",
+        "BS_REP_SECTOR",
+        "MATURITY_ORIG",
+        "IR_FV_TYPE",
+        "IR_BUS_COV"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RPP",
+      "name": "Residential property prices",
+      "description_short": "Residential property price indices for euro area countries covering new and existing dwellings, with breakdowns by property type (apartment/house) and geographic coverage (urban/rural). Key dataset for housing market and macroprudential analysis.",
+      "concepts": [
+        "residential property prices",
+        "house prices",
+        "housing prices",
+        "RPP",
+        "property price index",
+        "housing market",
+        "real estate prices",
+        "apartment prices",
+        "urban prices",
+        "housing affordability",
+        "house price index",
+        "real house prices"
+      ],
+      "use_cases": [
+        "How have house prices evolved in Germany over the past decade?",
+        "Which euro area countries have seen the strongest property price growth?",
+        "How do apartment prices compare to house prices across euro area cities?",
+        "Are residential property prices overvalued relative to rents or incomes?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "RPP_DWELLING",
+        "RPP_GEO_COV",
+        "RPP_SOURCE",
+        "REF_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RPV",
+      "name": "Residential property prices - vintages",
+      "description_short": "Vintage data for residential property prices, capturing successive revisions to property price indices to enable real-time analysis and revision study of house price data.",
+      "concepts": [
+        "property price vintages",
+        "house price revisions",
+        "real-time data",
+        "data vintages",
+        "house prices",
+        "price revisions",
+        "data quality",
+        "publication lags",
+        "residential property"
+      ],
+      "use_cases": [
+        "How large are the revisions to house price data between vintages?",
+        "What was the initially published house price growth versus the final revised figure?",
+        "How does real-time house price data differ from the final dataset?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "RPP_DWELLING",
+        "RPP_GEO_COV",
+        "RPP_SOURCE",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "RTD",
+      "name": "Real-time data",
+      "description_short": "Real-time database of key macroeconomic indicators capturing the first-release, vintage, and final data to study data revisions and real-time analysis for the euro area.",
+      "concepts": [
+        "real-time data",
+        "data revisions",
+        "vintage data",
+        "nowcasting",
+        "GDP revisions",
+        "flash estimates",
+        "preliminary data",
+        "data uncertainty",
+        "macro data quality",
+        "real-time analysis"
+      ],
+      "use_cases": [
+        "How large are GDP revisions from flash estimate to final data in the euro area?",
+        "What did economic forecasters see in real-time versus what data shows now?",
+        "How do first-release macroeconomic indicators differ from revised data?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "RT_ECON_CONCEPT",
+        "RT_DENOM",
+        "REF_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SAFE",
+      "name": "Survey on the Access to Finance of Enterprises",
+      "description_short": "Bi-annual survey of euro area firms on their experience accessing external finance, covering bank loans, trade credit, equity, and other instruments, with breakdowns by firm size, sector, age, and country.",
+      "concepts": [
+        "SAFE",
+        "access to finance",
+        "SME financing",
+        "business loans",
+        "credit constraints",
+        "bank credit",
+        "trade credit",
+        "equity financing",
+        "financing gaps",
+        "SME survey",
+        "firm finance",
+        "credit availability",
+        "funding conditions"
+      ],
+      "use_cases": [
+        "What share of euro area SMEs report difficulties accessing bank financing?",
+        "How has credit availability for small firms changed in the current tightening cycle?",
+        "How do financing conditions for SMEs compare to large firms?",
+        "In which countries are SMEs most credit-constrained?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SAFE_QUESTION",
+        "SAFE_ITEM",
+        "FIRM_SIZE",
+        "FIRM_SECTOR",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SEC",
+      "name": "Securities holdings",
+      "description_short": "Securities holding statistics showing who holds what debt securities in the euro area, by holder sector, issuer sector, and currency. Part of the ECB's Securities Holdings Statistics group.",
+      "concepts": [
+        "securities holdings",
+        "debt securities",
+        "bond holdings",
+        "holder sector",
+        "issuer sector",
+        "portfolio investment",
+        "securities statistics",
+        "fixed income holdings",
+        "who holds bonds",
+        "investor base",
+        "securities market"
+      ],
+      "use_cases": [
+        "What share of euro area government bonds is held by foreign investors?",
+        "How much of euro area corporate bonds are held by investment funds?",
+        "How has the ECB's share of government bond holdings changed under QE?",
+        "What is the sectoral breakdown of holders of euro area debt securities?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SEC_ISSUING_SECTOR",
+        "DATA_TYPE_SEC",
+        "SEC_VALUATION",
+        "CURRENCY_TRANS",
+        "SEC_SUFFIX"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SEE",
+      "name": "Securities issues by euro area residents - euro",
+      "description_short": "Statistics on securities settled through European securities settlement systems (euro-denominated), capturing clearing and settlement activity across EU exchanges and trading venues.",
+      "concepts": [
+        "securities settlement",
+        "equity settlement",
+        "exchange trading",
+        "settlement system",
+        "stock exchange",
+        "trading platforms",
+        "clearing statistics",
+        "settlement volumes",
+        "equity market infrastructure"
+      ],
+      "use_cases": [
+        "What are the settlement volumes on major European stock exchanges?",
+        "How do different securities settlement systems compare in volume?",
+        "What types of securities are being cleared through EU systems?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SEE_SYSTEM",
+        "SSS_INFO_TYPE",
+        "SSS_INSTRUMENT",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SESFOD",
+      "name": "Survey on credit terms and conditions in euro-denominated securities financing",
+      "description_short": "Quarterly survey of large euro area banks on terms and conditions in securities financing transactions and OTC derivatives markets, covering haircuts, margins, collateral, and pricing.",
+      "concepts": [
+        "securities financing",
+        "repo",
+        "securities lending",
+        "OTC derivatives",
+        "haircuts",
+        "margin requirements",
+        "collateral terms",
+        "credit terms",
+        "leverage",
+        "prime brokerage",
+        "hedge funds",
+        "SESFOD survey",
+        "securities financing survey"
+      ],
+      "use_cases": [
+        "Are haircuts in the repo market tightening or loosening?",
+        "How are credit terms changing for hedge fund securities financing?",
+        "What collateral types are most commonly accepted in euro-denominated repo?",
+        "How are OTC derivative margin requirements evolving?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "SECTION",
+        "SUBSECTION",
+        "QUESTION_TOPIC",
+        "COUNTERPARTY_TYPE",
+        "ASSET_INSTR_TYPE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SHI",
+      "name": "Securities Holdings and Investment",
+      "description_short": "Housing market indicators covering dwelling transactions, housing completions, housing starts, housing stock, and household housing affordability metrics.",
+      "concepts": [
+        "housing market",
+        "house sales",
+        "dwelling transactions",
+        "housing completions",
+        "housing starts",
+        "housing stock",
+        "housing supply",
+        "residential investment",
+        "housing affordability",
+        "property market"
+      ],
+      "use_cases": [
+        "How many residential properties were transacted in euro area countries last year?",
+        "What is the trend in new housing completions?",
+        "How does housing supply respond to price increases?",
+        "What is the housing affordability index across euro area countries?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SHI_INDICATOR",
+        "SHI_SUFFIX",
+        "REF_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SHS",
+      "name": "Securities Holdings Statistics",
+      "description_short": "Granular security-by-security data on holdings of debt and equity securities by sector and country, part of the ECB's Securities Holdings Statistics group. Enables analysis of cross-border portfolio investment and investor base composition.",
+      "concepts": [
+        "securities holdings statistics",
+        "SHS",
+        "ISIN-level",
+        "security-level data",
+        "portfolio investment",
+        "cross-border holdings",
+        "debt securities",
+        "equity securities",
+        "holder sector",
+        "issuer area",
+        "investor base",
+        "home bias",
+        "bond holdings"
+      ],
+      "use_cases": [
+        "What share of French government bonds are held by foreign investors?",
+        "How are euro area banks' securities portfolios distributed geographically?",
+        "What is the home bias in euro area institutional investor portfolios?",
+        "How have cross-border securities holdings evolved under the capital markets union?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "HOLDER_AREA",
+        "ISSUER_AREA",
+        "HOLDER_SECTOR",
+        "INSTR_ASSET",
+        "MATURITY"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SPF",
+      "name": "Survey of Professional Forecasters",
+      "description_short": "ECB quarterly survey collecting inflation, GDP growth, and unemployment forecasts from professional economic forecasters, capturing the distribution of expectations over various horizons.",
+      "concepts": [
+        "SPF",
+        "survey of professional forecasters",
+        "inflation expectations",
+        "GDP forecast",
+        "unemployment forecast",
+        "forecast distribution",
+        "consensus forecast",
+        "long-run expectations",
+        "probability distribution",
+        "professional forecasts",
+        "ECB survey"
+      ],
+      "use_cases": [
+        "What do professional forecasters expect euro area inflation to be in two years?",
+        "How have long-run inflation expectations evolved over time?",
+        "What is the uncertainty around GDP growth forecasts?",
+        "How do SPF forecasts compare to ECB staff projections?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "FCT_TOPIC",
+        "FCT_BREAKDOWN",
+        "FCT_HORIZON",
+        "FCT_SOURCE"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SSI",
+      "name": "Securities statistics - issuers",
+      "description_short": "Statistics on debt securities issuers, capturing the balance sheet items (assets and liabilities) of entities issuing securities from the issuer perspective.",
+      "concepts": [
+        "securities issuers",
+        "debt securities",
+        "bond issuers",
+        "issuer statistics",
+        "issuer balance sheet",
+        "securities outstanding",
+        "bond market",
+        "issuing sector",
+        "cross-border issuance"
+      ],
+      "use_cases": [
+        "What is the total outstanding debt securities by issuing sector?",
+        "How do issuer balance sheets reflect securities outstanding?",
+        "What is the cross-border component of euro area debt securities issuance?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REF_SECTOR",
+        "SSI_INDICATOR",
+        "DATA_TYPE",
+        "COUNT_AREA",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SSP",
+      "name": "Securities statistics - prices",
+      "description_short": "Price-related statistics for euro area debt securities, covering yields, spreads, and valuations by issuer sector, instrument type, and maturity.",
+      "concepts": [
+        "securities prices",
+        "bond prices",
+        "yields",
+        "credit spreads",
+        "debt securities pricing",
+        "yield curves",
+        "bond valuation",
+        "fixed income prices",
+        "market prices",
+        "fair value"
+      ],
+      "use_cases": [
+        "What are current yields on euro area corporate bonds by rating?",
+        "How have sovereign bond prices changed across the euro area?",
+        "What is the spread between investment grade and high yield corporate bonds?",
+        "How do bond prices reflect changing interest rate expectations?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "REF_SECTOR",
+        "SSI_INDICATOR",
+        "DATA_TYPE",
+        "COUNT_AREA",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SST",
+      "name": "Securities statistics - total",
+      "description_short": "Total securities settlement statistics for EU securities settlement systems including both CSD and exchange-based clearing, providing aggregate volumes and values.",
+      "concepts": [
+        "securities settlement",
+        "total settlement",
+        "settlement statistics",
+        "CSD",
+        "central securities depository",
+        "settlement volumes",
+        "settlement values",
+        "securities infrastructure",
+        "clearing statistics"
+      ],
+      "use_cases": [
+        "What is the total settlement volume across all European securities settlement systems?",
+        "How do settlement volumes compare across CSD systems?",
+        "What is the total value of securities settled in the EU?"
+      ],
+      "primary_frequency": "A",
+      "geographic_coverage": "eu_wide",
+      "key_dimensions": [
+        "SSS_SYSTEM",
+        "SSS_INFO_TYPE",
+        "SSS_INSTRUMENT",
+        "CURRENCY_TRANS"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ST1",
+      "name": "Short-term statistics 1",
+      "description_short": "Short-term external statistics for the euro area covering goods trade, services trade, and financial account data at high frequency for use in conjunction with the balance of payments framework.",
+      "concepts": [
+        "short-term statistics",
+        "external statistics",
+        "trade data",
+        "BOP",
+        "balance of payments",
+        "goods exports",
+        "goods imports",
+        "services trade",
+        "financial account",
+        "current account",
+        "monthly external data"
+      ],
+      "use_cases": [
+        "What are the latest monthly trade balance figures for the euro area?",
+        "How have goods exports trended over the past six months?",
+        "What is the current financial account balance on a monthly basis?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BOP_ITEM",
+        "DATA_TYPE_BOP",
+        "CURR_BRKDWN",
+        "COUNT_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "ST3",
+      "name": "Short-term statistics 3",
+      "description_short": "Additional short-term external statistics for the euro area providing supplementary breakdowns for balance of payments components at monthly frequency.",
+      "concepts": [
+        "short-term statistics",
+        "external statistics",
+        "BOP supplementary",
+        "trade statistics",
+        "financial flows",
+        "monthly external data",
+        "balance of payments breakdown"
+      ],
+      "use_cases": [
+        "What supplementary breakdowns are available for euro area BOP data?",
+        "How do short-term statistics supplement annual external accounts?",
+        "What is the monthly breakdown of specific BOP components?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BOP_ITEM",
+        "DATA_TYPE_BOP",
+        "CURR_BRKDWN",
+        "COUNT_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "STBS",
+      "name": "Short-term business statistics",
+      "description_short": "Short-term business activity indicators covering industrial production, construction, retail trade, and services across euro area countries. Core dataset for tracking the business cycle.",
+      "concepts": [
+        "short-term business statistics",
+        "STBS",
+        "industrial production",
+        "retail sales",
+        "construction output",
+        "services activity",
+        "business cycle",
+        "manufacturing",
+        "production index",
+        "economic activity",
+        "turnover",
+        "volume of sales"
+      ],
+      "use_cases": [
+        "What is the latest industrial production index for the euro area?",
+        "How have retail sales trended in Germany over the past year?",
+        "Is construction activity growing or contracting?",
+        "How does services sector activity compare to manufacturing?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BCS_CONCEPT",
+        "BCS_CLASS",
+        "REF_AREA",
+        "DATA_PROVIDER",
+        "TRANSFORMATION"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "STP",
+      "name": "Securities trading platform statistics",
+      "description_short": "Statistics on securities issued and traded on European trading platforms, covering price, yield, maturity, and credit rating information for debt securities at issuance.",
+      "concepts": [
+        "securities trading",
+        "trading platform",
+        "bond issuance",
+        "debt securities",
+        "primary market",
+        "yield at issuance",
+        "credit rating",
+        "maturity",
+        "bond characteristics",
+        "issuance statistics",
+        "fixed income issuance"
+      ],
+      "use_cases": [
+        "What are the yields on newly issued euro area corporate bonds?",
+        "How does the credit rating distribution of new debt issuance look?",
+        "What maturities are most commonly issued for euro area bonds?",
+        "How are new bond characteristics varying with market conditions?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SEC_ISSUING_SECTOR",
+        "IR_FV_TYPE",
+        "MATURITY_CAT",
+        "CREDIT_RATING",
+        "DATA_TYPE_SEC"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "STS",
+      "name": "Short-term statistics",
+      "description_short": "Broad short-term statistics covering business surveys, economic sentiment, and activity indicators from multiple national and European institutions for the euro area.",
+      "concepts": [
+        "short-term statistics",
+        "economic sentiment",
+        "business surveys",
+        "activity indicators",
+        "PMI",
+        "industrial survey",
+        "services survey",
+        "economic indicators",
+        "cyclical indicators",
+        "leading indicators",
+        "STS"
+      ],
+      "use_cases": [
+        "What is the current economic sentiment indicator for the euro area?",
+        "How does the business climate survey read for euro area industry?",
+        "What do short-term statistics say about the current economic cycle phase?",
+        "How do survey-based and hard economic indicators compare?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "STS_CONCEPT",
+        "STS_CLASS",
+        "STS_INSTITUTION",
+        "REF_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SUP",
+      "name": "Supervisory data",
+      "description_short": "Supervisory statistics for significant banks under ECB direct supervision (SSM), covering capital adequacy, asset quality, profitability, and liquidity with breakdowns by bank size, domicile, and business model.",
+      "concepts": [
+        "supervisory data",
+        "SSM",
+        "single supervisory mechanism",
+        "significant institutions",
+        "bank supervision",
+        "CET1 ratio",
+        "NPL",
+        "SREP",
+        "bank capital",
+        "supervisory statistics",
+        "SIs",
+        "systemically important banks",
+        "G-SIB",
+        "SREP score"
+      ],
+      "use_cases": [
+        "What is the average CET1 ratio for banks under ECB direct supervision?",
+        "How do capital ratios differ between large and mid-size supervised banks?",
+        "What is the non-performing loan ratio across SSM significant institutions?",
+        "How has profitability of directly supervised banks evolved?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "CB_ITEM",
+        "SBS_BREAKDOWN",
+        "SBS_DI_1",
+        "CB_EXP_TYPE",
+        "COUNT_AREA"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "SUR",
+      "name": "Survey data",
+      "description_short": "Composite survey data from multiple European economic survey sources, covering consumer and business sentiment, economic activity expectations, and sector-specific confidence indicators.",
+      "concepts": [
+        "survey data",
+        "economic surveys",
+        "consumer confidence",
+        "business sentiment",
+        "sentiment indicators",
+        "ESI",
+        "industrial confidence",
+        "services confidence",
+        "retail confidence",
+        "construction confidence",
+        "multi-source surveys"
+      ],
+      "use_cases": [
+        "What is the composite economic sentiment indicator for the euro area?",
+        "How does consumer confidence compare across EU countries?",
+        "What do business surveys say about the employment outlook?",
+        "How do survey indicators compare across different data providers?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "SURVEY_ITEM",
+        "SURVEY_BRKDWN",
+        "SURVEY_SOURCE",
+        "REF_AREA",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "TGB",
+      "name": "TARGET/Gross settlement and banking statistics",
+      "description_short": "Statistics on TARGET2 interbank settlements and related banking flows, capturing the real-time gross settlement activity of euro area central banks and their counterparts.",
+      "concepts": [
+        "TARGET2",
+        "TARGET",
+        "interbank settlement",
+        "gross settlement",
+        "RTGS",
+        "central bank settlement",
+        "interbank flows",
+        "euro area payments",
+        "large-value payments",
+        "cross-border settlement",
+        "T2S"
+      ],
+      "use_cases": [
+        "What is the daily transaction volume through TARGET2?",
+        "How have TARGET2 balances evolved across euro area central banks?",
+        "What is the breakdown of TARGET2 flows by participant type?",
+        "How do cross-border TARGET2 flows reflect capital movements?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "BS_ITEM",
+        "BS_REP_SECTOR",
+        "COUNT_AREA",
+        "CURRENCY_TRANS",
+        "TIME_PER_COLLECT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "TRD",
+      "name": "Trade in goods",
+      "description_short": "Monthly statistics on euro area trade in goods, covering exports and imports by product category and partner country. The key source for merchandise trade analysis in the euro area.",
+      "concepts": [
+        "trade in goods",
+        "merchandise trade",
+        "exports",
+        "imports",
+        "trade balance",
+        "goods trade",
+        "bilateral trade",
+        "product breakdown",
+        "SITC",
+        "intra-EU trade",
+        "extra-EU trade",
+        "terms of trade",
+        "trade volumes",
+        "unit values"
+      ],
+      "use_cases": [
+        "What is the euro area trade balance in goods with the United States?",
+        "How have export volumes evolved compared to export values?",
+        "Which product categories are driving euro area export growth?",
+        "How does intra-EU trade compare to extra-EU trade in magnitude?"
+      ],
+      "primary_frequency": "M",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TRD_FLOW",
+        "TRD_PRODUCT",
+        "COUNT_AREA",
+        "TRD_SUFFIX",
+        "ADJUSTMENT"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "WTS",
+      "name": "Wholesale funding statistics",
+      "description_short": "Statistics on wholesale funding markets for euro area banks, covering interbank deposits, debt securities issued, and repos from a funding perspective.",
+      "concepts": [
+        "wholesale funding",
+        "bank funding",
+        "interbank deposits",
+        "repo funding",
+        "debt securities issued",
+        "wholesale market",
+        "bank refinancing",
+        "funding structure",
+        "funding stability",
+        "secured funding",
+        "unsecured funding"
+      ],
+      "use_cases": [
+        "How are euro area banks funding themselves in wholesale markets?",
+        "What is the breakdown of wholesale funding by instrument type?",
+        "How has the reliance on repo versus unsecured wholesale funding changed?",
+        "Which currencies are used in euro area bank wholesale funding?"
+      ],
+      "primary_frequency": "Q",
+      "geographic_coverage": "euro_area_and_countries",
+      "key_dimensions": [
+        "TRADE_WEIGHT",
+        "TRD_PRODUCT",
+        "COUNT_AREA",
+        "CURRENCY_TRANS",
+        "AREA_DEFINITION"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    },
+    {
+      "id": "YC",
+      "name": "Yield curve",
+      "description_short": "ECB estimates of the euro area sovereign yield curve, including spot rates, forward rates, and related measures for the AAA-rated and all-issuer euro area government bond universe.",
+      "concepts": [
+        "yield curve",
+        "term structure",
+        "sovereign yields",
+        "AAA yield curve",
+        "spot rates",
+        "forward rates",
+        "zero coupon",
+        "government bonds",
+        "euro area yield curve",
+        "Svensson model",
+        "ECB yield curve",
+        "term premium",
+        "interest rate expectations"
+      ],
+      "use_cases": [
+        "What is the current euro area yield curve shape (normal, inverted, flat)?",
+        "What does the yield curve imply about expected short-term rates in 5 years?",
+        "How has the slope of the yield curve changed over the tightening cycle?",
+        "What is the 10-year spot rate on the AAA euro area sovereign yield curve?"
+      ],
+      "primary_frequency": "D",
+      "geographic_coverage": "euro_area_only",
+      "key_dimensions": [
+        "INSTRUMENT_FM",
+        "PROVIDER_FM",
+        "PROVIDER_FM_ID",
+        "REF_AREA",
+        "DATA_TYPE_FM"
+      ],
+      "enriched_at": "2026-03-18T00:00:00Z"
+    }
+  ]
+}
