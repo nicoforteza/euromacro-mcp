@@ -1,14 +1,698 @@
 {
-  "generated_at": "2026-03-18T19:00:13Z",
-  "total_datasets": 1,
-  "successful": 1,
-  "failed": 0,
+  "generated_at": "2026-03-18T19:07:16Z",
+  "total_datasets": 93,
+  "successful": 77,
+  "failed": 16,
   "datasets": [
+    {
+      "dataset_id": "AGR",
+      "status": "cached",
+      "n_dimensions": 8,
+      "total_codes": 4077
+    },
+    {
+      "dataset_id": "AME",
+      "structure_id": "ECB_AME1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 11,
+      "total_codes": 1104
+    },
+    {
+      "dataset_id": "BKN",
+      "structure_id": "ECB_BKN1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 21,
+      "total_codes": 653
+    },
+    {
+      "dataset_id": "BLS",
+      "structure_id": "ECB_BLS1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 14,
+      "total_codes": 1069
+    },
+    {
+      "dataset_id": "BNT",
+      "structure_id": "ECB_BOP_BNT",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 20,
+      "total_codes": 1904
+    },
+    {
+      "dataset_id": "BPS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/BPS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "BSI",
+      "structure_id": "ECB_BSI1",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 22,
+      "total_codes": 2119
+    },
+    {
+      "dataset_id": "BSP",
+      "structure_id": "ECB_BSI1",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 22,
+      "total_codes": 2119
+    },
+    {
+      "dataset_id": "CAR",
+      "structure_id": "ECB_CAR1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 2474
+    },
+    {
+      "dataset_id": "CBD2",
+      "structure_id": "ECB_CBD2",
+      "status": "ok",
+      "n_dimensions": 16,
+      "n_attributes": 20,
+      "total_codes": 6332
+    },
+    {
+      "dataset_id": "CCP",
+      "structure_id": "ECB_CCP1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 17,
+      "total_codes": 1204
+    },
+    {
+      "dataset_id": "CES",
+      "structure_id": "ECB_CES1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 15,
+      "total_codes": 971
+    },
+    {
+      "dataset_id": "CISS",
+      "structure_id": "ECB_FMD2",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 30,
+      "total_codes": 108765
+    },
+    {
+      "dataset_id": "CLIFS",
+      "structure_id": "ECB_FMD2",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 30,
+      "total_codes": 108765
+    },
+    {
+      "dataset_id": "CSEC",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/datastructure/ECB/NA_SEC?references=all&detail=full'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "DWA",
+      "structure_id": "ECB_DWA1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 14,
+      "total_codes": 1904
+    },
+    {
+      "dataset_id": "E09",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/E09'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "E11",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/E11'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "ECS",
+      "structure_id": "ECB_SUR2",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 24,
+      "total_codes": 3017
+    },
+    {
+      "dataset_id": "EDP",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/EDP'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "EST",
+      "structure_id": "ECB_EST1",
+      "status": "ok",
+      "n_dimensions": 3,
+      "n_attributes": 23,
+      "total_codes": 103437
+    },
+    {
+      "dataset_id": "EWT",
+      "structure_id": "ECB_EWT1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 12,
+      "total_codes": 3292
+    },
     {
       "dataset_id": "EXR",
       "status": "cached",
       "n_dimensions": 5,
       "total_codes": 790
+    },
+    {
+      "dataset_id": "FM",
+      "structure_id": "ECB_FMD2",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 30,
+      "total_codes": 108765
+    },
+    {
+      "dataset_id": "FVC",
+      "structure_id": "ECB_FVC1",
+      "status": "ok",
+      "n_dimensions": 12,
+      "n_attributes": 23,
+      "total_codes": 1719
+    },
+    {
+      "dataset_id": "FXI",
+      "structure_id": "ECB_FXS1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 14,
+      "total_codes": 1357
+    },
+    {
+      "dataset_id": "GFS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/GFS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "HICP",
+      "structure_id": "ECB_ICP3",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 25,
+      "total_codes": 2553
+    },
+    {
+      "dataset_id": "ICB",
+      "structure_id": "ECB_ICPF1",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 21,
+      "total_codes": 3331
+    },
+    {
+      "dataset_id": "ICO",
+      "structure_id": "ECB_ICO1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 21,
+      "total_codes": 2508
+    },
+    {
+      "dataset_id": "ICP",
+      "status": "cached",
+      "n_dimensions": 6,
+      "total_codes": 5143
+    },
+    {
+      "dataset_id": "IDCM",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/IDCM'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "IDCS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/IDCS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "IESS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/IESS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "ILM",
+      "structure_id": "ECB_ILM1",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 21,
+      "total_codes": 1701
+    },
+    {
+      "dataset_id": "INW",
+      "structure_id": "ECB_BCS1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 4077
+    },
+    {
+      "dataset_id": "IRS",
+      "structure_id": "ECB_IRS1",
+      "status": "ok",
+      "n_dimensions": 9,
+      "n_attributes": 22,
+      "total_codes": 1180
+    },
+    {
+      "dataset_id": "IVF",
+      "structure_id": "ECB_IVF1",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 23,
+      "total_codes": 1766
+    },
+    {
+      "dataset_id": "JVS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/JVS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "LCI",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/LCI'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "LFSI",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/LFSI'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "LIG",
+      "structure_id": "ECB_LIG1",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 22,
+      "total_codes": 685
+    },
+    {
+      "dataset_id": "MFI",
+      "structure_id": "ECB_MFI1",
+      "status": "ok",
+      "n_dimensions": 5,
+      "n_attributes": 19,
+      "total_codes": 615
+    },
+    {
+      "dataset_id": "MIR",
+      "structure_id": "ECB_MIR1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 23,
+      "total_codes": 1513
+    },
+    {
+      "dataset_id": "MMSR",
+      "structure_id": "ECB_MMSR1",
+      "status": "ok",
+      "n_dimensions": 15,
+      "n_attributes": 20,
+      "total_codes": 4468
+    },
+    {
+      "dataset_id": "MNA",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/MNA'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "MPD",
+      "structure_id": "ECB_MPD1",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 23,
+      "total_codes": 1325
+    },
+    {
+      "dataset_id": "NEC",
+      "structure_id": "ECB_BCS1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 4077
+    },
+    {
+      "dataset_id": "OFI",
+      "structure_id": "ECB_OFI1",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 22,
+      "total_codes": 1711
+    },
+    {
+      "dataset_id": "OMO",
+      "structure_id": "ECB_OMO1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 21,
+      "total_codes": 24233
+    },
+    {
+      "dataset_id": "PAY",
+      "structure_id": "ECB_PAY1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 18,
+      "total_codes": 2369
+    },
+    {
+      "dataset_id": "PCN",
+      "structure_id": "ECB_PAY11",
+      "status": "ok",
+      "n_dimensions": 5,
+      "n_attributes": 18,
+      "total_codes": 2199
+    },
+    {
+      "dataset_id": "PCP",
+      "structure_id": "ECB_PAY5",
+      "status": "ok",
+      "n_dimensions": 14,
+      "n_attributes": 18,
+      "total_codes": 4155
+    },
+    {
+      "dataset_id": "PCT",
+      "structure_id": "ECB_PAY2",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 18,
+      "total_codes": 3202
+    },
+    {
+      "dataset_id": "PDD",
+      "structure_id": "ECB_PAY3",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 18,
+      "total_codes": 3190
+    },
+    {
+      "dataset_id": "PEM",
+      "structure_id": "ECB_PAY4",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 18,
+      "total_codes": 2407
+    },
+    {
+      "dataset_id": "PFBM",
+      "structure_id": "ECB_PFM1",
+      "status": "ok",
+      "n_dimensions": 4,
+      "n_attributes": 21,
+      "total_codes": 1159
+    },
+    {
+      "dataset_id": "PFBR",
+      "structure_id": "ECB_ICPF1",
+      "status": "ok",
+      "n_dimensions": 11,
+      "n_attributes": 21,
+      "total_codes": 3331
+    },
+    {
+      "dataset_id": "PIS",
+      "structure_id": "ECB_PAY6",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 18,
+      "total_codes": 2385
+    },
+    {
+      "dataset_id": "PLB",
+      "structure_id": "ECB_PAY7",
+      "status": "ok",
+      "n_dimensions": 9,
+      "n_attributes": 18,
+      "total_codes": 2373
+    },
+    {
+      "dataset_id": "PMC",
+      "structure_id": "ECB_PAY10",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 18,
+      "total_codes": 3575
+    },
+    {
+      "dataset_id": "PPC",
+      "structure_id": "ECB_PAY9",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 18,
+      "total_codes": 3524
+    },
+    {
+      "dataset_id": "PSN",
+      "structure_id": "ECB_PAY13",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 18,
+      "total_codes": 2717
+    },
+    {
+      "dataset_id": "PST",
+      "structure_id": "ECB_PAY14",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 18,
+      "total_codes": 3865
+    },
+    {
+      "dataset_id": "PTN",
+      "structure_id": "ECB_PAY12",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 18,
+      "total_codes": 2292
+    },
+    {
+      "dataset_id": "PTT",
+      "structure_id": "ECB_PAY8",
+      "status": "ok",
+      "n_dimensions": 9,
+      "n_attributes": 18,
+      "total_codes": 3285
+    },
+    {
+      "dataset_id": "QSA",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/QSA'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "RAI",
+      "structure_id": "ECB_RAI1",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 19,
+      "total_codes": 1213
+    },
+    {
+      "dataset_id": "RAS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/RAS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "RDE",
+      "structure_id": "ECB_FMD2",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 30,
+      "total_codes": 108765
+    },
+    {
+      "dataset_id": "RDF",
+      "structure_id": "ECB_FMD2",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 30,
+      "total_codes": 108765
+    },
+    {
+      "dataset_id": "RESC",
+      "structure_id": "ECB_RES1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 22,
+      "total_codes": 5331
+    },
+    {
+      "dataset_id": "RESH",
+      "structure_id": "ECB_RES1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 22,
+      "total_codes": 5331
+    },
+    {
+      "dataset_id": "RESR",
+      "structure_id": "ECB_RES1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 22,
+      "total_codes": 5331
+    },
+    {
+      "dataset_id": "RESV",
+      "structure_id": "ECB_RES1",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 22,
+      "total_codes": 5331
+    },
+    {
+      "dataset_id": "RTD",
+      "structure_id": "ECB_RTD1",
+      "status": "ok",
+      "n_dimensions": 5,
+      "n_attributes": 23,
+      "total_codes": 851
+    },
+    {
+      "dataset_id": "SAFE",
+      "structure_id": "ECB_SAFE",
+      "status": "ok",
+      "n_dimensions": 12,
+      "n_attributes": 18,
+      "total_codes": 923
+    },
+    {
+      "dataset_id": "SEE",
+      "structure_id": "ECB_SEE1",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 17,
+      "total_codes": 848
+    },
+    {
+      "dataset_id": "SESFOD",
+      "structure_id": "ECB_SESFOD",
+      "status": "ok",
+      "n_dimensions": 10,
+      "n_attributes": 15,
+      "total_codes": 1046
+    },
+    {
+      "dataset_id": "SHSS",
+      "status": "error",
+      "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/datastructure/ECB/NA_SEC?references=all&detail=full'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "dataset_id": "SPF",
+      "structure_id": "ECB_FCT1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 15,
+      "total_codes": 956
+    },
+    {
+      "dataset_id": "SSI",
+      "structure_id": "ECB_SSI1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 1666
+    },
+    {
+      "dataset_id": "SSP",
+      "structure_id": "ECB_SSI1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 1666
+    },
+    {
+      "dataset_id": "SST",
+      "structure_id": "ECB_SSS1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 17,
+      "total_codes": 1176
+    },
+    {
+      "dataset_id": "STBS",
+      "structure_id": "ECB_BCS1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 4077
+    },
+    {
+      "dataset_id": "STP",
+      "structure_id": "ECB_STP1",
+      "status": "ok",
+      "n_dimensions": 12,
+      "n_attributes": 22,
+      "total_codes": 1243
+    },
+    {
+      "dataset_id": "STS",
+      "structure_id": "ECB_STS1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 24,
+      "total_codes": 2145
+    },
+    {
+      "dataset_id": "SUP",
+      "structure_id": "ECB_SUP1",
+      "status": "ok",
+      "n_dimensions": 12,
+      "n_attributes": 19,
+      "total_codes": 5218
+    },
+    {
+      "dataset_id": "SUR",
+      "structure_id": "ECB_SUR1",
+      "status": "ok",
+      "n_dimensions": 6,
+      "n_attributes": 23,
+      "total_codes": 1642
+    },
+    {
+      "dataset_id": "TGB",
+      "structure_id": "ECB_TGB1",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 20,
+      "total_codes": 1711
+    },
+    {
+      "dataset_id": "TRD",
+      "structure_id": "ECB_TRD1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 22,
+      "total_codes": 1169
+    },
+    {
+      "dataset_id": "WTS",
+      "structure_id": "ECB_WTS1",
+      "status": "ok",
+      "n_dimensions": 8,
+      "n_attributes": 23,
+      "total_codes": 2094
+    },
+    {
+      "dataset_id": "YC",
+      "structure_id": "ECB_FMD2",
+      "status": "ok",
+      "n_dimensions": 7,
+      "n_attributes": 30,
+      "total_codes": 108765
     }
   ]
 }

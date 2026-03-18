@@ -1,0 +1,6 @@
+{
+  "dataset_id": "IESS",
+  "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/dataflow/ECB/IESS'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+  "error_type": "HTTPStatusError",
+  "failed_at": "2026-03-18T19:05:42Z"
+}
