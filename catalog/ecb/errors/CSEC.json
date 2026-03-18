@@ -2,5 +2,5 @@
   "dataset_id": "CSEC",
   "error": "Client error '404 ' for url 'https://data-api.ecb.europa.eu/service/datastructure/ECB/NA_SEC?references=all&detail=full'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
   "error_type": "HTTPStatusError",
-  "failed_at": "2026-03-18T19:05:10Z"
+  "failed_at": "2026-03-18T19:16:01Z"
 }
