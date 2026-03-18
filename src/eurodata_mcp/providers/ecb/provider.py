@@ -29,6 +29,24 @@ class ECBProvider(BaseProvider):
     description = "Euro Area macroeconomic statistics from the ECB Statistical Data Warehouse"
     base_url = "https://data.ecb.europa.eu"
 
+    @property
+    def catalog_dir(self) -> "Path":
+        """Point to the canonical catalog/ecb/ directory at the repo root.
+
+        Walks up from this file until pyproject.toml is found (repo root),
+        then returns <root>/catalog/ecb/. This keeps the single source of
+        truth in the root catalog/ folder that the ingestion scripts write to.
+        """
+        from pathlib import Path
+
+        p = Path(__file__).resolve().parent
+        while p != p.parent:
+            if (p / "pyproject.toml").exists():
+                return p / "catalog" / "ecb"
+            p = p.parent
+        # Fallback: relative to this file (4 levels up to repo root)
+        return Path(__file__).resolve().parents[4] / "catalog" / "ecb"
+
     coverage = {
         "geography": ["euro_area", "eu", "germany", "france", "spain", "italy", "netherlands", "belgium", "austria", "portugal", "ireland", "greece", "finland"],
         "topics": ["inflation", "interest_rates", "monetary_policy", "money_supply", "credit", "gdp", "unemployment", "exchange_rates", "balance_of_payments"],
