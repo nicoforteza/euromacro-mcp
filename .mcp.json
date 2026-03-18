@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "eurodata": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "eurodata_mcp.server"]
+    }
+  }
+}
