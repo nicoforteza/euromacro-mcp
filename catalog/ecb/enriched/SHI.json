@@ -1,0 +1,31 @@
+{
+  "id": "SHI",
+  "name": "Securities Holdings and Investment",
+  "description_short": "Housing market indicators covering dwelling transactions, housing completions, housing starts, housing stock, and household housing affordability metrics.",
+  "concepts": [
+    "housing market",
+    "house sales",
+    "dwelling transactions",
+    "housing completions",
+    "housing starts",
+    "housing stock",
+    "housing supply",
+    "residential investment",
+    "housing affordability",
+    "property market"
+  ],
+  "use_cases": [
+    "How many residential properties were transacted in euro area countries last year?",
+    "What is the trend in new housing completions?",
+    "How does housing supply respond to price increases?",
+    "What is the housing affordability index across euro area countries?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "SHI_INDICATOR",
+    "SHI_SUFFIX",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

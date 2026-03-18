@@ -1,0 +1,32 @@
+{
+  "id": "CLIFS",
+  "name": "Country-Level Index of Financial Stress",
+  "description_short": "Country-level indicator of financial stress measuring stress in equity, bond, foreign exchange, and banking markets for individual EU countries. Complements the CISS by providing a country-specific view of financial stability.",
+  "concepts": [
+    "CLIFS",
+    "country financial stress",
+    "financial stress index",
+    "systemic risk",
+    "country risk",
+    "equity market stress",
+    "bond market stress",
+    "banking stress",
+    "financial stability",
+    "sovereign stress"
+  ],
+  "use_cases": [
+    "Which euro area country is currently experiencing the most financial stress?",
+    "How does Italy's financial stress index compare to Spain's?",
+    "How did financial stress in Greece evolve during the sovereign debt crisis?",
+    "What is the current CLIFS reading for France and Germany?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "REF_AREA",
+    "INSTRUMENT_FM",
+    "PROVIDER_FM",
+    "DATA_TYPE_FM"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

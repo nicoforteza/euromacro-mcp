@@ -1,0 +1,34 @@
+{
+  "id": "STS",
+  "name": "Short-term statistics",
+  "description_short": "Broad short-term statistics covering business surveys, economic sentiment, and activity indicators from multiple national and European institutions for the euro area.",
+  "concepts": [
+    "short-term statistics",
+    "economic sentiment",
+    "business surveys",
+    "activity indicators",
+    "PMI",
+    "industrial survey",
+    "services survey",
+    "economic indicators",
+    "cyclical indicators",
+    "leading indicators",
+    "STS"
+  ],
+  "use_cases": [
+    "What is the current economic sentiment indicator for the euro area?",
+    "How does the business climate survey read for euro area industry?",
+    "What do short-term statistics say about the current economic cycle phase?",
+    "How do survey-based and hard economic indicators compare?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "STS_CONCEPT",
+    "STS_CLASS",
+    "STS_INSTITUTION",
+    "REF_AREA",
+    "ADJUSTMENT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

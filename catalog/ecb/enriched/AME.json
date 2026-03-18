@@ -1,0 +1,39 @@
+{
+  "id": "AME",
+  "name": "AMECO - Annual macro-economic database",
+  "description_short": "Annual macroeconomic database maintained by the European Commission covering GDP, inflation, employment, government finances and external trade for EU and major non-EU economies. The primary source for long-run historical comparisons and fiscal surveillance.",
+  "concepts": [
+    "AMECO",
+    "annual macroeconomics",
+    "GDP",
+    "gross domestic product",
+    "inflation",
+    "employment",
+    "government debt",
+    "fiscal balance",
+    "current account",
+    "productivity",
+    "wages",
+    "investment",
+    "EU macro",
+    "European Commission",
+    "fiscal surveillance"
+  ],
+  "use_cases": [
+    "What is the long-run trajectory of government debt as a share of GDP for Italy?",
+    "How does Germany's current account surplus compare to the EU average over the past 20 years?",
+    "What are the European Commission forecasts for GDP growth and inflation across EU countries?",
+    "How has labor productivity evolved across EU member states since 1990?",
+    "What is Spain's cyclically adjusted fiscal balance over time?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "global",
+  "key_dimensions": [
+    "AME_REF_AREA",
+    "AME_ITEM",
+    "AME_UNIT",
+    "AME_TRANSFORMATION",
+    "AME_REFERENCE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "SUR",
+  "name": "Survey data",
+  "description_short": "Composite survey data from multiple European economic survey sources, covering consumer and business sentiment, economic activity expectations, and sector-specific confidence indicators.",
+  "concepts": [
+    "survey data",
+    "economic surveys",
+    "consumer confidence",
+    "business sentiment",
+    "sentiment indicators",
+    "ESI",
+    "industrial confidence",
+    "services confidence",
+    "retail confidence",
+    "construction confidence",
+    "multi-source surveys"
+  ],
+  "use_cases": [
+    "What is the composite economic sentiment indicator for the euro area?",
+    "How does consumer confidence compare across EU countries?",
+    "What do business surveys say about the employment outlook?",
+    "How do survey indicators compare across different data providers?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "SURVEY_ITEM",
+    "SURVEY_BRKDWN",
+    "SURVEY_SOURCE",
+    "REF_AREA",
+    "ADJUSTMENT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

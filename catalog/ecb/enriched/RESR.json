@@ -1,0 +1,29 @@
+{
+  "id": "RESR",
+  "name": "Reserve requirements - rates",
+  "description_short": "Data on reserve requirement rates applied to euro area credit institutions, showing the percentage ratios applied to different deposit liabilities for calculating required reserves.",
+  "concepts": [
+    "reserve requirement rate",
+    "reserve ratio",
+    "minimum reserve rate",
+    "required reserve ratio",
+    "ECB reserve policy",
+    "monetary policy tool",
+    "reserve calculation",
+    "liability base"
+  ],
+  "use_cases": [
+    "What is the current reserve requirement ratio for euro area banks?",
+    "How has the reserve requirement rate changed over time?",
+    "Which liability categories are subject to reserve requirements?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "REGION",
+    "PROPERTY_TYPE",
+    "INDICATOR",
+    "PRICE_TYPE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

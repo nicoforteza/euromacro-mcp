@@ -1,0 +1,32 @@
+{
+  "id": "RDE",
+  "name": "Residential real estate demand",
+  "description_short": "Financial market indicators related to residential real estate demand, capturing price dynamics, transaction volumes, and financing conditions in euro area housing markets.",
+  "concepts": [
+    "residential real estate",
+    "housing demand",
+    "house prices",
+    "housing market",
+    "real estate transactions",
+    "mortgage market",
+    "property demand",
+    "housing affordability",
+    "housing finance",
+    "real estate cycle"
+  ],
+  "use_cases": [
+    "How has housing demand evolved across euro area countries?",
+    "What market indicators are pointing to changes in residential property demand?",
+    "How do housing market conditions compare between euro area countries?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "INSTRUMENT_FM",
+    "PROVIDER_FM",
+    "PROVIDER_FM_ID",
+    "REF_AREA",
+    "DATA_TYPE_FM"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

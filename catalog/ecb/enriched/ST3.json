@@ -1,0 +1,29 @@
+{
+  "id": "ST3",
+  "name": "Short-term statistics 3",
+  "description_short": "Additional short-term external statistics for the euro area providing supplementary breakdowns for balance of payments components at monthly frequency.",
+  "concepts": [
+    "short-term statistics",
+    "external statistics",
+    "BOP supplementary",
+    "trade statistics",
+    "financial flows",
+    "monthly external data",
+    "balance of payments breakdown"
+  ],
+  "use_cases": [
+    "What supplementary breakdowns are available for euro area BOP data?",
+    "How do short-term statistics supplement annual external accounts?",
+    "What is the monthly breakdown of specific BOP components?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BOP_ITEM",
+    "DATA_TYPE_BOP",
+    "CURR_BRKDWN",
+    "COUNT_AREA",
+    "ADJUSTMENT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

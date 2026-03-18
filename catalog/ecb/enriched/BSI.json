@@ -1,0 +1,39 @@
+{
+  "id": "BSI",
+  "name": "Balance Sheet Items (MFI)",
+  "description_short": "Monthly consolidated balance sheet of monetary financial institutions in the euro area, covering loans, deposits, securities, and other assets and liabilities broken down by sector, maturity, and currency. The main source for monetary statistics.",
+  "concepts": [
+    "MFI balance sheet",
+    "bank balance sheet",
+    "loans",
+    "deposits",
+    "credit",
+    "monetary statistics",
+    "M3",
+    "broad money",
+    "bank assets",
+    "bank liabilities",
+    "household loans",
+    "corporate credit",
+    "maturity",
+    "currency breakdown",
+    "counterpart sector"
+  ],
+  "use_cases": [
+    "What is the total stock of loans to the non-financial private sector in the euro area?",
+    "How have household deposits at euro area banks evolved over time?",
+    "What is the currency composition of MFI balance sheets?",
+    "How do loans to non-financial corporations compare across euro area countries?",
+    "What is the maturity breakdown of MFI lending?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BS_ITEM",
+    "BS_REP_SECTOR",
+    "MATURITY_ORIG",
+    "COUNT_AREA",
+    "BS_COUNT_SECTOR"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

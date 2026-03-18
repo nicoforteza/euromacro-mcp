@@ -1,0 +1,34 @@
+{
+  "id": "ILM",
+  "name": "Interbank lending market",
+  "description_short": "Data on the euro area interbank lending market, capturing overnight and term lending between banks. Provides insights into money market functioning and bank funding conditions.",
+  "concepts": [
+    "interbank lending",
+    "interbank market",
+    "money market",
+    "overnight lending",
+    "term lending",
+    "bank funding",
+    "liquidity",
+    "interbank rates",
+    "secured lending",
+    "unsecured lending",
+    "repo",
+    "money market functioning"
+  ],
+  "use_cases": [
+    "What is the volume of overnight interbank lending in the euro area?",
+    "How has the interbank market dried up or recovered since the financial crisis?",
+    "What is the breakdown of interbank lending by term?",
+    "How do secured versus unsecured interbank volumes compare?"
+  ],
+  "primary_frequency": "D",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BS_ITEM",
+    "BS_REP_SECTOR",
+    "COUNT_AREA",
+    "CURRENCY_TRANS"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

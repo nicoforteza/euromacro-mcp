@@ -1,0 +1,35 @@
+{
+  "id": "FVC",
+  "name": "Financial Vehicle Corporations",
+  "description_short": "Balance sheet statistics for financial vehicle corporations (FVCs) engaged in securitisation transactions in the euro area, covering assets and liabilities by type of securitised loan, originator sector, and investor.",
+  "concepts": [
+    "financial vehicle corporations",
+    "FVC",
+    "securitisation",
+    "SPV",
+    "special purpose vehicle",
+    "ABS",
+    "asset-backed securities",
+    "mortgage-backed securities",
+    "CLO",
+    "CDO",
+    "shadow banking",
+    "securitisation statistics"
+  ],
+  "use_cases": [
+    "What is the total size of euro area securitisation vehicles?",
+    "Which asset classes are being securitised by euro area FVCs?",
+    "Which banking sectors are the largest originators of securitised loans?",
+    "How has the euro area securitisation market evolved since 2008?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "FVC_ITEM",
+    "FVC_REP_SECTOR",
+    "FVC_ORI_SECTOR",
+    "MATURITY_ORIG",
+    "COUNT_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "IRS",
+  "name": "Interest rate statistics",
+  "description_short": "Statistics on interest rates applied by monetary financial institutions on loans and deposits to households and non-financial corporations, providing a comprehensive view of lending and deposit rates across the euro area.",
+  "concepts": [
+    "interest rates",
+    "lending rates",
+    "deposit rates",
+    "mortgage rates",
+    "consumer credit rates",
+    "business loan rates",
+    "MFI rates",
+    "bank rates",
+    "interest rate statistics",
+    "rate differentials",
+    "fixed rate",
+    "variable rate",
+    "APRC"
+  ],
+  "use_cases": [
+    "What is the average interest rate on new mortgages in Germany?",
+    "How do consumer credit rates compare across euro area countries?",
+    "What is the average rate on new business loans in Spain?",
+    "How have deposit rates evolved since the ECB started raising rates?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "IR_TYPE",
+    "TR_TYPE",
+    "MATURITY_CAT",
+    "BS_COUNT_SECTOR",
+    "IR_FV_TYPE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

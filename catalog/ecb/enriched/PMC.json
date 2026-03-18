@@ -1,0 +1,30 @@
+{
+  "id": "PMC",
+  "name": "Post-money creation statistics",
+  "description_short": "Statistics on payment transactions by merchant category, covering card payments at points of sale by merchant type (retail, hospitality, transport, etc.).",
+  "concepts": [
+    "merchant category",
+    "point of sale",
+    "card acceptance",
+    "retail payments",
+    "merchant payments",
+    "MCC",
+    "merchant category code",
+    "card spending by sector",
+    "consumer spending patterns"
+  ],
+  "use_cases": [
+    "How is card spending distributed across merchant categories?",
+    "What merchant types generate the highest card transaction volumes?",
+    "How has spending at restaurants and hospitality venues trended?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "MRCHNT_CTGRY_CD",
+    "TRMNL_LCTN",
+    "COUNT_AREA",
+    "RMT_INTTN"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

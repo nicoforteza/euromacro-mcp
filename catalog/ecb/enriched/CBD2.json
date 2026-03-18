@@ -1,0 +1,37 @@
+{
+  "id": "CBD2",
+  "name": "Consolidated Banking Data 2",
+  "description_short": "Extended consolidated banking data with additional breakdowns including counterparty sector, portfolio classification (IFRS), and exposure types, providing a more granular view of EU banking group balance sheets.",
+  "concepts": [
+    "consolidated banking data",
+    "CBD2",
+    "IFRS",
+    "bank capital",
+    "NPL",
+    "non-performing loans",
+    "bank exposure",
+    "portfolio classification",
+    "fair value",
+    "banking sector",
+    "CET1",
+    "loan quality",
+    "macroprudential",
+    "EBA"
+  ],
+  "use_cases": [
+    "How are EU banks' assets classified across different IFRS portfolio categories?",
+    "What is the breakdown of non-performing exposures by counterparty sector?",
+    "How do EU banks' cross-border exposures compare across host countries?",
+    "What is the trend in loan loss provisions across EU banking systems?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "CB_ITEM",
+    "CB_REP_SECTOR",
+    "CB_EXP_TYPE",
+    "CB_PORTFOLIO",
+    "CB_REP_FRAMEWRK"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

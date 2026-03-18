@@ -1,0 +1,30 @@
+{
+  "id": "PPC",
+  "name": "Post-production costs",
+  "description_short": "Statistics on payment service providers' transaction volumes and values at the terminal level, with breakdowns by initiating channel, PSP category, and transaction type.",
+  "concepts": [
+    "payment service provider",
+    "PSP",
+    "terminal transactions",
+    "payment volumes",
+    "POS",
+    "online payments",
+    "PSP categories",
+    "payment initiation",
+    "payment processing"
+  ],
+  "use_cases": [
+    "What is the breakdown of payment transactions by payment service provider category?",
+    "How do in-store versus online payment volumes compare?",
+    "What is the market share of different PSP categories in EU payments?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "INTTN_CHNNL",
+    "PSP_CTGRY",
+    "TYP_TRNSCTN",
+    "COUNT_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "ECS",
+  "name": "ECB Consumer Survey",
+  "description_short": "Older ECB consumer survey covering household expectations and perceptions on inflation, economic conditions, and major purchases. Predecessor to the more detailed Consumer Expectations Survey (CES).",
+  "concepts": [
+    "consumer survey",
+    "consumer expectations",
+    "inflation perceptions",
+    "household survey",
+    "consumer confidence",
+    "ECB survey",
+    "purchasing intentions",
+    "economic outlook",
+    "consumer sentiment"
+  ],
+  "use_cases": [
+    "What were consumer inflation perceptions in the euro area?",
+    "How did household expectations for economic conditions evolve?",
+    "What is the historical record of consumer confidence surveys?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "SURVEY_ITEM",
+    "SURVEY_BRKDWN",
+    "DATA_PROVIDER",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

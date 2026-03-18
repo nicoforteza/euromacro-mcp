@@ -1,0 +1,29 @@
+{
+  "id": "PFBM",
+  "name": "Price and Financial variables for the ECB BEAST model (monthly)",
+  "description_short": "Monthly data on pension fund membership and related indicators for euro area pension schemes, covering active members, deferred pensioners, and pensioners in payment.",
+  "concepts": [
+    "pension funds",
+    "pension members",
+    "active members",
+    "pensioners",
+    "deferred pensions",
+    "pension statistics",
+    "occupational pensions",
+    "retirement",
+    "pension schemes monthly"
+  ],
+  "use_cases": [
+    "How many active members are in euro area pension schemes?",
+    "What is the ratio of active to retired members in pension funds?",
+    "How has pension fund membership evolved over time?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "PF_MEMBER_TYPE",
+    "REPORTING_SECTOR",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

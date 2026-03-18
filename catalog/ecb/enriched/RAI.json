@@ -1,0 +1,29 @@
+{
+  "id": "RAI",
+  "name": "Reserve Assets (international)",
+  "description_short": "International reserve assets data combining multiple ECB datasets into an integrated view of financial flows, stocks, and other macroeconomic indicators for the euro area.",
+  "concepts": [
+    "reserve assets",
+    "international reserves",
+    "integrated data",
+    "financial flows",
+    "cross-dataset",
+    "macro indicators",
+    "balance of payments",
+    "IIP",
+    "financial statistics compilation"
+  ],
+  "use_cases": [
+    "What is the integrated view of euro area international financial position?",
+    "How do reserve asset flows relate to other balance of payments components?",
+    "What are the key macro-financial linkages captured in integrated data?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "DD_ECON_CONCEPT",
+    "CURRENCY_TRANS",
+    "SOURCE_DATA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}
