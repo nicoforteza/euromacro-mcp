@@ -20,13 +20,12 @@ An MCP server exposing curated macroeconomic time series to AI agents. The value
 
 ### Provider pattern
 When adding new data sources, follow the established pattern:
-1. Create `providers/{id}/` directory
-2. Implement `{Id}Provider(BaseProvider)` in `provider.py`
-3. Create `guide.md` with conceptual documentation
-4. Create `examples.json` with common queries
-5. Create `aliases.json` with natural language mappings
-6. Implement `{Id}Connector(BaseConnector)` in `connectors/{id}.py`
-7. Register in `providers/base.py` `get_registry()`
+1. Create `providers/{id}/` directory with `provider.py`, `guide.md`, `examples.json`, `aliases.json`
+2. Override `catalog_dir` to point to `catalog/{id}/` at the repo root
+3. Run ingestion script → writes to `catalog/{id}/structures/` and `catalog/{id}/enriched/`
+4. Implement `{Id}Connector(BaseConnector)` in `connectors/{id}.py`
+5. Register in `providers/base.py` `get_registry()`
+6. Add curated series to `src/eurodata_mcp/catalog/series/{id}_*.json`
 
 ### Commit conventions
 - `feat:` new features
@@ -37,7 +36,11 @@ When adding new data sources, follow the established pattern:
 - `test:` test additions/changes
 
 ## Current status
-**Milestone 1 — ECB Euro Area MVP: COMPLETED**
+**Milestone 1 — ECB Euro Area: COMPLETED**
+- 100 ECB datasets ingested (SDMX structures + semantic enrichment)
+- Two-layer catalog: 25 curated series + 100 enriched datasets
+- 11 MCP tools, all provider-aware
+- 110 tests passing (no network)
 
 Next milestones:
 - M2: BIS (Bank for International Settlements)
@@ -55,13 +58,11 @@ See `docs/ROADMAP.md` for full plan.
 └────────────────────────────┬────────────────────────────────────────┘
                              │ MCP Protocol (stdio / SSE)
 ┌────────────────────────────▼────────────────────────────────────────┐
-│                        MCP SERVER                                    │
-│                     server.py (FastMCP)                              │
+│                        MCP SERVER (server.py / FastMCP)              │
 │                                                                      │
-│  11 Tools:                                                           │
-│  · Catalog: search_series, get_series, describe_series, list_categories
-│  · Explore: explore_datasets, explore_dimensions, explore_codes, build_series
-│  · Provider: list_providers, get_provider_guide, find_provider      │
+│  Catalog:  search_series · get_series · describe_series · list_categories
+│  Explore:  explore_datasets · explore_dimensions · explore_codes · build_series
+│  Provider: list_providers · get_provider_guide · find_provider      │
 └────────────────────────────┬────────────────────────────────────────┘
                              │
 ┌────────────────────────────▼────────────────────────────────────────┐
@@ -71,8 +72,11 @@ See `docs/ROADMAP.md` for full plan.
                              │
         ┌────────────────────┼────────────────────┐
         ▼                    ▼                    ▼
-   Connectors            Catalog            Metadata Cache
-   (API clients)     (curated series)    (dataflows, codelists)
+   Connectors         Two-layer Catalog      Metadata Cache
+   (API clients)      ├─ SeriesEntry         (SDMX fallback)
+                      │  (25 curated)
+                      └─ DatasetEntry
+                         (100 enriched)
 ```
 
 ## Stack
@@ -87,52 +91,62 @@ See `docs/ROADMAP.md` for full plan.
 
 ## Directory layout
 ```
-eurodata-mcp/
-├── CLAUDE.md                 # This file — Claude Code instructions
-├── README.md                 # Project overview
+euromacro-mcp/
+├── CLAUDE.md                  # This file
+├── README.md
 ├── pyproject.toml
 ├── .mcp.json
-├── .claude/
-│   ├── settings.json
-│   ├── commands/             # Slash commands
-│   ├── agents/               # Sub-agents
-│   └── skills/               # Reusable skills
-├── src/eurodata_mcp/
-│   ├── server.py             # FastMCP entry point (11 tools)
-│   ├── tools/                # Tool implementations
-│   │   ├── series.py         # Catalog tools
-│   │   └── explore.py        # Exploration tools
-│   ├── providers/            # Multi-source provider system
-│   │   ├── base.py           # BaseProvider + ProviderRegistry
-│   │   └── ecb/              # ECB provider
-│   │       ├── provider.py   # ECBProvider class
-│   │       ├── guide.md      # ECB data guide
-│   │       ├── examples.json # Common queries
-│   │       └── aliases.json  # Natural language mappings
-│   ├── connectors/           # API clients
-│   │   ├── base.py           # BaseConnector ABC
-│   │   └── ecb.py            # ECBConnector (SDMX)
-│   ├── catalog/              # Curated series catalog
-│   │   ├── loader.py         # CatalogLoader singleton
-│   │   └── series/           # JSON series files
-│   ├── metadata/             # Metadata caching
-│   │   └── cache.py          # MetadataCache
-│   └── cache/                # Data caching
+├── catalog/                   # Single source of truth for catalog data
+│   └── ecb/                   # Written by ingestion scripts, read at runtime
+│       ├── README.md
+│       ├── catalog_base.json  # Ingestion index
+│       ├── catalog_enriched.json  # 100 datasets with semantic metadata
+│       ├── enriched/          # Per-dataset semantic JSON (100 files)
+│       ├── structures/        # Per-dataset SDMX structure JSON (100 files)
+│       └── errors/            # Failed fetches
 ├── scripts/
-│   └── bootstrap_metadata.py # Populate metadata cache
+│   ├── ingest_ecb_structures.py   # Fetch SDMX structures from ECB API
+│   └── enrich_ecb_catalog.py      # Generate semantic metadata via LLM
+├── src/eurodata_mcp/
+│   ├── server.py              # FastMCP entry point (11 tools)
+│   ├── tools/
+│   │   ├── series.py          # search_series, get_series, describe_series, list_categories
+│   │   └── explore.py         # explore_datasets, explore_dimensions, explore_codes, build_series
+│   ├── providers/
+│   │   ├── base.py            # BaseProvider + ProviderRegistry
+│   │   └── ecb/
+│   │       ├── provider.py    # ECBProvider (catalog_dir → catalog/ecb/)
+│   │       ├── guide.md       # ECB data guide for AI agents
+│   │       ├── examples.json
+│   │       └── aliases.json
+│   ├── connectors/
+│   │   ├── base.py            # BaseConnector ABC
+│   │   └── ecb.py             # ECBConnector (SDMX)
+│   ├── catalog/
+│   │   ├── loader.py          # CatalogLoader: SeriesEntry + DatasetEntry
+│   │   └── series/
+│   │       └── ecb_euro_area.json  # 25 curated ECB series
+│   ├── metadata/
+│   │   └── cache.py           # MetadataCache (live SDMX fallback)
+│   └── cache/
 ├── tests/
+│   ├── test_catalog.py             # Curated series tests
+│   ├── test_ecb_dataset_catalog.py # Dataset catalog + explore tools (23 tests)
+│   ├── test_natural_language.py    # End-to-end NL flow tests (65 tests)
+│   ├── test_tools.py               # MCP tool tests
+│   └── test_ecb_connector.py       # Network tests (skipped in CI)
 └── docs/
-    ├── ROADMAP.md            # Development roadmap
-    ├── ARCHITECTURE.md       # Technical architecture
-    ├── DATA_SOURCES.md       # API documentation
-    └── CATALOG_SCHEMA.md     # Series JSON schema
+    ├── ROADMAP.md
+    ├── ARCHITECTURE.md
+    ├── DATA_SOURCES.md
+    └── CATALOG_SCHEMA.md
 ```
 
 ## Run locally
 ```bash
 uv sync
 uv run python -m eurodata_mcp.server   # stdio MCP server
-uv run pytest                           # tests
+uv run pytest                           # 110 tests, no network needed
 ```
 
 ## Add to Claude Desktop
@@ -141,7 +155,7 @@ uv run pytest                           # tests
   "mcpServers": {
     "eurodata": {
       "command": "uv",
-      "args": ["run", "--directory", "/path/to/repo", "python", "-m", "eurodata_mcp.server"]
+      "args": ["run", "--directory", "/path/to/euromacro-mcp", "python", "-m", "eurodata_mcp.server"]
     }
   }
 }
@@ -149,15 +163,16 @@ uv run pytest                           # tests
 
 ## Core principles
 1. **Catalog-first** — the curated series list is the IP; code is secondary
-2. **Semantic over cryptic** — every series has human-readable names, descriptions, tags
-3. **Provider pattern** — new data sources extend `BaseProvider` and `BaseConnector`
-4. **Guide-driven** — each provider has documentation for AI agents
+2. **Two-layer search** — curated series (fast, precise) + enriched datasets (broad, explorable)
+3. **Provider pattern** — new data sources extend `BaseProvider`; `catalog_dir` points to `catalog/{id}/`
+4. **Single source of truth** — `catalog/ecb/` is written by ingestion scripts and read directly at runtime; no copies
 5. **Cache aggressively** — historical data never changes; only refresh recent months
-6. **Fail gracefully** — if API is down, serve cached data with staleness warning
+6. **Fail gracefully** — if API is down, serve cached data; MetadataCache is fallback for explore tools
 
 ## Key files to understand
 - `src/eurodata_mcp/server.py` — MCP tool definitions
-- `src/eurodata_mcp/providers/base.py` — Provider architecture
-- `src/eurodata_mcp/providers/ecb/guide.md` — ECB data guide
-- `src/eurodata_mcp/connectors/ecb.py` — ECB API client
-- `src/eurodata_mcp/catalog/series/ecb_euro_area.json` — Curated ECB series
+- `src/eurodata_mcp/catalog/loader.py` — CatalogLoader with SeriesEntry + DatasetEntry
+- `src/eurodata_mcp/providers/base.py` — BaseProvider with catalog_dir, get_enriched_catalog(), get_dataset_structure()
+- `src/eurodata_mcp/providers/ecb/provider.py` — ECBProvider (overrides catalog_dir to root catalog/ecb/)
+- `src/eurodata_mcp/tools/explore.py` — explore_* tools reading from shipped catalog
+- `catalog/ecb/catalog_enriched.json` — 100 ECB datasets with semantic metadata
