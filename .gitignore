@@ -57,3 +57,6 @@ Thumbs.db
 # Logs
 *.log
 logs/
+.claire/
+.claude/worktrees/
+src/eurodata_mcp/providers/ecb/.Rhistory
