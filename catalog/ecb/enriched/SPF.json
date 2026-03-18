@@ -1,0 +1,33 @@
+{
+  "id": "SPF",
+  "name": "Survey of Professional Forecasters",
+  "description_short": "ECB quarterly survey collecting inflation, GDP growth, and unemployment forecasts from professional economic forecasters, capturing the distribution of expectations over various horizons.",
+  "concepts": [
+    "SPF",
+    "survey of professional forecasters",
+    "inflation expectations",
+    "GDP forecast",
+    "unemployment forecast",
+    "forecast distribution",
+    "consensus forecast",
+    "long-run expectations",
+    "probability distribution",
+    "professional forecasts",
+    "ECB survey"
+  ],
+  "use_cases": [
+    "What do professional forecasters expect euro area inflation to be in two years?",
+    "How have long-run inflation expectations evolved over time?",
+    "What is the uncertainty around GDP growth forecasts?",
+    "How do SPF forecasts compare to ECB staff projections?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_only",
+  "key_dimensions": [
+    "FCT_TOPIC",
+    "FCT_BREAKDOWN",
+    "FCT_HORIZON",
+    "FCT_SOURCE"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

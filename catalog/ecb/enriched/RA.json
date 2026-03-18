@@ -1,0 +1,32 @@
+{
+  "id": "RA",
+  "name": "Reserve Assets",
+  "description_short": "Reserve assets statistics for euro area central banks, covering gold, foreign currency reserves, IMF positions, SDRs, and other reserve assets. Key indicator of external buffer capacity.",
+  "concepts": [
+    "reserve assets",
+    "foreign exchange reserves",
+    "gold reserves",
+    "IMF SDR",
+    "special drawing rights",
+    "central bank reserves",
+    "official reserves",
+    "monetary gold",
+    "reserve adequacy",
+    "external liquidity"
+  ],
+  "use_cases": [
+    "What are the total foreign exchange reserves held by the euro area?",
+    "How much gold does the ECB and euro area central banks hold?",
+    "How have reserve assets evolved during periods of exchange rate pressure?",
+    "What is the breakdown of reserves by component (gold, forex, SDR)?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "BOP_ITEM",
+    "DATA_TYPE_BOP",
+    "CURR_BRKDWN",
+    "ADJUSTMENT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

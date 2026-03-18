@@ -1,0 +1,30 @@
+{
+  "id": "PIS",
+  "name": "Portfolio investment income statistics",
+  "description_short": "Statistics on payment transactions involving portfolio investment income, tracking flows related to dividends, interest, and other investment income across EU payment systems.",
+  "concepts": [
+    "portfolio investment",
+    "investment income",
+    "dividends",
+    "interest payments",
+    "payment flows",
+    "cross-border income",
+    "financial income",
+    "securities income"
+  ],
+  "use_cases": [
+    "What are the flows of investment income payments across EU borders?",
+    "How do dividend and interest payment flows compare?",
+    "What is the trend in portfolio income transactions?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "TYP_TRNSCTN",
+    "COUNT_AREA",
+    "SCA",
+    "FRD_TYP",
+    "RMT_INTTN"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

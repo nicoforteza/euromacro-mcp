@@ -1,0 +1,30 @@
+{
+  "id": "SST",
+  "name": "Securities statistics - total",
+  "description_short": "Total securities settlement statistics for EU securities settlement systems including both CSD and exchange-based clearing, providing aggregate volumes and values.",
+  "concepts": [
+    "securities settlement",
+    "total settlement",
+    "settlement statistics",
+    "CSD",
+    "central securities depository",
+    "settlement volumes",
+    "settlement values",
+    "securities infrastructure",
+    "clearing statistics"
+  ],
+  "use_cases": [
+    "What is the total settlement volume across all European securities settlement systems?",
+    "How do settlement volumes compare across CSD systems?",
+    "What is the total value of securities settled in the EU?"
+  ],
+  "primary_frequency": "A",
+  "geographic_coverage": "eu_wide",
+  "key_dimensions": [
+    "SSS_SYSTEM",
+    "SSS_INFO_TYPE",
+    "SSS_INSTRUMENT",
+    "CURRENCY_TRANS"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

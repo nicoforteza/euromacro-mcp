@@ -1,0 +1,34 @@
+{
+  "id": "DD",
+  "name": "Daily data",
+  "description_short": "High-frequency daily dataset aggregating key financial and economic indicators from multiple ECB sources including exchange rates, money market rates, balance of payments, and financial market data. Useful for real-time economic monitoring.",
+  "concepts": [
+    "daily data",
+    "high frequency",
+    "financial indicators",
+    "exchange rates",
+    "money market rates",
+    "balance of payments daily",
+    "real-time",
+    "ECB tracker",
+    "financial markets",
+    "effective exchange rate",
+    "current account",
+    "capital flows"
+  ],
+  "use_cases": [
+    "What is today's euro effective exchange rate?",
+    "How have daily money market conditions evolved this week?",
+    "What are the latest daily capital flow indicators for the euro area?",
+    "What is the daily current account balance estimate?"
+  ],
+  "primary_frequency": "D",
+  "geographic_coverage": "euro_area_only",
+  "key_dimensions": [
+    "DD_ECON_CONCEPT",
+    "DD_TRANSF",
+    "DD_SUFFIX",
+    "REF_AREA"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

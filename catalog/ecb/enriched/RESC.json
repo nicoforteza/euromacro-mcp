@@ -1,0 +1,32 @@
+{
+  "id": "RESC",
+  "name": "Reserve requirements - excess and deficiency",
+  "description_short": "Data on the reserve requirement compliance of euro area credit institutions, showing excess and deficient reserve positions relative to required reserve minimums.",
+  "concepts": [
+    "reserve requirements",
+    "minimum reserves",
+    "excess reserves",
+    "reserve deficiency",
+    "required reserves",
+    "reserve maintenance",
+    "central bank reserves",
+    "monetary policy instrument",
+    "ECB reserve system"
+  ],
+  "use_cases": [
+    "How much excess reserves do euro area banks hold?",
+    "Are any banks in reserve deficiency positions?",
+    "How have excess reserves evolved relative to required minimums?",
+    "What is the distribution of reserve positions across euro area banks?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "REGION",
+    "PROPERTY_TYPE",
+    "INDICATOR",
+    "PRICE_TYPE",
+    "DATA_PROVIDER"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

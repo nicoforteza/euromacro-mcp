@@ -1,0 +1,33 @@
+{
+  "id": "OFI",
+  "name": "Other Financial Intermediaries",
+  "description_short": "Balance sheet statistics for other financial intermediaries (OFIs) in the euro area, covering entities like financial holding companies, securities dealers, and other entities not classified elsewhere in the financial sector.",
+  "concepts": [
+    "other financial intermediaries",
+    "OFI",
+    "shadow banking",
+    "financial sector",
+    "non-bank finance",
+    "financial holding companies",
+    "securities dealers",
+    "financial vehicles",
+    "balance sheet",
+    "financial stability"
+  ],
+  "use_cases": [
+    "How large is the euro area shadow banking sector?",
+    "What types of assets do OFIs hold?",
+    "How have OFI balance sheets grown relative to the banking sector?",
+    "What is the cross-border exposure of euro area OFIs?"
+  ],
+  "primary_frequency": "Q",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "OFI_ITEM",
+    "OFI_REP_SECTOR",
+    "MATURITY_ORIG",
+    "COUNT_AREA",
+    "BS_COUNT_SECTOR"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "EST",
+  "name": "Euro Short-Term Rate (\u20acSTR)",
+  "description_short": "Daily data on the \u20acSTR (Euro Short-Term Rate), the ECB's benchmark overnight interest rate for the euro area that replaced EONIA in 2022. Based on actual transactions in the unsecured overnight market.",
+  "concepts": [
+    "\u20acSTR",
+    "ESTR",
+    "euro short-term rate",
+    "overnight rate",
+    "benchmark rate",
+    "reference rate",
+    "money market",
+    "unsecured lending",
+    "interbank market",
+    "ECB rate",
+    "EONIA successor",
+    "short-term interest rate"
+  ],
+  "use_cases": [
+    "What is today's \u20acSTR rate?",
+    "How has \u20acSTR evolved since its introduction?",
+    "What is the spread between \u20acSTR and the ECB deposit facility rate?",
+    "How does \u20acSTR compare to the pre-2022 EONIA level?"
+  ],
+  "primary_frequency": "D",
+  "geographic_coverage": "euro_area_only",
+  "key_dimensions": [
+    "BENCHMARK_ITEM",
+    "DATA_TYPE_EST"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

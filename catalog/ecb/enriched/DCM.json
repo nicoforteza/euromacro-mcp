@@ -1,0 +1,37 @@
+{
+  "id": "DCM",
+  "name": "Debt securities markets",
+  "description_short": "Statistics on debt securities issued by euro area residents, covering outstanding amounts, issuance, and redemptions by sector, currency, and maturity. The main reference for bond market analysis in the euro area.",
+  "concepts": [
+    "debt securities",
+    "bonds",
+    "bond market",
+    "corporate bonds",
+    "government bonds",
+    "ABS",
+    "covered bonds",
+    "issuance",
+    "outstanding amounts",
+    "redemptions",
+    "maturity structure",
+    "fixed income",
+    "credit market",
+    "securitisation"
+  ],
+  "use_cases": [
+    "What is the total stock of corporate bonds issued by euro area non-financial corporations?",
+    "How has government bond issuance in the euro area changed over time?",
+    "What is the maturity breakdown of outstanding euro area debt securities?",
+    "How has covered bond issuance evolved in different euro area countries?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "SEC_ISSUING_SECTOR",
+    "DEBT_TYPE",
+    "MATURITY_CAT",
+    "DATA_TYPE_SEC",
+    "CURRENCY_TRANS"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

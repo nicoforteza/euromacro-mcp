@@ -1,0 +1,33 @@
+{
+  "id": "SSP",
+  "name": "Securities statistics - prices",
+  "description_short": "Price-related statistics for euro area debt securities, covering yields, spreads, and valuations by issuer sector, instrument type, and maturity.",
+  "concepts": [
+    "securities prices",
+    "bond prices",
+    "yields",
+    "credit spreads",
+    "debt securities pricing",
+    "yield curves",
+    "bond valuation",
+    "fixed income prices",
+    "market prices",
+    "fair value"
+  ],
+  "use_cases": [
+    "What are current yields on euro area corporate bonds by rating?",
+    "How have sovereign bond prices changed across the euro area?",
+    "What is the spread between investment grade and high yield corporate bonds?",
+    "How do bond prices reflect changing interest rate expectations?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "REF_SECTOR",
+    "SSI_INDICATOR",
+    "DATA_TYPE",
+    "COUNT_AREA",
+    "CURRENCY_TRANS"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}

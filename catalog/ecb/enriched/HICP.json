@@ -1,0 +1,39 @@
+{
+  "id": "HICP",
+  "name": "Harmonised Index of Consumer Prices",
+  "description_short": "The HICP is the ECB's target inflation measure, covering all major expenditure categories across euro area countries. Available at various levels of detail from the headline index to individual product categories.",
+  "concepts": [
+    "HICP",
+    "inflation",
+    "consumer prices",
+    "price index",
+    "CPI",
+    "core inflation",
+    "energy prices",
+    "food prices",
+    "services inflation",
+    "goods inflation",
+    "harmonised inflation",
+    "Eurostat",
+    "monetary policy target",
+    "price stability",
+    "euro area inflation"
+  ],
+  "use_cases": [
+    "What is the current euro area headline inflation rate?",
+    "How does core inflation differ from headline HICP?",
+    "Which HICP components are contributing most to current inflation?",
+    "How does inflation compare across euro area countries?",
+    "What is the trend in services inflation versus goods inflation?"
+  ],
+  "primary_frequency": "M",
+  "geographic_coverage": "euro_area_and_countries",
+  "key_dimensions": [
+    "ICP_ITEM",
+    "DATA_PROVIDER",
+    "ICP_SUFFIX",
+    "REF_AREA",
+    "ADJUSTMENT"
+  ],
+  "enriched_at": "2026-03-18T00:00:00Z"
+}
