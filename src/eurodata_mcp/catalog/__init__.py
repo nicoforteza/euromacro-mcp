@@ -1,5 +1,5 @@
-"""Curated series catalog management."""
+"""Enriched dataset catalog management."""
 
-from .loader import CatalogLoader, SeriesEntry, get_catalog, load_catalog
+from .loader import CatalogLoader, DatasetEntry, get_catalog
 
-__all__ = ["CatalogLoader", "SeriesEntry", "get_catalog", "load_catalog"]
+__all__ = ["CatalogLoader", "DatasetEntry", "get_catalog"]

@@ -2,7 +2,6 @@
 
 import logging
 from datetime import datetime, timezone
-from typing import TypedDict
 
 from ..cache.sqlite import CacheManager
 from ..catalog.loader import get_catalog
@@ -21,44 +20,25 @@ def get_cache() -> CacheManager:
     return _cache
 
 
+# TTL by ECB frequency code (seconds)
 CACHE_TTL = {
-    "daily": 86400,
-    "monthly": 604800,
-    "quarterly": 2592000,
-    "annual": 7776000,
+    "B": 86400,
+    "D": 86400,
+    "M": 604800,
+    "Q": 2592000,
+    "A": 7776000,
 }
 
 
-class SeriesPoint(TypedDict):
-    date: str
-    value: float
+def _parse_series_id(series_id: str) -> tuple[str, str, str] | None:
+    """Parse 'provider:dataset:series_key' into its three components.
 
-
-class SeriesData(TypedDict):
-    id: str
-    name: str
-    unit: str
-    frequency: str
-    observations: list[SeriesPoint]
-    cached: bool
-    cache_timestamp: str | None
-
-
-class SeriesResult(TypedDict):
-    id: str
-    name_en: str
-    name_es: str
-    category: str
-    frequency: str
-    geography: str
-    priority: int
-    description_en: str
-
-
-class CategoryInfo(TypedDict):
-    category: str
-    series_count: int
-    series_ids: list[str]
+    Returns (provider_id, dataset, series_key) or None if the format is invalid.
+    """
+    parts = series_id.split(":", 2)
+    if len(parts) == 3 and all(parts):
+        return parts[0], parts[1], parts[2]
+    return None
 
 
 async def search_series(
@@ -67,44 +47,32 @@ async def search_series(
     provider: str | None = None,
     frequency: str | None = None,
     geo_coverage: str | None = None,
-) -> list[SeriesResult]:
-    """Search for series in the catalog by keyword.
+) -> list[dict]:
+    """Search for datasets in the enriched catalog by keyword.
 
-    Searches across series names (EN/ES), descriptions, tags, and categories.
-    Results are ranked by relevance with higher priority series ranked first.
-    Falls back to dataset-level search if fewer than 3 curated results are found.
+    Searches across dataset names, descriptions, concepts, and use-case questions.
+    Results are ranked by relevance score.
 
     Args:
-        query: Search query (e.g., "inflation", "GDP", "interest rate")
+        query: Search query (e.g., "inflation", "exchange rate", "GDP")
         limit: Maximum number of results (default: 10)
         provider: Optional provider filter (e.g., "ecb")
-        frequency: Optional frequency filter (e.g., "monthly")
+        frequency: Optional primary frequency filter (e.g., "M", "Q", "D")
         geo_coverage: Optional geographic coverage filter
 
     Returns:
-        List of matching series with basic metadata
+        List of matching datasets with id, name, description, and dimensions
     """
     catalog = get_catalog()
-    results = catalog.search(query, limit=limit)
+    results = catalog.search_datasets(query, provider_id=provider, limit=limit * 2)
 
-    # Apply optional filters to curated series results
-    if provider:
-        results = [r for r in results if getattr(r, "source", "") == provider]
-    if frequency:
-        results = [r for r in results if getattr(r, "frequency", "") == frequency]
-
-    output = [e.to_search_result() for e in results]
-
-    # Layer 2: dataset-level search if few curated results
-    if len(output) < 3:
-        dataset_results = catalog.search_datasets(query, provider_id=provider, limit=5)
-        for ds in dataset_results:
-            hint = ds.to_search_result()
-            hint["hint"] = (
-                f"Use explore_dimensions(provider_id='{ds.provider_id}', dataset='{ds.id}') "
-                "to browse this dataset"
-            )
-            output.append(hint)
+    output = []
+    for ds in results:
+        if frequency and ds.primary_frequency.upper() != frequency.upper():
+            continue
+        if geo_coverage and geo_coverage.lower() not in ds.geographic_coverage.lower():
+            continue
+        output.append(ds.to_search_result())
 
     return output[:limit]
 
@@ -113,49 +81,59 @@ async def get_series(
     series_id: str,
     start_period: str | None = None,
     end_period: str | None = None,
-) -> SeriesData:
-    """Fetch time series data by ID.
+) -> dict:
+    """Fetch time series data.
 
-    Retrieves data from cache if available, otherwise fetches from source API.
-    Date range can be specified with start_period and end_period.
+    The series_id must follow the format: 'provider:dataset:series_key'
+
+    Examples:
+    - 'ecb:ICP:M.U2.N.000000.4.INX'   → Euro Area HICP headline inflation
+    - 'ecb:FM:B.U2.EUR.4F.KR.DFR.LEV' → ECB Deposit Facility Rate
+    - 'ecb:EXR:M.USD.EUR.SP00.A'       → EUR/USD monthly exchange rate
+
+    Use search_series() or explore_datasets() to discover datasets, then
+    build_series() to construct a valid series key.
 
     Args:
-        series_id: Series ID from the catalog (e.g., "ecb_hicp_ea_yoy")
-        start_period: Start date in ISO format (e.g., "2020-01")
-        end_period: End date in ISO format (e.g., "2024-12")
+        series_id: 'provider:dataset:series_key' (e.g. 'ecb:ICP:M.U2.N.000000.4.INX')
+        start_period: Start date in ISO format (e.g., "2020-01" or "2020-Q1")
+        end_period: End date in ISO format (e.g., "2024-12" or "2024-Q4")
 
     Returns:
-        SeriesData with observations and metadata
+        Dict with observations [{date, value}] and metadata
     """
-    catalog = get_catalog()
-    entry = catalog.get(series_id)
-
-    if entry is None:
+    parsed = _parse_series_id(series_id)
+    if parsed is None:
         return {
             "id": series_id,
-            "name": "Unknown series",
-            "unit": "",
-            "frequency": "",
             "observations": [],
             "cached": False,
             "cache_timestamp": None,
-            "error": f"Series '{series_id}' not found in catalog",
+            "error": (
+                f"Invalid series_id format: '{series_id}'. "
+                "Expected 'provider:dataset:series_key' "
+                "(e.g. 'ecb:ICP:M.U2.N.000000.4.INX'). "
+                "Use search_series() to find datasets and "
+                "build_series() to construct valid series keys."
+            ),
         }
 
+    provider_id, dataset, series_key = parsed
+
     cache = get_cache()
-    cache_key = f"{entry.source}:{entry.dataset}:{entry.series_key}:{start_period}:{end_period}"
+    cache_key = f"{provider_id}:{dataset}:{series_key}:{start_period}:{end_period}"
 
     cached_data = cache.get(cache_key)
     if cached_data is not None:
         logger.info(f"Cache hit for {series_id}")
         return cached_data
 
-    if entry.source == "ecb":
+    if provider_id == "ecb":
         try:
             async with ECBConnector() as connector:
                 df = await connector.fetch_series(
-                    dataset=entry.dataset,
-                    series_key=entry.series_key,
+                    dataset=dataset,
+                    series_key=series_key,
                     start_period=start_period,
                     end_period=end_period,
                 )
@@ -165,17 +143,25 @@ async def get_series(
                 for _, row in df.iterrows()
             ]
 
-            result: SeriesData = {
-                "id": entry.id,
-                "name": entry.name_en,
-                "unit": entry.unit,
-                "frequency": entry.frequency,
+            # Try to get a friendly dataset name from the enriched catalog
+            catalog = get_catalog()
+            ds_entry = catalog.get_dataset(provider_id, dataset)
+            name = ds_entry.name if ds_entry else f"{dataset}"
+
+            freq_code = series_key.split(".")[0] if "." in series_key else ""
+
+            result: dict = {
+                "id": series_id,
+                "name": name,
+                "dataset": dataset,
+                "series_key": series_key,
+                "frequency": freq_code,
                 "observations": observations,
                 "cached": False,
                 "cache_timestamp": datetime.now(timezone.utc).isoformat(),
             }
 
-            ttl = CACHE_TTL.get(entry.frequency, 604800)
+            ttl = CACHE_TTL.get(freq_code, 604800)
             cache.set(cache_key, {**result, "cached": True}, expire=ttl)
 
             return result
@@ -183,10 +169,9 @@ async def get_series(
         except ECBConnectorError as e:
             logger.error(f"ECB fetch error for {series_id}: {e}")
             return {
-                "id": entry.id,
-                "name": entry.name_en,
-                "unit": entry.unit,
-                "frequency": entry.frequency,
+                "id": series_id,
+                "dataset": dataset,
+                "series_key": series_key,
                 "observations": [],
                 "cached": False,
                 "cache_timestamp": None,
@@ -194,80 +179,107 @@ async def get_series(
             }
     else:
         return {
-            "id": entry.id,
-            "name": entry.name_en,
-            "unit": entry.unit,
-            "frequency": entry.frequency,
+            "id": series_id,
             "observations": [],
             "cached": False,
             "cache_timestamp": None,
-            "error": f"Connector for source '{entry.source}' not implemented",
+            "error": f"Connector for provider '{provider_id}' not implemented yet.",
         }
 
 
 async def describe_series(series_id: str) -> dict:
-    """Get full metadata and description for a series.
+    """Get metadata for a dataset or series.
 
-    Returns comprehensive information about a series including its description,
-    tags, availability, and the latest observation if available.
-
-    Args:
-        series_id: Series ID from the catalog (e.g., "ecb_hicp_ea_yoy")
-
-    Returns:
-        Full series metadata including latest observation
-    """
-    catalog = get_catalog()
-    entry = catalog.get(series_id)
-
-    if entry is None:
-        return {"error": f"Series '{series_id}' not found in catalog"}
-
-    metadata = entry.to_full_metadata()
-
-    try:
-        series_data = await get_series(series_id)
-        if series_data.get("observations"):
-            latest = series_data["observations"][-1]
-            metadata["latest_observation"] = latest
-            metadata["data_available"] = True
-        else:
-            metadata["data_available"] = False
-            if "error" in series_data:
-                metadata["fetch_error"] = series_data["error"]
-    except Exception as e:
-        logger.error(f"Failed to fetch latest for {series_id}: {e}")
-        metadata["data_available"] = False
-        metadata["fetch_error"] = str(e)
-
-    return metadata
-
-
-async def list_categories(include_series: bool = False) -> list[CategoryInfo]:
-    """List all available data categories with series counts.
-
-    Returns a list of categories available in the catalog, with the number
-    of series in each category.
+    Accepts either:
+    - 'provider:dataset' (e.g. 'ecb:ICP') → enriched dataset metadata
+    - 'provider:dataset:series_key' (e.g. 'ecb:ICP:M.U2.N.000000.4.INX') → dataset metadata + series key info
 
     Args:
-        include_series: If True, include list of series IDs per category
+        series_id: 'provider:dataset' or 'provider:dataset:series_key'
 
     Returns:
-        List of categories with series counts
+        Enriched dataset metadata with hints for next steps
+    """
+    parts = series_id.split(":", 2)
+
+    if len(parts) < 2:
+        return {
+            "error": (
+                f"Invalid ID '{series_id}'. "
+                "Use 'provider:dataset' (e.g. 'ecb:ICP') or "
+                "'provider:dataset:series_key' (e.g. 'ecb:ICP:M.U2.N.000000.4.INX')."
+            )
+        }
+
+    provider_id = parts[0]
+    dataset_id = parts[1]
+    series_key = parts[2] if len(parts) == 3 else None
+
+    catalog = get_catalog()
+    ds_entry = catalog.get_dataset(provider_id, dataset_id)
+
+    if ds_entry is None:
+        return {
+            "error": f"Dataset '{provider_id}:{dataset_id}' not found in catalog",
+            "hint": "Use explore_datasets() or search_series() to find available datasets.",
+        }
+
+    result: dict = {
+        "provider": provider_id,
+        "dataset": dataset_id,
+        "name": ds_entry.name,
+        "description": ds_entry.description_short,
+        "concepts": ds_entry.concepts,
+        "use_cases": ds_entry.use_cases,
+        "primary_frequency": ds_entry.primary_frequency,
+        "geographic_coverage": ds_entry.geographic_coverage,
+        "key_dimensions": ds_entry.key_dimensions,
+    }
+
+    if series_key:
+        result["series_key"] = series_key
+        result["hint"] = (
+            f"To fetch data: get_series('{series_id}', start_period='2020-01')"
+        )
+    else:
+        result["hint"] = (
+            f"To explore dimensions: explore_dimensions(provider_id='{provider_id}', dataset='{dataset_id}'). "
+            f"To fetch a series: get_series('{provider_id}:{dataset_id}:<series_key>')"
+        )
+
+    return result
+
+
+async def list_categories(include_series: bool = False) -> list[dict]:
+    """List available dataset groups by geographic coverage.
+
+    Groups all enriched datasets by their geographic coverage area.
+
+    Args:
+        include_series: If True, include list of dataset IDs per group
+
+    Returns:
+        List of coverage groups with dataset counts
     """
     catalog = get_catalog()
-    categories_map = catalog.list_categories()
+    datasets = catalog.list_all_datasets()
 
-    result: list[CategoryInfo] = []
-    for category, count in sorted(categories_map.items()):
-        info: CategoryInfo = {
-            "category": category,
-            "series_count": count,
+    coverage_groups: dict[str, list[str]] = {}
+    for ds in datasets:
+        cov = ds.geographic_coverage or "other"
+        if cov not in coverage_groups:
+            coverage_groups[cov] = []
+        coverage_groups[cov].append(f"{ds.provider_id}:{ds.id}")
+
+    result = []
+    for coverage, dataset_ids in sorted(coverage_groups.items()):
+        entry: dict = {
+            "category": coverage,
+            "series_count": len(dataset_ids),
             "series_ids": [],
         }
         if include_series:
-            series = catalog.get_by_category(category)
-            info["series_ids"] = [s.id for s in series]
-        result.append(info)
+            entry["series_ids"] = sorted(dataset_ids)
+        result.append(entry)
 
     return result
