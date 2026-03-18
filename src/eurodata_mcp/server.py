@@ -4,6 +4,7 @@ import logging
 
 from fastmcp import FastMCP
 
+from .providers.base import get_registry
 from .tools.explore import (
     build_series as _build_series,
     explore_codes as _explore_codes,
@@ -263,6 +264,122 @@ async def build_series(
         end_period=end_period,
         **dimensions,
     )
+
+
+# =============================================================================
+# PROVIDER TOOLS
+# =============================================================================
+
+
+@mcp.tool()
+async def list_providers() -> list[dict]:
+    """List all available data providers.
+
+    Returns information about each provider including:
+    - id: Provider identifier (ecb, bis, imf, fred)
+    - name: Full provider name
+    - description: What data it covers
+    - coverage: Geography, topics, and frequencies
+    - keywords: Terms that match this provider
+
+    Currently available:
+    - ecb: European Central Bank (Euro Area macro data)
+
+    Coming soon:
+    - bis: Bank for International Settlements (global banking, credit)
+    - imf: International Monetary Fund (global economic data)
+    - fred: Federal Reserve St. Louis (US economic data)
+
+    Returns:
+        List of provider information dicts
+    """
+    registry = get_registry()
+    return registry.list_providers()
+
+
+@mcp.tool()
+async def get_provider_guide(provider: str) -> dict:
+    """Get the usage guide for a data provider.
+
+    Each provider has a guide explaining:
+    - Key concepts (datasets, series keys, dimensions)
+    - Common data requests with examples
+    - Step-by-step usage instructions
+    - Tips and best practices
+
+    This is essential reading before using a provider's exploration tools.
+
+    Args:
+        provider: Provider ID (e.g., "ecb", "bis", "imf", "fred")
+
+    Returns:
+        Guide content with examples and aliases
+
+    Example:
+        get_provider_guide("ecb") → ECB data guide with HICP, rates, M3 examples
+    """
+    registry = get_registry()
+    p = registry.get(provider)
+
+    if not p:
+        available = [info["id"] for info in registry.list_providers()]
+        return {
+            "error": f"Provider '{provider}' not found",
+            "available_providers": available,
+        }
+
+    return {
+        "provider": p.id,
+        "name": p.name,
+        "guide": p.get_guide(),
+        "examples": p.get_examples(),
+        "aliases": p.get_aliases(),
+    }
+
+
+@mcp.tool()
+async def find_provider(query: str) -> dict:
+    """Find the best provider for a data query.
+
+    Analyzes your query and suggests which provider(s) can help.
+    Useful when you're not sure which source has the data you need.
+
+    Args:
+        query: Natural language query (e.g., "euro area inflation",
+               "us unemployment", "global credit growth")
+
+    Returns:
+        Ranked list of matching providers with relevance scores
+
+    Examples:
+        - "euro area inflation" → ECB (HICP data)
+        - "germany gdp" → ECB (national accounts)
+        - "us interest rates" → FRED (Fed funds rate)
+        - "global banking statistics" → BIS
+    """
+    registry = get_registry()
+    matches = registry.find_providers(query, min_score=0.1)
+
+    if not matches:
+        return {
+            "query": query,
+            "matches": [],
+            "suggestion": "No providers matched. Try broader terms or list_providers() to see available sources.",
+        }
+
+    return {
+        "query": query,
+        "matches": [
+            {
+                "provider": p.id,
+                "name": p.name,
+                "score": round(score, 2),
+                "coverage": p.coverage,
+            }
+            for p, score in matches
+        ],
+        "best_match": matches[0][0].id,
+    }
 
 
 def main():

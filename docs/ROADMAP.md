@@ -3,129 +3,208 @@
 ## Philosophy
 Build in layers: first something that works with a real agent (Claude Desktop), then expand sources, then monetize. Each milestone must ship something usable.
 
+**Architecture principle:** Multi-provider system with aggregator layer. Each provider (ECB, BIS, IMF, FRED) follows the same pattern with guide, examples, and aliases. The aggregator routes queries to the appropriate provider(s).
+
 ---
 
-## Milestone 1 — ECB Euro Area MVP
+## Milestone 1 — ECB Euro Area MVP ✅
 **Goal:** Working MCP server with Euro Area data from ECB.
-**Estimate:** 1–2 weeks
+**Status:** COMPLETED
 
-### Project setup
-- [ ] `uv init`, `pyproject.toml` with deps: `fastmcp`, `httpx`, `pandas`, `diskcache`
-- [ ] Directory structure per `CLAUDE.md`
-- [ ] `.env.example`, `.gitignore`
-- [ ] GitHub Actions: lint + tests
+### Completed
+- [x] Project setup with uv, pyproject.toml
+- [x] Directory structure per CLAUDE.md
+- [x] `BaseConnector` ABC with `fetch_series()`, `get_metadata()`, `test_connection()`
+- [x] `ECBConnector` with SDMX-JSON parsing and error handling
+- [x] Curated catalog with ~25 ECB series
+- [x] MCP tools: `search_series`, `get_series`, `describe_series`, `list_categories`
+- [x] FastMCP server with stdio mode
+- [x] Tested in Claude Desktop
 
-### ECB connector
-- [ ] `BaseConnector` ABC: `fetch_series()`, `get_metadata()`, `test_connection()`
-- [ ] `ECBConnector(BaseConnector)`:
-  - [ ] Parse SDMX-JSON response
-  - [ ] Normalize to DataFrame (date, value, series_id)
-  - [ ] Error handling (HTTP 429, 503, timeout)
-  - [ ] Tests with fixtures (no real API calls in CI)
+### Dynamic Exploration (Extended)
+- [x] Metadata caching (dataflows, structures, codelists)
+- [x] Dynamic exploration tools: `explore_datasets`, `explore_dimensions`, `explore_codes`
+- [x] `build_series` tool for constructing any ECB series
+- [x] Bootstrap script for metadata population
 
-### Cache
-- [ ] `SQLiteCache` with configurable TTL
-- [ ] Cache key: `(source, series_key, start_date, end_date)`
-- [ ] `invalidate_recent()` for last-month data
-
-### Catalog (Nico defines the series)
-- [ ] Select ~25 priority ECB series covering:
-  - Inflation (HICP headline, core, energy, food)
-  - GDP Euro Area (levels, growth rates)
-  - ECB policy rates (DFR, MRO, MLF)
-  - Monetary aggregates (M1, M2, M3)
-  - Credit to households and NFC
-  - Unemployment rate
-  - Business / consumer confidence
-- [ ] `src/eurodata_mcp/catalog/series/ecb_euro_area.json`
-
-### MCP Tools
-- [ ] `search_series(query)` — text search over name, description, tags; return top 10
-- [ ] `get_series(id, start, end)` — fetch from API or cache; return `{date, value}[]`
-- [ ] `describe_series(id)` — full metadata + latest observation
-- [ ] `list_categories()` — available categories with series count
-
-### MCP Server
-- [ ] `server.py` with FastMCP, register all 4 tools
-- [ ] stdio mode (Claude Desktop + Claude Code compatible)
-- [ ] Structured logging
-
-### End-to-end test
-- [ ] Install in Claude Desktop locally
-- [ ] Verify: *"What is the current inflation rate in the Euro Area?"*
-- [ ] Verify: *"Show me ECB deposit rate evolution since 2022"*
+### Provider System
+- [x] `BaseProvider` abstract class
+- [x] `ProviderRegistry` for managing providers
+- [x] `ECBProvider` implementation
+- [x] Provider guide system (guide.md, examples.json, aliases.json)
+- [x] Provider tools: `list_providers`, `get_provider_guide`, `find_provider`
 
 ---
 
-## Milestone 2 — Eurostat (EU countries)
-**Goal:** Country-level data from Eurostat.
-**Estimate:** 1 week
+## Milestone 2 — BIS (Bank for International Settlements)
+**Goal:** Global banking and credit statistics from BIS.
 
-- [ ] `EurostatConnector(BaseConnector)` — different API than ECB
-- [ ] `eurostat_countries.json` catalog: ES, DE, FR, IT, PT
-- [ ] Extend `search_series` to filter by country
-- [ ] New tool: `compare_countries(series_id, countries, start, end)`
+### Why BIS
+- Cross-border banking statistics (locational, consolidated)
+- Global credit to households and non-financial corporations
+- Property prices
+- Debt securities statistics
+- Foreign exchange turnover
+- Complements ECB with global perspective
+
+### Tasks
+- [ ] Research BIS API structure (SDMX-based)
+- [ ] `BISConnector(BaseConnector)` implementation
+- [ ] `BISProvider(BaseProvider)` with guide, examples, aliases
+- [ ] Priority series catalog:
+  - Total credit to private sector (% GDP)
+  - Cross-border banking claims
+  - Property prices (residential, commercial)
+  - Debt securities outstanding
+- [ ] Integration tests
+
+### API Resources
+- BIS Statistics Warehouse: https://stats.bis.org
+- BIS API: https://stats.bis.org/api/v1
 
 ---
 
-## Milestone 3 — INE Spain
-**Goal:** Spanish data with regional granularity (CCAA).
-**Estimate:** 1 week
+## Milestone 3 — IMF (International Monetary Fund)
+**Goal:** Global economic indicators from IMF data.
 
-- [ ] `INEConnector(BaseConnector)` — JSON-stat API
-- [ ] `ine_spain.json` catalog: CPI regional, EPA, GDP by CCAA
-- [ ] New tool: `get_regional_data(series_id, region)`
+### Why IMF
+- World Economic Outlook (WEO) projections
+- International Financial Statistics (IFS)
+- Balance of Payments (BOPS)
+- Government Finance Statistics (GFS)
+- Direction of Trade Statistics (DOTS)
+- Global macro coverage that ECB/BIS don't have
+
+### Tasks
+- [ ] Research IMF SDMX API
+- [ ] `IMFConnector(BaseConnector)` implementation
+- [ ] `IMFProvider(BaseProvider)` with guide, examples, aliases
+- [ ] Priority series catalog:
+  - WEO GDP growth projections (world, major economies)
+  - WEO inflation projections
+  - Current account balances
+  - Government debt to GDP
+  - Foreign reserves
+- [ ] Integration tests
+
+### API Resources
+- IMF Data API: https://datahelp.imf.org/knowledgebase/articles/667681
+- IMF SDMX: https://sdmxcentral.imf.org
 
 ---
 
-## Milestone 4 — Public REST API
+## Milestone 4 — FRED (Federal Reserve St. Louis)
+**Goal:** US economic data from FRED.
+
+### Why FRED
+- Most comprehensive US economic database
+- Fed policy rates
+- US labor market (payrolls, unemployment)
+- US inflation (CPI, PCE)
+- Treasury yields
+- Leading indicators
+- Essential for US macro coverage
+
+### Tasks
+- [ ] Get FRED API key
+- [ ] `FREDConnector(BaseConnector)` — REST API (not SDMX)
+- [ ] `FREDProvider(BaseProvider)` with guide, examples, aliases
+- [ ] Priority series catalog:
+  - Federal Funds Rate
+  - US CPI, Core CPI
+  - PCE, Core PCE (Fed's preferred inflation measure)
+  - Non-farm payrolls
+  - US unemployment rate
+  - 10Y Treasury yield
+  - US GDP growth
+- [ ] Integration tests
+
+### API Resources
+- FRED API: https://fred.stlouisfed.org/docs/api/fred/
+
+---
+
+## Milestone 5 — Aggregator Layer
+**Goal:** Unified interface across all providers.
+
+### Features
+- [ ] `smart_search(query)` — searches across all providers
+- [ ] `smart_fetch(query)` — auto-routes to best provider
+- [ ] Query understanding with NLP
+- [ ] Cross-provider comparisons (e.g., "compare US vs Euro Area inflation")
+- [ ] Provider recommendations based on query
+
+### Architecture
+```
+User Query: "What is US inflation?"
+    ↓
+Aggregator: find_provider("US inflation") → FRED
+    ↓
+FREDProvider.fetch_series("CPIAUCSL")
+    ↓
+Normalized Response
+```
+
+---
+
+## Milestone 6 — Public REST API
 **Goal:** Expose the same data via REST for non-MCP clients.
-**Estimate:** 1–2 weeks
 
-- [ ] FastAPI on top of the same query engine
+- [ ] FastAPI wrapper over query engine
 - [ ] API key authentication
 - [ ] Rate limiting
-- [ ] Auto OpenAPI docs
-- [ ] Deploy: Railway or Fly.io
+- [ ] OpenAPI documentation
+- [ ] Deploy to Railway or Fly.io
 
 ---
 
-## Milestone 5 — Product & distribution
+## Milestone 7 — Product & Distribution
 **Goal:** First paying customers.
 
 - [ ] Landing page
-- [ ] Pricing: Free (1-day delay) / Pro ($X/month, real-time + more series)
-- [ ] Publish to [MCP server registry](https://github.com/modelcontextprotocol/servers)
-- [ ] Publish to PyPI as installable package
-- [ ] Outreach: economists/analysts using Claude Pro, European fintechs, bank research teams
+- [ ] Pricing: Free tier / Pro tier
+- [ ] Publish to MCP server registry
+- [ ] Publish to PyPI
+- [ ] Outreach to economists, analysts, fintechs
 
 ---
 
-## Open technical decisions
+## Future Milestones (TBD)
+
+### European National Sources
+- Eurostat (EU country-level data)
+- INE Spain (Spanish data with regional granularity)
+- Destatis (German statistics)
+- INSEE (French statistics)
+
+### Additional Global Sources
+- World Bank
+- OECD
+- UN Statistics
+
+---
+
+## Open Technical Decisions
 
 | Decision | Options | Status |
 |---|---|---|
-| Local storage | SQLite vs DuckDB | Open — DuckDB better for analytical queries |
-| Semantic search | TF-IDF vs embeddings | Start with TF-IDF, upgrade if needed |
+| Local storage | SQLite vs DuckDB | SQLite for now |
+| Semantic search | TF-IDF vs embeddings | TF-IDF, upgrade if needed |
 | Remote MCP | SSE vs stdio | SSE for remote, stdio for local |
-| REST auth | Simple API keys vs JWT | API keys to start |
+| REST auth | API keys vs JWT | API keys to start |
+| Provider routing | Keyword matching vs ML | Keyword matching first |
 
 ---
 
-## Key resources
+## Key Resources
 
 ### MCP
 - Python SDK: https://github.com/modelcontextprotocol/python-sdk
 - FastMCP: https://github.com/jlowin/fastmcp
 - MCP Spec: https://spec.modelcontextprotocol.io
-- Reference servers: https://github.com/modelcontextprotocol/servers
 
 ### Data APIs
 - ECB SDMX: https://data.ecb.europa.eu/help/api/data
-- ECB Data Portal: https://data.ecb.europa.eu
-- Eurostat API: https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query
-- INE API: https://www.ine.es/dyngs/DataLab/manual.html?cid=1259945948443
-
-### Reference projects
-- financialdatasets.ai MCP: https://github.com/virattt/financial-datasets-mcp
-- ECB Python wrapper (unofficial): https://github.com/ecb-sdw/ecbdata
+- BIS Statistics: https://stats.bis.org/api/v1
+- IMF SDMX: https://sdmxcentral.imf.org
+- FRED API: https://fred.stlouisfed.org/docs/api/fred/

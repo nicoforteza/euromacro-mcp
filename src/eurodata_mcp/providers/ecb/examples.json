@@ -1,0 +1,144 @@
+[
+  {
+    "query": "Euro area inflation",
+    "description": "HICP headline inflation for the Euro Area",
+    "solution": {
+      "method": "catalog",
+      "series_id": "ecb_hicp_ea_yoy",
+      "alternative": "ICP/M.U2.N.000000.4.ANR"
+    }
+  },
+  {
+    "query": "Core inflation excluding energy and food",
+    "description": "HICP core inflation (ex energy, food, alcohol, tobacco)",
+    "solution": {
+      "method": "build_series",
+      "dataset": "ICP",
+      "dimensions": {
+        "FREQ": "M",
+        "REF_AREA": "U2",
+        "ADJUSTMENT": "N",
+        "ICP_ITEM": "XEF000",
+        "STS_INSTITUTION": "4",
+        "ICP_SUFFIX": "ANR"
+      }
+    }
+  },
+  {
+    "query": "ECB deposit rate",
+    "description": "ECB Deposit Facility Rate (main policy rate since 2022)",
+    "solution": {
+      "method": "catalog",
+      "series_id": "ecb_dfr",
+      "alternative": "FM/B.U2.EUR.4F.KR.DFR.LEV"
+    }
+  },
+  {
+    "query": "Euribor 12 months",
+    "description": "12-month Euribor rate",
+    "solution": {
+      "method": "catalog",
+      "series_id": "ecb_euribor_12m",
+      "alternative": "FM/M.U2.EUR.RT.MM.EURIBOR1YD_.HSTA"
+    }
+  },
+  {
+    "query": "German inflation",
+    "description": "HICP for Germany",
+    "solution": {
+      "method": "build_series",
+      "dataset": "ICP",
+      "dimensions": {
+        "FREQ": "M",
+        "REF_AREA": "DE",
+        "ADJUSTMENT": "N",
+        "ICP_ITEM": "000000",
+        "STS_INSTITUTION": "4",
+        "ICP_SUFFIX": "ANR"
+      }
+    }
+  },
+  {
+    "query": "Spanish unemployment rate",
+    "description": "Unemployment rate for Spain",
+    "solution": {
+      "method": "build_series",
+      "dataset": "LFSI",
+      "dimensions": {
+        "FREQ": "M",
+        "REF_AREA": "ES",
+        "STS_INDICATOR": "S",
+        "STS_SUBJECT": "UNEHRT",
+        "STS_AGE": "TOTAL0",
+        "STS_AGE_DEF": "15_74",
+        "STS_SEX": "T"
+      }
+    }
+  },
+  {
+    "query": "Euro area M3 money supply",
+    "description": "M3 monetary aggregate for Euro Area",
+    "solution": {
+      "method": "catalog",
+      "series_id": "ecb_m3_ea",
+      "alternative": "BSI/M.U2.Y.V.M30.X.I.U2.2300.Z01.E"
+    }
+  },
+  {
+    "query": "Euro area GDP growth",
+    "description": "Quarterly GDP growth year-over-year",
+    "solution": {
+      "method": "build_series",
+      "dataset": "MNA",
+      "dimensions": {
+        "FREQ": "Q",
+        "ADJUSTMENT": "Y",
+        "REF_AREA": "I8",
+        "COUNTERPART_AREA": "W2",
+        "REF_SECTOR": "S1",
+        "COUNTERPART_SECTOR": "S1",
+        "FLOW_STOCK_ENTRY": "B",
+        "ACCOUNTING_ENTRY": "B1GQ",
+        "STO": "_Z",
+        "INSTR_ASSET": "_Z",
+        "ACTIVITY": "_Z",
+        "EXPENDITURE": "_Z",
+        "UNIT_MEASURE": "EUR",
+        "PRICES": "LR",
+        "TRANSFORMATION": "N12"
+      }
+    }
+  },
+  {
+    "query": "EUR/USD exchange rate",
+    "description": "Euro to US Dollar exchange rate",
+    "solution": {
+      "method": "build_series",
+      "dataset": "EXR",
+      "dimensions": {
+        "FREQ": "D",
+        "CURRENCY": "USD",
+        "CURRENCY_DENOM": "EUR",
+        "EXR_TYPE": "SP00",
+        "EXR_SUFFIX": "A"
+      }
+    }
+  },
+  {
+    "query": "Italian 10-year government bond yield",
+    "description": "10-year sovereign bond yield for Italy",
+    "solution": {
+      "method": "build_series",
+      "dataset": "FM",
+      "dimensions": {
+        "FREQ": "M",
+        "REF_AREA": "IT",
+        "CURRENCY": "EUR",
+        "PROVIDER_FM": "4F",
+        "INSTRUMENT_FM": "GVB",
+        "MATURITY_ORIG": "Y10",
+        "DATA_TYPE_FM": "YLD"
+      }
+    }
+  }
+]
