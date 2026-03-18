@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 mcp = FastMCP("eurodata")
 
 # =============================================================================
-# CURATED CATALOG TOOLS
+# CATALOG TOOLS
 # =============================================================================
 
 
@@ -39,27 +39,26 @@ async def search_series(
     frequency: str | None = None,
     geo_coverage: str | None = None,
 ) -> list[dict]:
-    """Search for macroeconomic series by keyword.
+    """Search for macroeconomic datasets by keyword.
 
-    Searches across series names (EN/ES), descriptions, tags, and categories.
-    Results are ranked by relevance with priority 1 series ranked first.
-    Falls back to dataset-level discovery if fewer than 3 curated results are found.
+    Searches across dataset names, descriptions, concepts, and use-case questions
+    in the enriched catalog. Results are ranked by relevance.
 
     Examples:
-    - "inflation" → HICP headline, core, energy, food
-    - "interest rate" → ECB rates, Euribor
-    - "GDP" → Euro Area GDP growth (YoY, QoQ)
-    - "unemployment" → Euro Area unemployment rate
+    - "inflation" → ICP/HICP datasets
+    - "exchange rate" → EXR dataset
+    - "GDP" → National accounts (MNA) dataset
+    - "unemployment" → Labour Force Statistics (LFSI)
 
     Args:
-        query: Search query (e.g., "inflation", "GDP", "ECB rate")
+        query: Search query (e.g., "inflation", "GDP", "exchange rate")
         limit: Maximum results to return (default: 10)
         provider: Optional provider filter (e.g., "ecb")
-        frequency: Optional frequency filter (e.g., "monthly")
+        frequency: Optional primary frequency filter (e.g., "M", "Q", "D")
         geo_coverage: Optional geographic coverage filter
 
     Returns:
-        List of matching series with id, name, category, and description
+        List of matching datasets with id, name, description, and key dimensions
     """
     return await _search_series(
         query, limit=limit, provider=provider, frequency=frequency, geo_coverage=geo_coverage
@@ -72,20 +71,21 @@ async def get_series(
     start_period: str | None = None,
     end_period: str | None = None,
 ) -> dict:
-    """Fetch time series data by ID.
+    """Fetch time series data.
 
-    Retrieves observations for a series from the catalog.
-    Data is cached to minimize API calls.
+    The series_id must follow the format: 'provider:dataset:series_key'
 
-    Common series IDs:
-    - ecb_hicp_ea_yoy: Euro Area headline inflation
-    - ecb_hicp_ea_core_yoy: Euro Area core inflation
-    - ecb_rate_dfr: ECB Deposit Facility Rate
-    - ecb_gdp_ea_yoy: Euro Area GDP growth (YoY)
-    - ecb_unemployment_ea: Euro Area unemployment rate
+    Examples:
+    - 'ecb:ICP:M.U2.N.000000.4.INX'    → Euro Area HICP headline inflation
+    - 'ecb:FM:B.U2.EUR.4F.KR.DFR.LEV'  → ECB Deposit Facility Rate
+    - 'ecb:EXR:M.USD.EUR.SP00.A'        → EUR/USD monthly exchange rate
+    - 'ecb:BSI:M.U2.Y.V.M30.X.I.U2.2300.Z01.E' → Euro Area M3
+
+    Use search_series() → explore_dimensions() → build_series() to construct
+    the series key before fetching.
 
     Args:
-        series_id: Series ID from catalog (use search_series to find IDs)
+        series_id: 'provider:dataset:series_key' (e.g. 'ecb:ICP:M.U2.N.000000.4.INX')
         start_period: Start date, e.g., "2020-01" or "2020-Q1"
         end_period: End date, e.g., "2024-12" or "2024-Q4"
 
@@ -97,40 +97,38 @@ async def get_series(
 
 @mcp.tool()
 async def describe_series(series_id: str) -> dict:
-    """Get full metadata and description for a series.
+    """Get enriched metadata for a dataset or series.
 
-    Returns comprehensive information including:
-    - Full description and notes
-    - Unit of measurement
-    - Data availability and update frequency
-    - Related series
-    - Latest observation (if available)
-
-    Args:
-        series_id: Series ID from catalog
+    Accepts either:
+    - 'provider:dataset' (e.g. 'ecb:ICP') → enriched dataset metadata
+    - 'provider:dataset:series_key' (e.g. 'ecb:ICP:M.U2.N.000000.4.INX') → dataset metadata + series key info
 
     Returns:
-        Full series metadata with latest observation
+    - Dataset description, concepts, and use cases
+    - Key dimensions for building series keys
+    - Hints for next steps (explore_dimensions, get_series)
+
+    Args:
+        series_id: 'provider:dataset' or 'provider:dataset:series_key'
+
+    Returns:
+        Enriched dataset metadata with hints for next steps
     """
     return await _describe_series(series_id)
 
 
 @mcp.tool()
 async def list_categories(include_series: bool = False) -> list[dict]:
-    """List all available data categories.
+    """List available dataset groups by geographic coverage.
 
-    Categories include:
-    - prices: Inflation (HICP)
-    - interest_rates: ECB rates, Euribor
-    - monetary: M1, M3, credit to households/NFCs
-    - gdp_growth: GDP YoY and QoQ
-    - labor_market: Unemployment
+    Groups all enriched datasets by their geographic coverage area
+    (e.g., euro_area_only, euro_area_and_countries, global).
 
     Args:
-        include_series: If True, include list of series IDs per category
+        include_series: If True, include list of dataset IDs per group
 
     Returns:
-        List of categories with series counts
+        List of coverage groups with dataset counts
     """
     return await _list_categories(include_series=include_series)
 

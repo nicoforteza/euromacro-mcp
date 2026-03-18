@@ -1,4 +1,4 @@
-"""MCP tools for series search, fetch, and exploration."""
+"""MCP tools for dataset search, series fetch, and exploration."""
 
 from .explore import (
     build_series,
@@ -14,7 +14,7 @@ from .series import (
 )
 
 __all__ = [
-    # Curated catalog tools
+    # Catalog tools
     "search_series",
     "get_series",
     "describe_series",
