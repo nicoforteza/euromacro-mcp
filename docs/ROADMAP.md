@@ -138,7 +138,50 @@ Build in layers: first something that works with a real agent (Claude Desktop), 
 
 ---
 
-## Milestone 5 — Cross-provider aggregator
+## Milestone 5 — OECD (Organisation for Economic Co-operation and Development) 🔜
+**Goal:** Cross-country comparable economic data from OECD.
+
+### Why OECD
+- 38 member countries with standardized, comparable indicators
+- Economic Outlook projections (forward-looking forecasts)
+- Composite Leading Indicators (CLI) — early warning system
+- Long time series back to 1960s for many indicators
+- Quality metadata with detailed methodological notes
+- SDMX standard (same as ECB!) — reuses existing infrastructure
+
+### Tasks
+- [ ] `OECDConnector(BaseConnector)` — SDMX API (v1 and v2)
+- [ ] `OECDProvider(BaseProvider)` — `catalog_dir` → `catalog/oecd/`
+- [ ] `scripts/ingest_oecd_structures.py`
+- [ ] Handle OECD-specific quirks:
+  - Hierarchical agency IDs (`OECD.ENV.EPI`, `OECD.ELS.SPD`)
+  - Dataflow IDs with `@` symbol (`DSD_ECH@EXT_DROUGHT`)
+  - Rate limiting: 60 requests/hour
+- [ ] Curated series catalog (`catalog/series/oecd_global.json`):
+  - Real GDP growth (QNA)
+  - Unemployment rate (MEI_CLI)
+  - CPI inflation (PRICES_CPI)
+  - Current account % GDP (MEI_BOP6)
+  - Government debt % GDP (GOV_DEBT)
+  - Composite Leading Indicators (MEI_CLI)
+  - Real house prices (HOUSE_PRICES)
+  - Labour productivity (PDB_LV)
+- [ ] Integration tests
+
+### API
+- OECD SDMX API: https://sdmx.oecd.org/public/rest/
+- Data Explorer: https://data-explorer.oecd.org/
+- API Documentation: See `docs/OECD_DEVELOPMENT.md`
+
+### Rate Limiting Strategy
+- 60 data downloads/hour limit
+- Use `contentconstraint` query to check last update before re-fetching
+- Implement aggressive caching (most datasets update 1-2x/year)
+- Batch requests with 60s sleep between batches during ingestion
+
+---
+
+## Milestone 6 — Cross-provider aggregator
 **Goal:** Unified query interface across all providers.
 
 ### Features
@@ -149,7 +192,7 @@ Build in layers: first something that works with a real agent (Claude Desktop), 
 
 ---
 
-## Milestone 6 — Public REST API
+## Milestone 7 — Public REST API
 **Goal:** Expose the same data via REST for non-MCP clients.
 
 - [ ] FastAPI wrapper over query engine
@@ -160,7 +203,7 @@ Build in layers: first something that works with a real agent (Claude Desktop), 
 
 ---
 
-## Milestone 7 — Product & Distribution
+## Milestone 8 — Product & Distribution
 **Goal:** First paying customers.
 
 - [ ] Landing page
@@ -181,7 +224,6 @@ Build in layers: first something that works with a real agent (Claude Desktop), 
 
 ### Additional global sources
 - World Bank (development indicators)
-- OECD (economic outlook, leading indicators)
 - UN Statistics (SDG indicators)
 
 ---
@@ -211,3 +253,4 @@ Build in layers: first something that works with a real agent (Claude Desktop), 
 - BIS Statistics: https://stats.bis.org/api/v1
 - IMF SDMX: https://sdmxcentral.imf.org
 - FRED API: https://fred.stlouisfed.org/docs/api/fred/
+- OECD SDMX: https://sdmx.oecd.org/public/rest/
