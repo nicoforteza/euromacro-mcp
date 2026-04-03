@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from ..cache.sqlite import CacheManager
 from ..catalog.loader import get_catalog
-from ..connectors.ecb import ECBConnector, ECBConnectorError
+from ..providers.base import get_registry
 
 logger = logging.getLogger(__name__)
 
@@ -128,62 +128,77 @@ async def get_series(
         logger.info(f"Cache hit for {series_id}")
         return cached_data
 
-    if provider_id == "ecb":
-        try:
-            async with ECBConnector() as connector:
-                df = await connector.fetch_series(
-                    dataset=dataset,
-                    series_key=series_key,
-                    start_period=start_period,
-                    end_period=end_period,
-                )
+    # Get provider from registry
+    registry = get_registry()
+    provider = registry.get(provider_id)
 
-            observations = [
-                {"date": row["date"], "value": row["value"]}
-                for _, row in df.iterrows()
-            ]
+    if provider is None:
+        return {
+            "id": series_id,
+            "observations": [],
+            "cached": False,
+            "cache_timestamp": None,
+            "error": f"Provider '{provider_id}' not found. Use list_providers() to see available providers.",
+        }
 
-            # Try to get a friendly dataset name from the enriched catalog
-            catalog = get_catalog()
-            ds_entry = catalog.get_dataset(provider_id, dataset)
-            name = ds_entry.name if ds_entry else f"{dataset}"
-
-            freq_code = series_key.split(".")[0] if "." in series_key else ""
-
-            result: dict = {
-                "id": series_id,
-                "name": name,
-                "dataset": dataset,
-                "series_key": series_key,
-                "frequency": freq_code,
-                "observations": observations,
-                "cached": False,
-                "cache_timestamp": datetime.now(timezone.utc).isoformat(),
-            }
-
-            ttl = CACHE_TTL.get(freq_code, 604800)
-            cache.set(cache_key, {**result, "cached": True}, expire=ttl)
-
-            return result
-
-        except ECBConnectorError as e:
-            logger.error(f"ECB fetch error for {series_id}: {e}")
-            return {
-                "id": series_id,
-                "dataset": dataset,
-                "series_key": series_key,
-                "observations": [],
-                "cached": False,
-                "cache_timestamp": None,
-                "error": str(e),
-            }
-    else:
+    # Check if provider has a connector
+    connector_class = provider.get_connector_class()
+    if connector_class is None:
         return {
             "id": series_id,
             "observations": [],
             "cached": False,
             "cache_timestamp": None,
             "error": f"Connector for provider '{provider_id}' not implemented yet.",
+        }
+
+    try:
+        async with provider.create_connector() as connector:
+            df = await connector.fetch_series(
+                dataset=dataset,
+                series_key=series_key,
+                start_period=start_period,
+                end_period=end_period,
+            )
+
+        observations = [
+            {"date": row["date"], "value": row["value"]}
+            for _, row in df.iterrows()
+        ]
+
+        # Try to get a friendly dataset name from the enriched catalog
+        catalog = get_catalog()
+        ds_entry = catalog.get_dataset(provider_id, dataset)
+        name = ds_entry.name if ds_entry else f"{dataset}"
+
+        freq_code = series_key.split(".")[0] if "." in series_key else ""
+
+        result: dict = {
+            "id": series_id,
+            "name": name,
+            "dataset": dataset,
+            "series_key": series_key,
+            "frequency": freq_code,
+            "observations": observations,
+            "cached": False,
+            "cache_timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+        ttl = CACHE_TTL.get(freq_code, 604800)
+        cache.set(cache_key, {**result, "cached": True}, expire=ttl)
+
+        return result
+
+    except Exception as e:
+        logger.error(f"Fetch error for {series_id}: {e}")
+        return {
+            "id": series_id,
+            "dataset": dataset,
+            "series_key": series_key,
+            "observations": [],
+            "cached": False,
+            "cache_timestamp": None,
+            "error": str(e),
         }
 
 

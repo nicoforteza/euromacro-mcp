@@ -30,6 +30,15 @@ class ECBProvider(BaseProvider):
     base_url = "https://data.ecb.europa.eu"
 
     @property
+    def data_api_url(self) -> str:
+        """ECB SDMX API base URL for data requests."""
+        return "https://data-api.ecb.europa.eu/service"
+
+    def get_connector_class(self) -> type:
+        """Return the ECBConnector class."""
+        return ECBConnector
+
+    @property
     def catalog_dir(self) -> "Path":
         """Point to the canonical catalog/ecb/ directory at the repo root.
 
@@ -147,18 +156,3 @@ class ECBProvider(BaseProvider):
             "id": series_id,
             "provider": self.id,
         }
-
-    async def explore_datasets(self, query: str | None = None, limit: int = 20) -> dict:
-        """Explore available ECB datasets."""
-        from ...tools.explore import explore_datasets
-        return await explore_datasets(query=query, limit=limit)
-
-    async def explore_dimensions(self, dataset: str) -> dict:
-        """Explore dimensions of an ECB dataset."""
-        from ...tools.explore import explore_dimensions
-        return await explore_dimensions(dataset=dataset)
-
-    async def explore_codes(self, codelist: str, query: str | None = None) -> dict:
-        """Explore codelist values."""
-        from ...tools.explore import explore_codes
-        return await explore_codes(codelist=codelist, query=query)

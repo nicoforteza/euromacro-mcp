@@ -124,7 +124,8 @@ async def test_get_series_invalid_format_old_style():
 
 @pytest.mark.asyncio
 async def test_get_series_unknown_provider():
-    """Test get_series for unimplemented provider."""
+    """Test get_series for unknown/unimplemented provider."""
     result = await get_series("bis:TOTAL_CREDIT:Q.5J.P.A.M.LE.XDC.A.2J")
     assert "error" in result
-    assert "not implemented" in result["error"]
+    # Provider is not found (not yet registered)
+    assert "not found" in result["error"] or "not implemented" in result["error"]

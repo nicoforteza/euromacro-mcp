@@ -22,10 +22,12 @@ An MCP server exposing curated macroeconomic time series to AI agents. The value
 When adding new data sources, follow the established pattern:
 1. Create `providers/{id}/` directory with `provider.py`, `guide.md`, `examples.json`, `aliases.json`
 2. Override `catalog_dir` to point to `catalog/{id}/` at the repo root
-3. Run ingestion script → writes to `catalog/{id}/structures/` and `catalog/{id}/enriched/`
-4. Implement `{Id}Connector(BaseConnector)` in `connectors/{id}.py`
-5. Register in `providers/base.py` `get_registry()`
-6. Add curated series to `src/eurodata_mcp/catalog/series/{id}_*.json`
+3. Override `data_api_url` property with the provider's API base URL
+4. Override `get_connector_class()` to return the connector class
+5. Run ingestion script → writes to `catalog/{id}/structures/` and `catalog/{id}/enriched/`
+6. Implement `{Id}Connector(BaseConnector)` in `connectors/{id}.py`
+7. Register in `providers/base.py` `get_registry()`
+8. (Optional) Add curated series to `src/eurodata_mcp/catalog/series/{id}_*.json`
 
 ### Commit conventions
 - `feat:` new features
@@ -39,8 +41,8 @@ When adding new data sources, follow the established pattern:
 **Milestone 1 — ECB Euro Area: COMPLETED**
 - 100 ECB datasets ingested (SDMX structures + semantic enrichment)
 - Two-layer catalog: 25 curated series + 100 enriched datasets
-- 11 MCP tools, all provider-aware
-- 110 tests passing (no network)
+- 11 MCP tools, fully provider-agnostic (no hard-coded provider checks)
+- 120 tests passing (no network)
 
 Next milestones:
 - M2: BIS (Bank for International Settlements)
@@ -146,7 +148,7 @@ euromacro-mcp/
 ```bash
 uv sync
 uv run python -m eurodata_mcp.server   # stdio MCP server
-uv run pytest                           # 110 tests, no network needed
+uv run pytest                           # 120 tests, no network needed
 ```
 
 ## Add to Claude Desktop
@@ -172,7 +174,9 @@ uv run pytest                           # 110 tests, no network needed
 ## Key files to understand
 - `src/eurodata_mcp/server.py` — MCP tool definitions
 - `src/eurodata_mcp/catalog/loader.py` — CatalogLoader with SeriesEntry + DatasetEntry
-- `src/eurodata_mcp/providers/base.py` — BaseProvider with catalog_dir, get_enriched_catalog(), get_dataset_structure()
-- `src/eurodata_mcp/providers/ecb/provider.py` — ECBProvider (overrides catalog_dir to root catalog/ecb/)
-- `src/eurodata_mcp/tools/explore.py` — explore_* tools reading from shipped catalog
+- `src/eurodata_mcp/providers/base.py` — BaseProvider ABC with catalog_dir, data_api_url, get_connector_class(), get_enriched_catalog(), get_dataset_structure()
+- `src/eurodata_mcp/providers/ecb/provider.py` — ECBProvider (overrides catalog_dir, data_api_url, get_connector_class)
+- `src/eurodata_mcp/connectors/base.py` — BaseConnector ABC with fetch_series(), get_metadata()
+- `src/eurodata_mcp/tools/explore.py` — explore_* tools reading from shipped catalog (provider-agnostic)
+- `src/eurodata_mcp/tools/series.py` — get_series uses provider registry (provider-agnostic)
 - `catalog/ecb/catalog_enriched.json` — 100 ECB datasets with semantic metadata

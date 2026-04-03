@@ -109,6 +109,26 @@ class BaseProvider(ABC):
         return text
 
     # -------------------------------------------------------------------------
+    # Connector and API access
+    # -------------------------------------------------------------------------
+
+    @property
+    def data_api_url(self) -> str:
+        """Base URL for data API requests. Override in subclasses."""
+        return self.base_url
+
+    def get_connector_class(self) -> type | None:
+        """Return the connector class for this provider. Override in subclasses."""
+        return None
+
+    def create_connector(self):
+        """Create a new connector instance for this provider."""
+        connector_class = self.get_connector_class()
+        if connector_class is None:
+            raise NotImplementedError(f"Connector not implemented for provider '{self.id}'")
+        return connector_class()
+
+    # -------------------------------------------------------------------------
     # Data fetching (to be implemented by subclasses)
     # -------------------------------------------------------------------------
 

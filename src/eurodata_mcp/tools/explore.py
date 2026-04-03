@@ -5,6 +5,7 @@ import logging
 from typing import Any
 
 from ..metadata.cache import MetadataCache
+from ..providers.base import get_registry
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,6 @@ async def explore_datasets(
     limit: int = 20,
 ) -> dict[str, Any]:
     """List available datasets for a provider, optionally filtered by query."""
-    from ..providers.base import get_registry
     registry = get_registry()
     provider = registry.get(provider_id)
 
@@ -55,12 +55,10 @@ async def explore_datasets(
             ],
         }
 
-    # Fallback: ECB live metadata cache
-    if provider_id == "ecb":
-        from ..connectors.ecb import ECBConnector
-        connector = ECBConnector()
-        cache = MetadataCache()
-        dataflows = cache.get_dataflows()
+    # Fallback: live metadata cache (provider-agnostic)
+    cache = MetadataCache()
+    dataflows = cache.get_dataflows()
+    if dataflows:
         results = []
         for df in dataflows:
             df_id = df.get("id", "")
@@ -82,7 +80,6 @@ async def explore_dimensions(
     dataset: str = "",
 ) -> dict[str, Any]:
     """Explore the dimensions of a dataset (required to build a valid series key)."""
-    from ..providers.base import get_registry
     registry = get_registry()
     provider = registry.get(provider_id)
 
@@ -113,8 +110,8 @@ async def explore_dimensions(
                 ),
             }
 
-    # Fallback: live ECB metadata cache
-    if provider_id == "ecb" and dataset:
+    # Fallback: live metadata cache (provider-agnostic)
+    if dataset:
         cache = MetadataCache()
         structure = cache.get_structure(dataset)
         if structure:
@@ -141,7 +138,6 @@ async def explore_codes(
     limit: int = 50,
 ) -> dict[str, Any]:
     """Explore valid codes for a specific dimension of a dataset."""
-    from ..providers.base import get_registry
     registry = get_registry()
     provider = registry.get(provider_id)
 
@@ -166,8 +162,8 @@ async def explore_codes(
                     "codes": items[:limit],
                 }
 
-    # Fallback: live ECB metadata cache (codelists)
-    if provider_id == "ecb" and dataset and dimension_id:
+    # Fallback: live metadata cache (provider-agnostic)
+    if dataset and dimension_id:
         cache = MetadataCache()
         structure = cache.get_structure(dataset)
         if structure:
@@ -214,7 +210,6 @@ async def build_series(
     if dimensions is None:
         dimensions = {}
 
-    from ..providers.base import get_registry
     registry = get_registry()
     provider = registry.get(provider_id)
 
@@ -237,8 +232,8 @@ async def build_series(
     key_parts = [dimensions.get(dim_id, "") for dim_id in ordered_dims]
     series_key = ".".join(key_parts)
 
-    # Build the API URL
-    base_url = "https://data-api.ecb.europa.eu/service"
+    # Build the API URL using provider's data_api_url
+    base_url = provider.data_api_url if provider else ""
     data_url = f"{base_url}/data/{dataset}/{series_key}?format=jsondata"
     if start_period:
         data_url += f"&startPeriod={start_period}"

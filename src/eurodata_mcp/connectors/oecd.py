@@ -1,4 +1,4 @@
-"""ECB SDMX API connector."""
+"""OECD SDMX API connector."""
 
 import logging
 import xml.etree.ElementTree as ET
@@ -11,7 +11,7 @@ from .base import BaseConnector
 
 logger = logging.getLogger(__name__)
 
-# SDMX XML namespaces
+# SDMX XML namespaces (same as ECB)
 SDMX_NS = {
     "mes": "http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message",
     "str": "http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure",
@@ -19,28 +19,34 @@ SDMX_NS = {
 }
 
 
-class ECBConnectorError(Exception):
-    """Error from ECB API."""
+class OECDConnectorError(Exception):
+    """Error from OECD API."""
 
     pass
 
 
-class ECBConnector(BaseConnector):
-    """Connector for ECB Statistical Data Warehouse via SDMX API.
+class OECDConnector(BaseConnector):
+    """Connector for OECD Statistical Data via SDMX API.
 
-    API Documentation: https://data.ecb.europa.eu/help/api/data
+    API Documentation: https://sdmx.oecd.org/public/rest/
 
-    The ECB SDMX API provides:
-    - Data: /data/{dataflow}/{key}
-    - Dataflows: /dataflow/ECB
-    - Data structures: /datastructure/ECB/{structure_id}
-    - Codelists: /codelist/ECB/{codelist_id}
+    The OECD SDMX API provides:
+    - Data: /data/{agency},{dataflow},{version}/{filter}
+    - Dataflows: /dataflow/{agency}
+    - Data structures: /datastructure/{agency}/{structure_id}/{version}
+    - Codelists: /codelist/{agency}/{codelist_id}/{version}
+
+    Key differences from ECB:
+    - Agency IDs are hierarchical (e.g., OECD.SDD.STES)
+    - Dataflow IDs can contain @ (e.g., DSD_STES@DF_CLI)
+    - Rate limit: 60 requests per hour
+    - Supports both API v1 and v2 (we use v1 for consistency)
     """
 
-    ECB_SDMX_BASE = "https://data-api.ecb.europa.eu/service"
+    OECD_SDMX_BASE = "https://sdmx.oecd.org/public/rest"
 
     def __init__(self):
-        super().__init__(self.ECB_SDMX_BASE)
+        super().__init__(self.OECD_SDMX_BASE)
 
     # -------------------------------------------------------------------------
     # HTTP helpers
@@ -59,31 +65,35 @@ class ECBConnector(BaseConnector):
             url: Request URL path
             params: Query parameters
             headers: Request headers
-            context: Context string for error messages (e.g., "ICP/M.U2...")
+            context: Context string for error messages
 
         Returns:
             httpx.Response on success
 
         Raises:
-            ECBConnectorError: On any HTTP or network error
+            OECDConnectorError: On any HTTP or network error
         """
         try:
             response = await self.client.get(url, params=params, headers=headers)
 
             if response.status_code == 404:
-                raise ECBConnectorError(f"Not found: {context or url}")
+                raise OECDConnectorError(f"Not found: {context or url}")
+            if response.status_code == 422:
+                raise OECDConnectorError(f"Invalid query: {context or url}")
             if response.status_code == 429:
-                raise ECBConnectorError("Rate limited by ECB API. Try again later.")
+                raise OECDConnectorError(
+                    "Rate limited by OECD API (60 requests/hour). Try again later."
+                )
             if response.status_code >= 500:
-                raise ECBConnectorError(f"ECB API error: {response.status_code}")
+                raise OECDConnectorError(f"OECD API error: {response.status_code}")
 
             response.raise_for_status()
             return response
 
         except httpx.TimeoutException:
-            raise ECBConnectorError("ECB API request timed out")
+            raise OECDConnectorError("OECD API request timed out")
         except httpx.RequestError as e:
-            raise ECBConnectorError(f"Network error: {e}")
+            raise OECDConnectorError(f"Network error: {e}")
 
     # -------------------------------------------------------------------------
     # Data fetching
@@ -96,11 +106,13 @@ class ECBConnector(BaseConnector):
         start_period: str | None = None,
         end_period: str | None = None,
     ) -> pd.DataFrame:
-        """Fetch a time series from ECB by dataset and series key.
+        """Fetch a time series from OECD by dataset and series key.
 
         Args:
-            dataset: ECB dataset (e.g., "ICP", "FM", "BSI", "MNA")
-            series_key: Series key (e.g., "M.U2.N.000000.4.INX")
+            dataset: Full dataset identifier in format "agency,dataflow,version"
+                     e.g., "OECD.SDD.STES,DSD_STES@DF_CLI,4.1"
+            series_key: Series key with dimension values separated by dots
+                     e.g., "USA.M.LI.IX._Z.AA...H"
             start_period: Start period in ISO format (e.g., "2020-01")
             end_period: End period in ISO format (e.g., "2024-12")
 
@@ -108,28 +120,33 @@ class ECBConnector(BaseConnector):
             DataFrame with columns: date, value
         """
         url = f"/data/{dataset}/{series_key}"
-        params: dict[str, str] = {"format": "jsondata"}
+        params: dict[str, str] = {}
 
         if start_period:
             params["startPeriod"] = start_period
         if end_period:
             params["endPeriod"] = end_period
 
-        response = await self._request(url, params=params, context=f"{dataset}/{series_key}")
+        response = await self._request(
+            url,
+            params=params,
+            headers={"Accept": "application/json"},
+            context=f"{dataset}/{series_key}",
+        )
         data = response.json()
         return self._parse_sdmx_json(data)
 
     def _parse_sdmx_json(self, data: dict) -> pd.DataFrame:
         """Parse SDMX-JSON response into DataFrame.
 
-        SDMX-JSON structure:
+        OECD uses the same SDMX-JSON structure as ECB:
         {
             "dataSets": [{
                 "series": {
                     "0:0:0:...": {
                         "observations": {
-                            "0": [value],
-                            "1": [value],
+                            "0": [value, status],
+                            "1": [value, status],
                             ...
                         }
                     }
@@ -184,16 +201,20 @@ class ECBConnector(BaseConnector):
 
         except (KeyError, IndexError, TypeError) as e:
             logger.error(f"Failed to parse SDMX-JSON: {e}")
-            raise ECBConnectorError(f"Failed to parse ECB response: {e}")
+            raise OECDConnectorError(f"Failed to parse OECD response: {e}")
 
     async def get_metadata(self, dataset: str, series_key: str) -> dict:
-        """Get metadata for a series from ECB."""
+        """Get metadata for a series from OECD."""
         url = f"/data/{dataset}/{series_key}"
-        params = {"format": "jsondata", "lastNObservations": "1"}
+        params = {"lastNObservations": "1"}
 
         try:
-            response = await self.client.get(url, params=params)
-            response.raise_for_status()
+            response = await self._request(
+                url,
+                params=params,
+                headers={"Accept": "application/json"},
+                context=f"metadata/{dataset}/{series_key}",
+            )
             data = response.json()
 
             structure = data.get("structure", {})
@@ -202,27 +223,34 @@ class ECBConnector(BaseConnector):
             return {
                 "dataset": dataset,
                 "series_key": series_key,
-                "source": "ecb",
+                "source": "oecd",
                 "dimensions": dimensions.get("series", []),
             }
         except Exception as e:
             logger.error(f"Failed to get metadata: {e}")
-            return {"dataset": dataset, "series_key": series_key, "source": "ecb"}
+            return {"dataset": dataset, "series_key": series_key, "source": "oecd"}
 
     # -------------------------------------------------------------------------
     # Metadata / Structure fetching
     # -------------------------------------------------------------------------
 
-    async def fetch_dataflows(self) -> list[dict[str, Any]]:
-        """Fetch all available ECB dataflows (datasets).
+    async def fetch_dataflows(self, agency: str = "") -> list[dict[str, Any]]:
+        """Fetch available dataflows (datasets).
+
+        Args:
+            agency: Optional agency filter (e.g., "OECD.SDD.STES").
+                    If empty, fetches all OECD dataflows.
 
         Returns:
-            List of dataflows with id, name, and description
+            List of dataflows with id, name, agency, and version
         """
+        # If no agency specified, fetch from all OECD agencies
+        url = f"/dataflow/{agency}" if agency else "/dataflow"
+
         response = await self._request(
-            "/dataflow/ECB",
+            url,
             headers={"Accept": "application/vnd.sdmx.structure+xml;version=2.1"},
-            context="dataflows",
+            context=f"dataflows/{agency or 'all'}",
         )
         return self._parse_dataflows_xml(response.text)
 
@@ -233,15 +261,21 @@ class ECBConnector(BaseConnector):
         try:
             root = ET.fromstring(xml_text)
 
-            # Find all Dataflow elements
             for df_elem in root.findall(".//str:Dataflow", SDMX_NS):
                 df_id = df_elem.get("id", "")
                 version = df_elem.get("version", "")
-                agency = df_elem.get("agencyID", "ECB")
+                agency = df_elem.get("agencyID", "")
 
-                # Get name
-                name_elem = df_elem.find("com:Name", SDMX_NS)
-                name = name_elem.text if name_elem is not None else df_id
+                # Skip non-OECD dataflows
+                if not agency.startswith("OECD"):
+                    continue
+
+                # Get name (prefer English)
+                name = ""
+                for name_elem in df_elem.findall("com:Name", SDMX_NS):
+                    lang = name_elem.get("{http://www.w3.org/XML/1998/namespace}lang", "")
+                    if lang == "en" or not name:
+                        name = name_elem.text or df_id
 
                 # Get structure reference
                 struct_ref = df_elem.find(".//str:Structure/Ref", SDMX_NS)
@@ -249,8 +283,10 @@ class ECBConnector(BaseConnector):
                     struct_ref = df_elem.find(".//str:Structure", SDMX_NS)
 
                 structure_id = ""
+                structure_version = ""
                 if struct_ref is not None:
                     structure_id = struct_ref.get("id", "")
+                    structure_version = struct_ref.get("version", "")
 
                 dataflows.append({
                     "id": df_id,
@@ -258,6 +294,7 @@ class ECBConnector(BaseConnector):
                     "version": version,
                     "agency": agency,
                     "structure_id": structure_id,
+                    "structure_version": structure_version,
                 })
 
         except ET.ParseError as e:
@@ -265,30 +302,39 @@ class ECBConnector(BaseConnector):
 
         return dataflows
 
-    async def fetch_datastructure(self, structure_id: str) -> dict[str, Any]:
+    async def fetch_datastructure(
+        self, agency: str, structure_id: str, version: str = "latest"
+    ) -> dict[str, Any]:
         """Fetch the structure definition for a dataset.
 
         Args:
-            structure_id: Structure ID (e.g., "ECB_ICP1")
+            agency: Agency ID (e.g., "OECD.SDD.STES")
+            structure_id: Structure ID (e.g., "DSD_STES")
+            version: Structure version (e.g., "4.1" or "latest")
 
         Returns:
             Dict with dimensions and their codelist references
         """
+        url = f"/datastructure/{agency}/{structure_id}/{version}"
+        params = {"references": "children"}
+
         try:
             response = await self._request(
-                f"/datastructure/ECB/{structure_id}",
-                params={"references": "children"},
+                url,
+                params=params,
                 headers={"Accept": "application/vnd.sdmx.structure+xml;version=2.1"},
-                context=f"structure/{structure_id}",
+                context=f"structure/{agency}/{structure_id}",
             )
             return self._parse_datastructure_xml(response.text, structure_id)
-        except ECBConnectorError:
+        except OECDConnectorError:
             raise
         except Exception as e:
             logger.error(f"Failed to fetch datastructure {structure_id}: {e}")
-            raise ECBConnectorError(f"Failed to fetch structure: {e}")
+            raise OECDConnectorError(f"Failed to fetch structure: {e}")
 
-    def _parse_datastructure_xml(self, xml_text: str, structure_id: str) -> dict[str, Any]:
+    def _parse_datastructure_xml(
+        self, xml_text: str, structure_id: str
+    ) -> dict[str, Any]:
         """Parse datastructure XML response."""
         dimensions = []
         codelist_refs = {}
@@ -297,21 +343,28 @@ class ECBConnector(BaseConnector):
         try:
             root = ET.fromstring(xml_text)
 
-            # Find DataStructure element
             ds_elem = root.find(".//str:DataStructure", SDMX_NS)
             if ds_elem is None:
-                return {"id": structure_id, "dimensions": [], "codelist_refs": {}, "codelists": {}}
+                return {
+                    "id": structure_id,
+                    "dimensions": [],
+                    "codelist_refs": {},
+                    "codelists": {},
+                }
 
-            # Find DimensionList
-            dim_list = ds_elem.find(".//str:DataStructureComponents/str:DimensionList", SDMX_NS)
+            dim_list = ds_elem.find(
+                ".//str:DataStructureComponents/str:DimensionList", SDMX_NS
+            )
             if dim_list is not None:
                 for dim_elem in dim_list.findall("str:Dimension", SDMX_NS):
                     dim_id = dim_elem.get("id", "")
                     position = int(dim_elem.get("position", 0))
 
-                    # Get codelist reference from LocalRepresentation/Enumeration
+                    # Get codelist reference
                     codelist_id = ""
-                    enum_elem = dim_elem.find(".//str:LocalRepresentation/str:Enumeration/Ref", SDMX_NS)
+                    enum_elem = dim_elem.find(
+                        ".//str:LocalRepresentation/str:Enumeration/Ref", SDMX_NS
+                    )
                     if enum_elem is not None:
                         codelist_id = enum_elem.get("id", "")
 
@@ -323,7 +376,6 @@ class ECBConnector(BaseConnector):
                     if codelist_id:
                         codelist_refs[dim_id] = codelist_id
 
-            # Sort by position
             dimensions.sort(key=lambda x: x["position"])
 
             # Parse inline codelists if present
@@ -332,8 +384,14 @@ class ECBConnector(BaseConnector):
                 codes = {}
                 for code_elem in cl_elem.findall("str:Code", SDMX_NS):
                     code_id = code_elem.get("id", "")
-                    name_elem = code_elem.find("com:Name", SDMX_NS)
-                    code_name = name_elem.text if name_elem is not None else code_id
+                    # Prefer English name
+                    code_name = ""
+                    for name_elem in code_elem.findall("com:Name", SDMX_NS):
+                        lang = name_elem.get(
+                            "{http://www.w3.org/XML/1998/namespace}lang", ""
+                        )
+                        if lang == "en" or not code_name:
+                            code_name = name_elem.text or code_id
                     if code_id:
                         codes[code_id] = code_name
                 if cl_id and codes:
@@ -349,23 +407,29 @@ class ECBConnector(BaseConnector):
             "codelists": codelists,
         }
 
-    async def fetch_codelist(self, codelist_id: str) -> dict[str, str]:
+    async def fetch_codelist(
+        self, agency: str, codelist_id: str, version: str = "latest"
+    ) -> dict[str, str]:
         """Fetch a codelist (valid values for a dimension).
 
         Args:
-            codelist_id: Codelist ID (e.g., "CL_AREA", "CL_FREQ")
+            agency: Agency ID (e.g., "OECD")
+            codelist_id: Codelist ID (e.g., "CL_AREA")
+            version: Codelist version (default: "latest")
 
         Returns:
             Dict mapping code -> description
         """
+        url = f"/codelist/{agency}/{codelist_id}/{version}"
+
         try:
             response = await self._request(
-                f"/codelist/ECB/{codelist_id}",
+                url,
                 headers={"Accept": "application/vnd.sdmx.structure+xml;version=2.1"},
-                context=f"codelist/{codelist_id}",
+                context=f"codelist/{agency}/{codelist_id}",
             )
             return self._parse_codelist_xml(response.text)
-        except ECBConnectorError:
+        except OECDConnectorError:
             raise
         except Exception as e:
             logger.error(f"Failed to fetch codelist {codelist_id}: {e}")
@@ -378,15 +442,20 @@ class ECBConnector(BaseConnector):
         try:
             root = ET.fromstring(xml_text)
 
-            # Find Codelist element
             cl_elem = root.find(".//str:Codelist", SDMX_NS)
             if cl_elem is None:
                 return codes
 
             for code_elem in cl_elem.findall("str:Code", SDMX_NS):
                 code_id = code_elem.get("id", "")
-                name_elem = code_elem.find("com:Name", SDMX_NS)
-                code_name = name_elem.text if name_elem is not None else code_id
+                # Prefer English name
+                code_name = ""
+                for name_elem in code_elem.findall("com:Name", SDMX_NS):
+                    lang = name_elem.get(
+                        "{http://www.w3.org/XML/1998/namespace}lang", ""
+                    )
+                    if lang == "en" or not code_name:
+                        code_name = name_elem.text or code_id
                 if code_id:
                     codes[code_id] = code_name
 
@@ -396,14 +465,15 @@ class ECBConnector(BaseConnector):
         return codes
 
     async def test_connection(self) -> bool:
-        """Test ECB API connectivity with a known series."""
+        """Test OECD API connectivity with a known series."""
         try:
+            # Test with CLI data for USA
             df = await self.fetch_series(
-                dataset="FM",
-                series_key="B.U2.EUR.4F.KR.DFR.LEV",
+                dataset="OECD.SDD.STES,DSD_STES@DF_CLI,4.1",
+                series_key="USA.M.LI.IX._Z.AA...H",
                 start_period="2024-01",
             )
             return len(df) > 0
         except Exception as e:
-            logger.error(f"ECB connection test failed: {e}")
+            logger.error(f"OECD connection test failed: {e}")
             return False
